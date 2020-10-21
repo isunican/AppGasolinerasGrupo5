@@ -5,7 +5,10 @@ import com.isunican.proyectobase.Model.*;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.widget.Button;
 import android.widget.TextView;
+
 
 
 /*
@@ -20,7 +23,15 @@ import android.widget.TextView;
 */
 public class DetailActivity extends AppCompatActivity {
 
-    TextView textView;
+    TextView rotulo;
+    TextView direccion;
+    TextView localidad;
+    TextView precioGasoil;
+    TextView precioGasolina;
+
+    Button btnFavoritos;
+    Button btnMapa;
+
     Gasolinera g;
 
     /**
@@ -42,9 +53,24 @@ public class DetailActivity extends AppCompatActivity {
         // captura el TextView
         // obtiene el objeto Gasolinera a mostrar
         // y lo introduce en el TextView convertido a cadena de texto
-        textView = findViewById(R.id.textView);
+        rotulo = findViewById(R.id.textView2);
+        direccion = findViewById(R.id.textView4);
+        localidad = findViewById(R.id.textView6);
+        precioGasolina = findViewById(R.id.textView8);
+        precioGasoil = findViewById(R.id.textView10);
+
         g = getIntent().getExtras().getParcelable(getResources().getString(R.string.pasoDatosGasolinera));
-        textView.setText(g.toString());
+        //CAMPOS DE LA TABLA
+        rotulo.setText(g.getRotulo());
+        direccion.setText(g.getDireccion());
+        localidad.setText(g.getLocalidad());
+        precioGasolina.setText(Double.toString(g.getGasolina95()));
+        precioGasoil.setText(Double.toString(g.getGasoleoA()));
+
+        btnFavoritos = findViewById(R.id.btnFavoritos);
+        btnMapa = findViewById(R.id.btnMapa);
+        //AQUI LES ASIGNARIAMOS UN ACTION LISTENER
+
 
     }
 }
