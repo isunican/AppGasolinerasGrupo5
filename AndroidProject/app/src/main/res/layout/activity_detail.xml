@@ -5,195 +5,181 @@
     android:id="@+id/activity_intent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_margin="@dimen/activity_horizontal_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.isunican.proyectobase.Views.DetailActivity">
 
-    <LinearLayout
+    <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginBottom="400dp"
+        android:gravity="start"
+        android:visibility="visible"
+        tools:visibility="visible">
 
-        <TableLayout
-            android:id="@+id/tableLayout"
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="530dp"
-            android:gravity="start"
-            android:visibility="visible"
-            tools:visibility="visible">
+            android:layout_weight="2">
 
-            <TableRow
+            <TextView
+                android:id="@+id/rotulo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2">
+                android:layout_weight="1"
+                android:text="Rótulo"
+                android:textAlignment="textStart"
+                android:visibility="visible"
+                tools:visibility="visible" />
 
-                <TextView
-                    android:id="@+id/rotulo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Rótulo"
-                    android:textAlignment="textStart"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="TextView"
-                    android:textAlignment="textEnd"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-            </TableRow>
-
-            <TableRow
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2">
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textAlignment="textEnd"
+                android:visibility="visible"
+                tools:visibility="visible" />
+        </TableRow>
 
-                <TextView
-                    android:id="@+id/direccion"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Dirección"
-                    android:textAlignment="textStart"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="TextView"
-                    android:textAlignment="textEnd"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2">
-
-                <TextView
-                    android:id="@+id/localidad"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Localidad"
-                    android:textAlignment="textStart"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="TextView"
-                    android:textAlignment="textEnd"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2">
-
-                <TextView
-                    android:id="@+id/precioGasolina"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Precio Gasolina"
-                    android:textAlignment="textStart"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="TextView"
-                    android:textAlignment="textEnd"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2">
-
-                <TextView
-                    android:id="@+id/precioGasoil"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Precio Gasoil"
-                    android:textAlignment="textStart"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="TextView"
-                    android:textAlignment="textEnd"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-
-            </TableRow>
-        </TableLayout>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"></LinearLayout>
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/direccion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Dirección"
+                android:textAlignment="textStart"
+                android:visibility="visible"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textAlignment="textEnd"
+                android:visibility="visible"
+                tools:visibility="visible" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/localidad"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Localidad"
+                android:textAlignment="textStart"
+                android:visibility="visible"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textAlignment="textEnd"
+                android:visibility="visible"
+                tools:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/precioGasolina"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Precio Gasolina"
+                android:textAlignment="textStart"
+                android:visibility="visible"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textAlignment="textEnd"
+                android:visibility="visible"
+                tools:visibility="visible" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/precioGasoil"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Precio Gasoil"
+                android:textAlignment="textStart"
+                android:visibility="visible"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textAlignment="textEnd"
+                android:visibility="visible"
+                tools:visibility="visible" />
+
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="10dp"
+        android:layout_below="@id/tableLayout"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="100dp"
+        android:orientation="horizontal"
+        android:visibility="visible">
 
         <Button
             android:id="@+id/btnMapa"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|end"
-            android:layout_marginStart="29dp"
-            android:layout_marginTop="530dp"
-            android:layout_marginEnd="32dp"
-            android:layout_weight="2"
-            android:text="Ver en mapa"
-            android:visibility="visible"
-            tools:visibility="visible" />
+            android:text="Buscar en mapa" />
 
         <Button
             android:id="@+id/btnFavoritos"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|end"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="609dp"
-            android:layout_marginEnd="34dp"
-            android:layout_weight="2"
-            android:text="Añadir a favoritos"
-            android:visibility="visible"
-            tools:visibility="visible" />
-    </RelativeLayout>
+            android:text="Añadir a favoritos" />
+
+    </LinearLayout>
 
 </RelativeLayout>
