@@ -32,7 +32,7 @@
         android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="400dp"
+        android:layout_marginBottom="300dp"
         android:gravity="start"
         android:visibility="visible"
         tools:visibility="visible">
