@@ -11,6 +11,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Parcelable;
+import android.preference.MultiSelectListPreference;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -44,6 +48,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     PresenterGasolineras presenterGasolineras;
+
+    Button listaFiltros;
 
     // Vista de lista y adaptador para cargar datos en ella
     ListView listViewGasolineras;
@@ -95,6 +101,22 @@ public class MainActivity extends AppCompatActivity {
         // se lanza una tarea para cargar los datos de las gasolineras
         // Esto se ha de hacer en segundo plano definiendo una tarea asíncrona
         new CargaDatosGasolinerasTask(this).execute();
+
+        listaFiltros = findViewById(R.id.btnListaFiltros);
+        listaFiltros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFilterActivity();
+            }
+        });
+    }
+
+    //Abrir menú filtros
+    public void openFilterActivity(){
+        Intent intentFilterActivity = new Intent(this, FilterActivity.class);
+        ArrayList<Gasolinera> gs = new ArrayList<Gasolinera>(presenterGasolineras.getGasolineras());
+        intentFilterActivity.putExtra("list_gasolineras", gs);
+        startActivity(intentFilterActivity);
     }
 
 
