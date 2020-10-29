@@ -18,12 +18,12 @@
 
         <Space
             android:id="@+id/space1"
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btnListaFiltros"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/space1"
             android:text="Mostrar filtros" />
