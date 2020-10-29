@@ -114,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
     //Abrir menú filtros
     public void openFilterActivity(){
         Intent intentFilterActivity = new Intent(this, FilterActivity.class);
+        //Le pasamos la lista de gasolineras para que la nueva ventana tenga la información
+        //completa de las marcas y provincias con las que se trabaja.
         ArrayList<Gasolinera> gs = new ArrayList<Gasolinera>(presenterGasolineras.getGasolineras());
         intentFilterActivity.putExtra("list_gasolineras", gs);
         startActivity(intentFilterActivity);
