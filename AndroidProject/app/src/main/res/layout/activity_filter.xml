@@ -4,12 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0F0B0B0B"
     tools:context=".Views.FilterActivity">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,20 +23,24 @@
 
         <TextView
             android:id="@+id/textTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Selecciona los filtros a utilizar en la búsqueda" />
+            android:background="#95FF0000"
+            android:text="Selecciona los filtros a utilizar en la búsqueda"
+            android:textColor="#FFFFFF" />
 
-        <Space
-            android:id="@+id/space1"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp" />
+        <TextView
+            android:id="@+id/Space"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textTitle"
+            android:background="#1B000000" />
 
         <TableLayout
             android:id="@+id/tablaFiltros"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/space1"
+            android:layout_below="@id/Space"
             android:gravity="start">
 
             <TableRow
@@ -42,14 +52,18 @@
                 <TextView
                     android:id="@+id/textTipoCombustible"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="Tipo de combustible" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#95FF0000"
+                    android:text="Tipo de combustible"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="#FFFFFF" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="#1B000000"
                     android:orientation="vertical">
 
                     <Switch
@@ -80,13 +94,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Favoritos" />
+                    android:background="#68FF0000"
+                    android:text="Favoritos"
+                    android:textColor="#FFFFFF" />
 
                 <CheckBox
                     android:id="@+id/checkFavoritos"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#0D000000" />
             </TableRow>
 
             <TableRow
@@ -100,13 +117,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Provincia" />
+                    android:background="#95FF0000"
+                    android:text="Provincia"
+                    android:textColor="#FFFFFF" />
 
                 <Spinner
                     android:id="@+id/spinnerProvincia"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="#1B000000"
                     android:visibility="visible" />
 
             </TableRow>
@@ -122,13 +142,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Marca" />
+                    android:background="#68FF0000"
+                    android:text="Marca"
+                    android:textColor="#FFFFFF" />
 
                 <Spinner
                     android:id="@+id/spinnerMarca"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="#0D000000"
                     android:visibility="visible" />
 
             </TableRow>
@@ -144,13 +167,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="#95FF0000"
                     android:text="Distancia"
+                    android:textColor="#FFFFFF"
                     android:visibility="visible" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="#1B000000"
                     android:orientation="vertical">
 
                     <CheckBox
@@ -203,12 +229,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Ordenar por precio" />
+                    android:background="#68FF0000"
+                    android:text="Ordenar por precio"
+                    android:textColor="#FFFFFF" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="#0D000000"
                     android:orientation="vertical">
 
                     <CheckBox
