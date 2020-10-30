@@ -187,7 +187,6 @@ public class FilterActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {}
         });
 
-        AlertDialog confirmacion = builder.create();
-        confirmacion.show();
+        builder.create().show();
     }
 }
