@@ -1,29 +1,23 @@
 package com.isunican.proyectobase.Views;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.isunican.proyectobase.Model.*;
 import com.isunican.proyectobase.R;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class FilterActivity extends AppCompatActivity {
-
-    Button btnGuardarConfig;
 
     Spinner spinnerMarca;
     Spinner spinnerProvincia;
@@ -44,6 +38,7 @@ public class FilterActivity extends AppCompatActivity {
     EditText textNumberDistancia;
 
     Switch switchGasoil;
+    Switch switchGasolina;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +51,8 @@ public class FilterActivity extends AppCompatActivity {
         switchGasoil = findViewById(R.id.switchGasoil);
         //La opción de filtro por defecto debe ser Gasoil
         switchGasoil.setChecked(true);
+
+        switchGasolina = findViewById(R.id.switchGasolina);
 
         marcas = new ArrayList<String>();
         provincias = new ArrayList<String>();
@@ -84,11 +81,35 @@ public class FilterActivity extends AppCompatActivity {
         //Opción por defecto: ninguna marca seleccionada
         spinnerMarca.setSelection(0);
 
+        /**spinnerMarca.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //  TODO Acción para cuando se seleccione una opción del spinner
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //TODO Acción para cuando se seleccione una opción del spinner
+            }
+        });**/
+
         //Construimos el adapter del spinner de manera que éste tenga de posibles opciones seleccionables todas las marcas
         ArrayAdapter<CharSequence> adpProvincia = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, provincias);
         spinnerProvincia.setAdapter(adpProvincia);
         //Opción por defecto: ninguna provincia seleccionada
         spinnerProvincia.setSelection(0);
+
+        /**spinnerProvincia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //  TODO Acción para cuando se seleccione una opción del spinner
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //TODO Acción para cuando se seleccione una opción del spinner
+            }
+        });**/
 
         //Campo de texto en el que se especifica la distancia
         textNumberDistancia = findViewById(R.id.editTextDistancia);
@@ -149,45 +170,18 @@ public class FilterActivity extends AppCompatActivity {
             }
         });
 
-        btnGuardarConfig = findViewById(R.id.btnGuardarConfig);
-
-
-        btnGuardarConfig.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createConfirmationDialog();
-            }
-        });
-
     }
 
-    public void createConfirmationDialog(){
-        //Este AlertDialog será el que guarde el nombre que el usuario quiera darle a su configuración de filtros
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Introduzca nombre para su configuración");
-        builder.setTitle("Nombre de la configuración");
-        final EditText nombreConfiguracion = new EditText(FilterActivity.this);
-        builder.setView(nombreConfiguracion);
-        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String nombre = nombreConfiguracion.getText().toString();
-                Toast toast;
-                if(nombre.isEmpty()){
-                    toast = Toast.makeText(getApplicationContext(),"Introduzca un nombre", Toast.LENGTH_LONG);
-                } else {
-                    //TODO Habría que guardar ese nombre en algún lado
-                    toast = Toast.makeText(getApplicationContext(), "Configuración guardada",Toast.LENGTH_LONG);
-                }
-                toast.show();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {}
-        });
-
-        AlertDialog confirmacion = builder.create();
-        confirmacion.show();
+    /**
+     * Se activa onClick() cuando se presiona el boton de Aceptar. Se pasa la configuracion de
+     * filtro seleccionada al view correspondiente(MainActivity).
+     * Y se cierra esta activity(FilterActivity).
+     * @param view
+     */
+    public void aceptarFiltros(View view){
+        Filtro filtro = new Filtro(switchGasoil.isChecked(), switchGasolina.isChecked());
+        Intent intent = new Intent().putExtra("filtros", filtro);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }
