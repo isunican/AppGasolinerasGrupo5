@@ -47,6 +47,8 @@ import android.widget.Toast;
 */
 public class MainActivity extends AppCompatActivity {
 
+    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+
     PresenterGasolineras presenterGasolineras;
 
     Button listaFiltros;
@@ -60,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Swipe and refresh (para recargar la lista con un swipe)
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    // Se crea el filtro
+    Filtro filtro;
 
     /**
      * onCreate
@@ -109,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
                 openFilterActivity();
             }
         });
+
+        // Filtro por defecto
+        filtro = new Filtro();
     }
 
     //Abrir menú filtros
@@ -118,7 +126,57 @@ public class MainActivity extends AppCompatActivity {
         //completa de las marcas y provincias con las que se trabaja.
         ArrayList<Gasolinera> gs = new ArrayList<Gasolinera>(presenterGasolineras.getGasolineras());
         intentFilterActivity.putExtra("list_gasolineras", gs);
-        startActivity(intentFilterActivity);
+        startActivityForResult(intentFilterActivity, SECOND_ACTIVITY_REQUEST_CODE);
+    }
+
+    // Despues de aceptar los filtros a aplicar de FilterActivity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // check that it is the SecondActivity with an OK result
+        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) { // Activity.RESULT_OK
+
+                // Se ha aceptado una configuracion de filtros
+                filtro = data.getExtras().getParcelable("filtros");
+                // Se cargan otra vez los datos con los filtros seleccionados
+                new CargaDatosGasolinerasTask(this).execute();
+            }
+
+        }
+    }
+
+    /**
+     * Se encarga de modificar el view correspondiente para que se muestre la lista de gasolineras
+     * con cumpla con los filtros seleccionados.
+     * @param view
+     */
+    private void representarFiltros(View view) {
+        Log.d("STATUS", "Gasoil"+filtro.isGasoil());
+        Log.d("STATUS", "Gasolina"+filtro.isGasolina());
+        View viewGasoilPrecio = view.findViewById(R.id.textViewGasoleoA);
+        View viewGasoilLabel = view.findViewById(R.id.textViewGasoleoALabel);
+        View viewGasolinaPrecio = view.findViewById(R.id.textViewGasolina95);
+        View viewGasolinaLabel = view.findViewById(R.id.textViewGasolina95Label);
+        if(filtro.isGasoil() && filtro.isGasolina()){
+            viewGasoilPrecio.setVisibility(View.VISIBLE);
+            viewGasoilLabel.setVisibility(View.VISIBLE);
+            viewGasolinaPrecio.setVisibility(View.VISIBLE);
+            viewGasolinaLabel.setVisibility(View.VISIBLE);
+        }
+        if(filtro.isGasoil() && !filtro.isGasolina()){
+            viewGasoilPrecio.setVisibility(View.VISIBLE);
+            viewGasoilLabel.setVisibility(View.VISIBLE);
+            viewGasolinaPrecio.setVisibility(View.GONE);
+            viewGasolinaLabel.setVisibility(View.GONE);
+        }
+        if(!filtro.isGasoil() && filtro.isGasolina()){
+            viewGasoilPrecio.setVisibility(View.GONE);
+            viewGasoilLabel.setVisibility(View.GONE);
+            viewGasolinaPrecio.setVisibility(View.VISIBLE);
+            viewGasolinaLabel.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -323,6 +381,11 @@ public class MainActivity extends AppCompatActivity {
             direccion.setText(gasolinera.getDireccion());
             gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
             gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
+
+            // se modifica el view para que cumpla con los filtros seleccionados.
+            representarFiltros(view);
+
+
 
             // carga icono
             {

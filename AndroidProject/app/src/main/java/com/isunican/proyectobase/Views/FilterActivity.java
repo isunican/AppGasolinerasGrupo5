@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.isunican.proyectobase.Model.*;
 import com.isunican.proyectobase.R;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -44,6 +44,7 @@ public class FilterActivity extends AppCompatActivity {
     EditText textNumberDistancia;
 
     Switch switchGasoil;
+    Switch switchGasolina;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,8 @@ public class FilterActivity extends AppCompatActivity {
         switchGasoil = findViewById(R.id.switchGasoil);
         //La opción de filtro por defecto debe ser Gasoil
         switchGasoil.setChecked(true);
+
+        switchGasolina = findViewById(R.id.switchGasolina);
 
         marcas = new ArrayList<String>();
         provincias = new ArrayList<String>();
@@ -189,5 +192,18 @@ public class FilterActivity extends AppCompatActivity {
 
         AlertDialog confirmacion = builder.create();
         confirmacion.show();
+    }
+
+    /**
+     * Se activa onClick() cuando se presiona el boton de Aceptar. Se pasa la configuracion de
+     * filtro seleccionada al view correspondiente(MainActivity).
+     * Y se cierra esta activity(FilterActivity).
+     * @param view
+     */
+    public void aceptarFiltros(View view){
+        Filtro filtro = new Filtro(switchGasoil.isChecked(), switchGasolina.isChecked());
+        Intent intent = new Intent().putExtra("filtros", filtro);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }
