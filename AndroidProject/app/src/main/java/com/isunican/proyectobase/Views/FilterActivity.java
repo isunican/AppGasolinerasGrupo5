@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 
 public class FilterActivity extends AppCompatActivity {
 
+    Button btnGuardarConfig;
     Spinner spinnerMarca;
     Spinner spinnerProvincia;
     ArrayList<Gasolinera> gasolineras;
@@ -169,6 +171,14 @@ public class FilterActivity extends AppCompatActivity {
             }
         });
 
+        btnGuardarConfig = findViewById(R.id.btnGuardarConfig);
+        btnGuardarConfig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createConfirmationDialog();
+            }
+        });
+
     }
 
     /**
@@ -206,12 +216,12 @@ public class FilterActivity extends AppCompatActivity {
                 toast.show();
             }
             });
+
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                }
-            });
-        builder.create().show();
-        }
+            @Override
+            public void onClick(DialogInterface dialog, int which) {}
+        });
+        AlertDialog confirmation = builder.create();
+        confirmation.show();
     }
 }
