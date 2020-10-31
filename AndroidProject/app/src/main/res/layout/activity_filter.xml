@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0F0B0B0B"
+    android:background="#460B0B0B"
     tools:context=".Views.FilterActivity">
 
     <RelativeLayout
@@ -25,7 +25,7 @@
             android:id="@+id/textTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#95FF0000"
+            android:background="#99000000"
             android:text="Selecciona los filtros a utilizar en la búsqueda"
             android:textColor="#FFFFFF" />
 
@@ -34,13 +34,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textTitle"
-            android:background="#1B000000" />
+            android:background="#460B0B0B" />
 
         <TableLayout
             android:id="@+id/tablaFiltros"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/Space"
+            android:background="#6D000000"
             android:gravity="start">
 
             <TableRow
@@ -53,8 +54,9 @@
                     android:id="@+id/textTipoCombustible"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_weight="1"
-                    android:background="#95FF0000"
                     android:text="Tipo de combustible"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF" />
@@ -63,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#1B000000"
+                    android:background="#99FFFFFF"
                     android:orientation="vertical">
 
                     <Switch
@@ -87,23 +89,25 @@
                 android:id="@+id/rowFavoritos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="#80FFFFFF">
 
                 <TextView
                     android:id="@+id/textFavoritos"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_weight="1"
-                    android:background="#68FF0000"
                     android:text="Favoritos"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#000000" />
 
                 <CheckBox
                     android:id="@+id/checkFavoritos"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#0D000000" />
+                    android:background="#BAFFFFFF" />
             </TableRow>
 
             <TableRow
@@ -116,8 +120,9 @@
                     android:id="@+id/textProvincia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_weight="1"
-                    android:background="#95FF0000"
                     android:text="Provincia"
                     android:textColor="#FFFFFF" />
 
@@ -126,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#1B000000"
+                    android:background="#99FFFFFF"
                     android:visibility="visible" />
 
             </TableRow>
@@ -135,23 +140,25 @@
                 android:id="@+id/rowMarca"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="#80FFFFFF">
 
                 <TextView
                     android:id="@+id/textMarca"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_weight="1"
-                    android:background="#68FF0000"
                     android:text="Marca"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#000000" />
 
                 <Spinner
                     android:id="@+id/spinnerMarca"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#0D000000"
+                    android:background="#BAFFFFFF"
                     android:visibility="visible" />
 
             </TableRow>
@@ -166,8 +173,9 @@
                     android:id="@+id/textDistancia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="70dp"
                     android:layout_weight="1"
-                    android:background="#95FF0000"
                     android:text="Distancia"
                     android:textColor="#FFFFFF"
                     android:visibility="visible" />
@@ -176,7 +184,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#1B000000"
+                    android:background="#99FFFFFF"
                     android:orientation="vertical">
 
                     <CheckBox
@@ -222,22 +230,24 @@
                 android:id="@+id/rowPrecio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="#80FFFFFF">
 
                 <TextView
                     android:id="@+id/textPrecio"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="40dp"
                     android:layout_weight="1"
-                    android:background="#68FF0000"
                     android:text="Ordenar por precio"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#000000" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#0D000000"
+                    android:background="#BAFFFFFF"
                     android:orientation="vertical">
 
                     <CheckBox
