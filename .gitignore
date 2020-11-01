@@ -44,6 +44,16 @@ AndroidProject/.idea/caches
 AndroidProject/.idea/lint
 AndroidProject/.idea/sonarlint
 
+AndroidProject/.idea/misc.xml
+AndroidProject/.idea/modules.xml
+
+AndroidProject/app/local.properties
+AndroidProject/app/.idea/
+AndroidProject/.idea/shelf/Uncommitted_changes_before_Checkout_at_29_10_2020_22_50__Default_Changelist_.xml
+AndroidProject/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_10_2020_18_48__Default_Changelist_.xml
+AndroidProject/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_10_2020_18_52__Default_Changelist_.xml
+
+
 # Keystore files
 
 # Uncomment the following line if you do not want to check your keystore files in.
