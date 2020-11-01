@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#460B0B0B"
     tools:context=".Views.FilterActivity">
 
     <RelativeLayout
@@ -25,30 +24,27 @@
             android:id="@+id/textTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#99000000"
-            android:text="Selecciona los filtros a utilizar en la búsqueda"
-            android:textColor="#FFFFFF" />
+            android:text="Selecciona los filtros a utilizar en la búsqueda" />
 
         <TextView
             android:id="@+id/Space"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textTitle"
-            android:background="#460B0B0B" />
+            android:layout_below="@id/textTitle" />
 
         <TableLayout
             android:id="@+id/tablaFiltros"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/Space"
-            android:background="#6D000000"
             android:gravity="start">
 
             <TableRow
                 android:id="@+id/rowCombustible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="#81FF0000">
 
                 <TextView
                     android:id="@+id/textTipoCombustible"
@@ -59,7 +55,7 @@
                     android:layout_weight="1"
                     android:text="Tipo de combustible"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#000000" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -90,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#80FFFFFF">
+                android:background="#43FF0000">
 
                 <TextView
                     android:id="@+id/textFavoritos"
@@ -114,7 +110,8 @@
                 android:id="@+id/rowProvincia"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="#81FF0000">
 
                 <TextView
                     android:id="@+id/textProvincia"
@@ -124,7 +121,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
                     android:text="Provincia"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#000000" />
 
                 <Spinner
                     android:id="@+id/spinnerProvincia"
@@ -141,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#80FFFFFF">
+                android:background="#43FF0000">
 
                 <TextView
                     android:id="@+id/textMarca"
@@ -167,7 +164,8 @@
                 android:id="@+id/rowDistancia"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="#81FF0000">
 
                 <TextView
                     android:id="@+id/textDistancia"
@@ -177,7 +175,7 @@
                     android:layout_marginTop="70dp"
                     android:layout_weight="1"
                     android:text="Distancia"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#000000"
                     android:visibility="visible" />
 
                 <LinearLayout
@@ -231,7 +229,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#80FFFFFF">
+                android:background="#43FF0000">
 
                 <TextView
                     android:id="@+id/textPrecio"
