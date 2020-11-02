@@ -1,8 +1,11 @@
 package com.isunican.proyectobase.Views;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.ListView;
 
 
+import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Views.MainActivity;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -30,6 +33,7 @@ import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -50,8 +54,24 @@ public class FiltraCombustibleUITest {
         onView(withId(R.id.switchGasolina)).perform(click());
         onView(withId(R.id.btnAceptar)).perform((click()));
 
-        //onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(0)
-        //       .onChildView(withId(R.id.switchGasoil)).check(matches(withText("asd")));
+
+
+        //View as = mActivityTestRule.getActivity().findViewById(R.id.switchGasolina);
+
+    /*
+        ListView vista = (ListView) mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
+        for(int i=0;i<vista.getAdapter().getCount();i++){
+            Gasolinera gasolinera = (Gasolinera) vista.getAdapter().getItem(i);
+            onView(withId(R.id.switchGasolina)).check(matches(withText(String.valueOf(gasolinera.getGasolina95()))));
+        }
+        //FilterActivity fa = mActivityTestRule.getActivity().findViewById(R.id.switchGasolina);
+        /*
+
+        onView(withId(R.id.switchGasolina)).check(matches(as,false));
+
+        */
+        //onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(0).
+        //       onChildView(withId(R.id.switchGasoil)).check(matches(as,vista))   //check(matches(withText("asd")));
 
         //String texto = getString(R.string)
         //onData(withItemContent(0)).perform(click());
