@@ -1,5 +1,7 @@
 package com.isunican.proyectobase.Views;
 
+import com.isunican.proyectobase.DataBase.Filtro;
+import com.isunican.proyectobase.DataBase.FiltroDAO;
 import com.isunican.proyectobase.Presenter.*;
 import com.isunican.proyectobase.Model.*;
 import com.isunican.proyectobase.R;
@@ -64,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     // Se crea el filtro
-    Filtro filtro;
+    private FiltroDAO filtroDAO;
+    private Filtro filtro;
 
     /**
      * onCreate
@@ -115,8 +118,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Filtro por defecto
+        // Filtro
+        filtroDAO = FiltroDAO.get(this);
         filtro = new Filtro();
+        // Si la base de datos esta vacía, eso quiere decir que es la primera vez que se usa esta app
+        // en este dispositivo, se carga en la base de datos el filtro por defecto
+        if(filtroDAO.getFiltro("DEFECTO")==null){
+            filtroDAO.addFiltro(filtro);
+        }
     }
 
     //Abrir menú filtros
@@ -138,9 +147,9 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) { // Activity.RESULT_OK
 
-                // Se ha aceptado una configuracion de filtros
-                filtro = data.getExtras().getParcelable("filtros");
-                // Se cargan otra vez los datos con los filtros seleccionados
+                // Se ha aceptado una configuracion de filtro
+                filtro = data.getExtras().getParcelable("filtro");
+                // Se cargan otra vez los datos con el filtro seleccionado
                 new CargaDatosGasolinerasTask(this).execute();
             }
 
@@ -153,8 +162,6 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     private void representarFiltros(View view) {
-        Log.d("STATUS", "Gasoil"+filtro.isGasoil());
-        Log.d("STATUS", "Gasolina"+filtro.isGasolina());
         View viewGasoilPrecio = view.findViewById(R.id.textViewGasoleoA);
         View viewGasoilLabel = view.findViewById(R.id.textViewGasoleoALabel);
         View viewGasolinaPrecio = view.findViewById(R.id.textViewGasolina95);
