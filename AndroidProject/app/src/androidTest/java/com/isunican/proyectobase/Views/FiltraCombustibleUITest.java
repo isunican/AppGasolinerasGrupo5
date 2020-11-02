@@ -13,7 +13,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import com.isunican.proyectobase.Views.FilterActivity;
-import com.isunican.proyectobase.Model.Filtro;
+import com.isunican.proyectobase.DataBase.Filtro;
 
 import org.junit.Rule;
 import org.junit.Test;
