@@ -198,10 +198,8 @@ public class FilterActivity extends AppCompatActivity {
      * Se activa onClick() cuando se presiona el boton de Aceptar. Se pasa la configuracion de
      * filtro seleccionada al view correspondiente(MainActivity).
      * Y se cierra esta activity(FilterActivity).
-     *
-     * @param view
      */
-    public void aceptarFiltros(View view) {
+    public void aceptarFiltros() {
         Filtro filtro = new Filtro(nombre, switchGasoil.isChecked(), switchGasolina.isChecked());
         Intent intent = new Intent().putExtra("filtro", filtro);
         setResult(RESULT_OK, intent);
