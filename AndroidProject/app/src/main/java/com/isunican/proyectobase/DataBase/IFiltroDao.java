@@ -8,22 +8,28 @@ import androidx.room.Update;
 
 import java.util.List;
 
+/**
+ * Esta clase es la interfaz dao de filtro.
+ */
 @Dao
-public interface FiltroDao {
+public interface IFiltroDao {
 
     @Query("SELECT * FROM filtro")
     List<Filtro> getFiltros();
 
     @Query("SELECT * FROM filtro WHERE id IN (:filtroIds)")
-    Filtro getFiltro(int id);
+    Filtro getFiltro(int filtroIds);
+
+    @Query("SELECT * FROM filtro WHERE nombre LIKE :nombre")
+    Filtro getFiltro(String nombre);
 
     @Insert
     void addFiltro(Filtro filtro);
 
     @Update
-    void deleteFiltro(Filtro filtro);
+    void updateFiltro(Filtro filtro);
 
     @Delete
-    void updateFiltro(Filtro filtro);
+    void deleteFiltro(Filtro filtro);
 
 }
