@@ -199,7 +199,7 @@ public class FilterActivity extends AppCompatActivity {
      * filtro seleccionada al view correspondiente(MainActivity).
      * Y se cierra esta activity(FilterActivity).
      */
-    public void aceptarFiltros() {
+    public void aceptarFiltros(View view) {
         Filtro filtro = new Filtro(nombre, switchGasoil.isChecked(), switchGasolina.isChecked());
         Intent intent = new Intent().putExtra("filtro", filtro);
         setResult(RESULT_OK, intent);
