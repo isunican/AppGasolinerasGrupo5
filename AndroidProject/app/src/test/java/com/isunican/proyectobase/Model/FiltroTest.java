@@ -1,5 +1,6 @@
 package com.isunican.proyectobase.Model;
 
+import com.isunican.proyectobase.DataBase.Filtro;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 
 import org.junit.Before;
