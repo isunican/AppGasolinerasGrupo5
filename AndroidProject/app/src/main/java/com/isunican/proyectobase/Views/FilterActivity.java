@@ -63,11 +63,19 @@ public class FilterActivity extends AppCompatActivity {
         spinnerMarca = findViewById(R.id.spinnerMarca);
         spinnerProvincia = findViewById(R.id.spinnerProvincia);
 
-        switchGasoil = findViewById(R.id.switchGasoil);
-        //La opción de filtro por defecto debe ser Gasoil
-        switchGasoil.setChecked(true);
+        // Filtro
+        filtroDAO = FiltroDAO.get(this);
+        filtro = getIntent().getExtras().getParcelable("filtro");
 
+        switchGasoil = findViewById(R.id.switchGasoil);
         switchGasolina = findViewById(R.id.switchGasolina);
+        // Se representa los switches acorde con el filtro correspondiente activo
+        if(filtro.isGasolina()){
+            switchGasolina.setChecked(true);
+        }
+        if(filtro.isGasoil()){
+            switchGasoil.setChecked(true);
+        }
 
         marcas = new ArrayList<String>();
         provincias = new ArrayList<String>();
@@ -188,10 +196,6 @@ public class FilterActivity extends AppCompatActivity {
                 createConfirmationDialog();
             }
         });
-
-        // Filtro
-        filtroDAO = FiltroDAO.get(this);
-        filtro = new Filtro();
     }
 
     /**

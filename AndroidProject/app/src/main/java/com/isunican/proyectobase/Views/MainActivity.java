@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         //completa de las marcas y provincias con las que se trabaja.
         ArrayList<Gasolinera> gs = new ArrayList<Gasolinera>(presenterGasolineras.getGasolineras());
         intentFilterActivity.putExtra("list_gasolineras", gs);
+        intentFilterActivity.putExtra("filtro", filtro);
         startActivityForResult(intentFilterActivity, SECOND_ACTIVITY_REQUEST_CODE);
     }
 
