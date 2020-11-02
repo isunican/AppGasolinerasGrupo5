@@ -1,6 +1,9 @@
 package com.isunican.proyectobase.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.isunican.proyectobase.DataBase.Filtro;
+import com.isunican.proyectobase.DataBase.FiltroDAO;
 import com.isunican.proyectobase.Model.*;
 import com.isunican.proyectobase.R;
 
@@ -8,6 +11,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,6 +48,12 @@ public class FilterActivity extends AppCompatActivity {
 
     Switch switchGasoil;
     Switch switchGasolina;
+
+    String nombre = "";
+
+    // Se crea el filtro
+    private FiltroDAO filtroDAO;
+    private Filtro filtro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,6 +189,9 @@ public class FilterActivity extends AppCompatActivity {
             }
         });
 
+        // Filtro
+        filtroDAO = FiltroDAO.get(this);
+        filtro = new Filtro();
     }
 
     /**
@@ -189,8 +202,8 @@ public class FilterActivity extends AppCompatActivity {
      * @param view
      */
     public void aceptarFiltros(View view) {
-        Filtro filtro = new Filtro(switchGasoil.isChecked(), switchGasolina.isChecked());
-        Intent intent = new Intent().putExtra("filtros", filtro);
+        Filtro filtro = new Filtro(nombre, switchGasoil.isChecked(), switchGasolina.isChecked());
+        Intent intent = new Intent().putExtra("filtro", filtro);
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -205,12 +218,16 @@ public class FilterActivity extends AppCompatActivity {
         builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String nombre = nombreConfiguracion.getText().toString();
+                nombre = nombreConfiguracion.getText().toString();
                 Toast toast;
                 if (nombre.isEmpty()) {
                     toast = Toast.makeText(getApplicationContext(), "Introduzca un nombre", Toast.LENGTH_LONG);
                 } else {
-                    //TODO Habría que guardar ese nombre en algún lado
+                    // Añade nueva configuración de filtro a la base de datos de filtros
+                    filtro.setNombre(nombre);
+                    filtro.setGasoil(switchGasoil.isChecked());
+                    filtro.setGasolina(switchGasolina.isChecked());
+                    filtroDAO.addFiltro(filtro);
                     toast = Toast.makeText(getApplicationContext(), "Configuración guardada", Toast.LENGTH_LONG);
                 }
                 toast.show();
