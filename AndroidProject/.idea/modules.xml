@@ -3,7 +3,14 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidProject.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidProject-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidProject-app.iml" group="AndroidProject/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidProject.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidProject.app.iml" />
+<<<<<<< HEAD
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AppGasolinerasGrupo5-AndroidProject.iml" filepath="$PROJECT_DIR$/.idea/modules/AppGasolinerasGrupo5-AndroidProject.iml" group="AndroidProject" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Desktop-AppGasolinerasGrupo5-AndroidProject.iml" filepath="$PROJECT_DIR$/.idea/modules/Desktop-AppGasolinerasGrupo5-AndroidProject.iml" group="AndroidProject" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="AndroidProject/app" />
+>>>>>>> feature/399120-FiltrarTipoCombustible
     </modules>
   </component>
 </project>
