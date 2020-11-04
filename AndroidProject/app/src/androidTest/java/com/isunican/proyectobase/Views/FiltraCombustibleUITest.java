@@ -1,39 +1,22 @@
 package com.isunican.proyectobase.Views;
 
-import android.content.Context;
-import android.view.View;
 import android.widget.ListView;
-
-
-import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.R;
-import com.isunican.proyectobase.Views.MainActivity;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-
-import com.isunican.proyectobase.Views.FilterActivity;
-import com.isunican.proyectobase.Model.Filtro;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.onData;
+import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static java.util.EnumSet.allOf;
-import static java.util.regex.Pattern.matches;
 import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.hasEntry;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.not;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -49,48 +32,20 @@ public class FiltraCombustibleUITest {
     /* Filtra por combustible: gasolina */
     @Test
     public void filtraCombustible(){
+        // introducimos filtrar por gasolina y quitamos el filtro por diesel
         onView(withId(R.id.btnListaFiltros)).perform(click());
         onView(withId(R.id.switchGasoil)).perform(click());
         onView(withId(R.id.switchGasolina)).perform(click());
         onView(withId(R.id.btnAceptar)).perform((click()));
 
-
-
-        //View as = mActivityTestRule.getActivity().findViewById(R.id.switchGasolina);
-
-    /*
-        ListView vista = (ListView) mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
-        for(int i=0;i<vista.getAdapter().getCount();i++){
-            Gasolinera gasolinera = (Gasolinera) vista.getAdapter().getItem(i);
-            onView(withId(R.id.switchGasolina)).check(matches(withText(String.valueOf(gasolinera.getGasolina95()))));
+        ListView vista = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
+        // Comprobamos que se muestran solo los precios de gasolina
+        for (int i=0; i<vista.getAdapter().getCount();i++) {
+            onData(anything())
+                    .inAdapterView(withId(R.id.listViewGasolineras))
+                    .atPosition(i)
+                    .onChildView(withId(R.id.textViewGasoleoA))
+                    .check(matches(not(isDisplayed())));
         }
-        //FilterActivity fa = mActivityTestRule.getActivity().findViewById(R.id.switchGasolina);
-        /*
-
-        onView(withId(R.id.switchGasolina)).check(matches(as,false));
-
-        */
-        //onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(0).
-        //       onChildView(withId(R.id.switchGasoil)).check(matches(as,vista))   //check(matches(withText("asd")));
-
-        //String texto = getString(R.string)
-        //onData(withItemContent(0)).perform(click());
-        //onData(allOf(is(instanceOf(String.class)), hasEntry(equalTo("Gasolina"), is(0)))).perform(click());
-        //onView(withId(R.id.listViewGasolineras)).check(matches(withText("Gasolina")));
-        //R.id.listViewGasolineras.check(matches(withText(containsString("Gasolina"))))
-        //onView(withId(R.id.listViewGasolineras)).check(matches(not(isDisplayed())));
-        //onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).
-        //onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition()
-        //onView(withId(R.id.listViewGasolineras)).check(matches(isDisplayed()));
-        //onData( allOf(is(instanceOf(String.class)), is("Diesel") ) );
-        //onView(withId(R.id.listViewGasolineras)).check(matches(withText(containsString("Gasolina")))));
     }
-
-    /*@Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-
-        assertEquals("com.isunican.proyectobase", appContext.getPackageName());
-    }*/
 }
