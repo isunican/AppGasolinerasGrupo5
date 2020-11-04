@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.isunican.proyectobase.DataBase.Filtro;
 import com.isunican.proyectobase.DataBase.FiltroDAO;
+
 import com.isunican.proyectobase.Model.*;
 import com.isunican.proyectobase.R;
 
@@ -11,7 +12,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -207,7 +207,7 @@ public class FilterActivity extends AppCompatActivity {
      * filtro seleccionada al view correspondiente(MainActivity).
      * Y se cierra esta activity(FilterActivity).
      */
-    public void aceptarFiltros(View view) {
+    public void aceptarFiltros() {
         Filtro filtro = new Filtro(nombre, switchGasoil.isChecked(), switchGasolina.isChecked());
         Intent intent = new Intent().putExtra("filtro", filtro);
         setResult(RESULT_OK, intent);

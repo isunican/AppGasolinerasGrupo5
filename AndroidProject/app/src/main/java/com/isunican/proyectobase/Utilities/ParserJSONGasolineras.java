@@ -6,6 +6,7 @@ import android.util.JsonReader;
 import android.util.JsonToken;
 import android.util.Log;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,7 +41,7 @@ public class ParserJSONGasolineras {
         try (JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"))){
             return readArrayGasolineras(reader);
         } catch (IOException e){
-            return null;
+            return Collections.emptyList();
         }
     }
 
