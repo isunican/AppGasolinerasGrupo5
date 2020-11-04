@@ -14,15 +14,11 @@ import android.os.Bundle;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Parcelable;
-import android.preference.MultiSelectListPreference;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -66,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     // Se crea el filtro
-    private FiltroDAO filtroDAO;
     private Filtro filtro;
 
     /**
@@ -119,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Filtro
-        filtroDAO = FiltroDAO.get(this);
+        FiltroDAO filtroDAO = FiltroDAO.get(this);
         filtro = new Filtro();
         // Si la base de datos esta vacía, eso quiere decir que es la primera vez que se usa esta app
         // en este dispositivo, se carga en la base de datos el filtro por defecto
@@ -292,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
             mSwipeRefreshLayout.setRefreshing(false);
 
             // Si se ha obtenido resultado en la tarea en segundo plano
-            if (res) {
+            if (Boolean.TRUE.equals(res)) {
                 // Definimos el array adapter
                 adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
 
@@ -393,23 +388,8 @@ public class MainActivity extends AppCompatActivity {
             // se modifica el view para que cumpla con los filtros seleccionados.
             representarFiltros(view);
 
-
-
             // carga icono
-            {
-                String rotuleImageID = gasolinera.getRotulo().toLowerCase();
-
-                // Tengo que protegerme ante el caso en el que el rotulo solo tiene digitos.
-                // En ese caso getIdentifier devuelve esos digitos en vez de 0.
-                int imageID = context.getResources().getIdentifier(rotuleImageID,
-                        "drawable", context.getPackageName());
-
-                if (imageID == 0 || TextUtils.isDigitsOnly(rotuleImageID)) {
-                    imageID = context.getResources().getIdentifier(getResources().getString(R.string.pordefecto),
-                            "drawable", context.getPackageName());
-                }
-                logo.setImageResource(imageID);
-            }
+            cargaIcono(logo,gasolinera);
 
 
             // Si las dimensiones de la pantalla son menores
@@ -430,6 +410,21 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return view;
+        }
+
+        public void cargaIcono(ImageView logo, Gasolinera gasolinera){
+            String rotuleImageID = gasolinera.getRotulo().toLowerCase();
+
+            // Tengo que protegerme ante el caso en el que el rotulo solo tiene digitos.
+            // En ese caso getIdentifier devuelve esos digitos en vez de 0.
+            int imageID = context.getResources().getIdentifier(rotuleImageID,
+                    "drawable", context.getPackageName());
+
+            if (imageID == 0 || TextUtils.isDigitsOnly(rotuleImageID)) {
+                imageID = context.getResources().getIdentifier(getResources().getString(R.string.pordefecto),
+                        "drawable", context.getPackageName());
+            }
+            logo.setImageResource(imageID);
         }
     }
 

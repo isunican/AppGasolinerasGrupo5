@@ -38,11 +38,11 @@ public class FilterActivity extends AppCompatActivity {
     CheckBox checkPrecio;
     CheckBox checkFavoritos;
 
-    RadioButton r_distancia_mayorA;
-    RadioButton r_distancia_menorA;
+    RadioButton rdistanciaMayorA;
+    RadioButton rdistanciaMenorA;
 
-    RadioButton r_precio_mayorAMenor;
-    RadioButton r_precio_menorAMayor;
+    RadioButton rprecioMayorAMenor;
+    RadioButton rprecioMenorrAMayor;
 
     EditText textNumberDistancia;
 
@@ -133,20 +133,20 @@ public class FilterActivity extends AppCompatActivity {
         //Campo de texto en el que se especifica la distancia
         textNumberDistancia = findViewById(R.id.editTextDistancia);
         //Botones "mayor que" y "menor que"
-        r_distancia_mayorA = findViewById(R.id.radioButtonMayor);
-        r_distancia_menorA = findViewById(R.id.radioButtonMenor);
+        rdistanciaMayorA = findViewById(R.id.radioButtonMayor);
+        rdistanciaMenorA = findViewById(R.id.radioButtonMenor);
 
         //Botones "mayor a menor" y "menor a mayor"
-        r_precio_mayorAMenor = findViewById(R.id.radioButtonAsc);
-        r_precio_menorAMayor = findViewById(R.id.radioButtonDesc);
+        rprecioMayorAMenor = findViewById(R.id.radioButtonAsc);
+        rprecioMenorrAMayor = findViewById(R.id.radioButtonDesc);
 
         //Inicialmente están desactivados, ya que no se ha especificado ningún filtro.
-        r_distancia_mayorA.setEnabled(false);
-        r_distancia_menorA.setEnabled(false);
+        rdistanciaMayorA.setEnabled(false);
+        rdistanciaMenorA.setEnabled(false);
         textNumberDistancia.setEnabled(false);
 
-        r_precio_mayorAMenor.setEnabled(false);
-        r_precio_menorAMayor.setEnabled(false);
+        rprecioMayorAMenor.setEnabled(false);
+        rprecioMenorrAMayor.setEnabled(false);
 
         //CheckBox que indica si se está filtrando por distancia
         checkDistancia = findViewById(R.id.checkDistancia);
@@ -167,12 +167,12 @@ public class FilterActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    r_distancia_mayorA.setEnabled(true);
-                    r_distancia_menorA.setEnabled(true);
+                    rdistanciaMayorA.setEnabled(true);
+                    rdistanciaMenorA.setEnabled(true);
                     textNumberDistancia.setEnabled(true);
                 } else {
-                    r_distancia_mayorA.setEnabled(false);
-                    r_distancia_menorA.setEnabled(false);
+                    rdistanciaMayorA.setEnabled(false);
+                    rdistanciaMenorA.setEnabled(false);
                     textNumberDistancia.setEnabled(false);
                 }
             }
@@ -184,11 +184,11 @@ public class FilterActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    r_precio_mayorAMenor.setEnabled(true);
-                    r_precio_menorAMayor.setEnabled(true);
+                    rprecioMayorAMenor.setEnabled(true);
+                    rprecioMenorrAMayor.setEnabled(true);
                 } else {
-                    r_precio_mayorAMenor.setEnabled(false);
-                    r_precio_menorAMayor.setEnabled(false);
+                    rprecioMayorAMenor.setEnabled(false);
+                    rprecioMenorrAMayor.setEnabled(false);
                 }
             }
         });
@@ -208,8 +208,8 @@ public class FilterActivity extends AppCompatActivity {
      * Y se cierra esta activity(FilterActivity).
      */
     public void aceptarFiltros() {
-        Filtro filtro = new Filtro(nombre, switchGasoil.isChecked(), switchGasolina.isChecked());
-        Intent intent = new Intent().putExtra("filtro", filtro);
+        Filtro filtroSeleccionado = new Filtro(nombre, switchGasoil.isChecked(), switchGasolina.isChecked());
+        Intent intent = new Intent().putExtra("filtro", filtroSeleccionado);
         setResult(RESULT_OK, intent);
         finish();
     }
