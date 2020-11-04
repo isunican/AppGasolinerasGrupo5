@@ -17,7 +17,7 @@ public class FiltroDAO {
 
     private IFiltroDao dao;
 
-    private FiltroDAO(Context context){
+    protected FiltroDAO(Context context){
         Context appContext = context.getApplicationContext();
         FiltroDatabase database = Room.databaseBuilder(appContext, FiltroDatabase.class, "filtro")
                 .allowMainThreadQueries().build();
