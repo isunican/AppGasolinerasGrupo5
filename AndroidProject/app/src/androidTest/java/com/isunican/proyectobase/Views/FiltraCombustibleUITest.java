@@ -2,6 +2,9 @@ package com.isunican.proyectobase.Views;
 
 import android.widget.ListView;
 import com.isunican.proyectobase.R;
+
+import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
@@ -36,6 +39,7 @@ public class FiltraCombustibleUITest {
         onView(withId(R.id.btnListaFiltros)).perform(click());
         onView(withId(R.id.switchGasoil)).perform(click());
         onView(withId(R.id.switchGasolina)).perform(click());
+        onView(ViewMatchers.withId(R.id.scrollTabla)).perform(ViewActions.swipeUp());
         onView(withId(R.id.btnAceptar)).perform((click()));
 
         ListView vista = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
