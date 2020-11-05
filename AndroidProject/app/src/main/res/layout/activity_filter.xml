@@ -83,7 +83,7 @@
 
                         <Switch
                             android:id="@+id/switchGasoil"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="20dp"
                             android:layout_weight="1"
@@ -91,7 +91,7 @@
 
                         <Switch
                             android:id="@+id/switchGasolina"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="20dp"
                             android:layout_weight="1"
