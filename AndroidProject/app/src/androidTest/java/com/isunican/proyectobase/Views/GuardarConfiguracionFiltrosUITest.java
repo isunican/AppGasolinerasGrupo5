@@ -1,14 +1,14 @@
-package com.isunican.proyectobase.Views;
+package com.isunican.proyectobase;
 
 import android.content.Context;
 
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Views.MainActivity;
 
 import org.junit.Rule;
@@ -51,7 +51,7 @@ public class GuardarConfiguracionFiltrosUITest {
     public void guardaConfiguracionTest (){
 
         //Selección del boton lista filtros para mostrar la lista de filtros
-        onView(ViewMatchers.withId(R.id.btnListaFiltros)).check(matches(withText("MOSTRAR FILTROS")));
+        onView(withId(R.id.btnListaFiltros)).check(matches(withText("MOSTRAR FILTROS")));
         onView(withId(R.id.btnListaFiltros)).perform(click());
         //Posible Selección de filtros
         onView(withId(R.id.btnGuardarConfig)).check(matches(withText("GUARDAR CONFIGURACIÓN")));
@@ -67,6 +67,7 @@ public class GuardarConfiguracionFiltrosUITest {
         onView(withId(R.id.checkPrecio)).perform(click());
         onView(withId(R.id.radioButtonAsc)).perform(click());*/
         //Guardar selección de filtros con nombre
+        onView(ViewMatchers.withId(R.id.scrollTabla)).perform(ViewActions.swipeUp());
         onView(withId(R.id.btnGuardarConfig)).perform(click());
         onView(allOf(withClassName(endsWith("EditText")))).perform(typeText("Gasolina"), closeSoftKeyboard());
         onView(withText("Sí")).perform(click());
