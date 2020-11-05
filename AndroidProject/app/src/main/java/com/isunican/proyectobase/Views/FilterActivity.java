@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 
 public class FilterActivity extends AppCompatActivity {
 
+    Button btnAceptar;
     Spinner spinnerMarca;
     Spinner spinnerProvincia;
     ArrayList<Gasolinera> gasolineras;
@@ -135,8 +137,12 @@ public class FilterActivity extends AppCompatActivity {
         checkPrecio = findViewById(R.id.checkPrecio);
         //CheckBox que indica si se está filtrando por gasolineras guardadas como favoritas
         checkFavoritos = findViewById(R.id.checkFavoritos);
-        //TODO De momento esta función está desactivada
+        //TODO De momento estas funciones están desactivadas
         checkFavoritos.setEnabled(false);
+        checkPrecio.setEnabled(false);
+        checkDistancia.setEnabled(false);
+        spinnerProvincia.setEnabled(false);
+        spinnerMarca.setEnabled(false);
 
         //Si el usuario indica que quiere filtrar por distancia, se habilitan los botones
         //de selección de orden y la caja de texto.
@@ -167,6 +173,14 @@ public class FilterActivity extends AppCompatActivity {
                     r_precio_mayorAMenor.setEnabled(false);
                     r_precio_menorAMayor.setEnabled(false);
                 }
+            }
+        });
+
+        btnAceptar = findViewById(R.id.btnAceptar);
+        btnAceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aceptarFiltros(v);
             }
         });
 
