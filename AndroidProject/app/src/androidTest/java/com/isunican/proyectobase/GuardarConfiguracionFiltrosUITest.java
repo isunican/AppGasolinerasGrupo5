@@ -2,9 +2,9 @@ package com.isunican.proyectobase;
 
 import android.content.Context;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import com.isunican.proyectobase.Views.MainActivity;
@@ -13,18 +13,17 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.endsWith;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -55,7 +54,8 @@ public class GuardarConfiguracionFiltrosUITest {
         //Posible Selección de filtros
         onView(withId(R.id.btnGuardarConfig)).check(matches(withText("GUARDAR CONFIGURACIÓN DE FILTROS")));
         onView(withId(R.id.switchGasoil)).perform(click());
-        onView(withId(R.id.spinnerProvincia)).perform(click());
+        onView(withId(R.id.switchGasolina)).perform(click());
+        /**onView(withId(R.id.spinnerProvincia)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("CANTABRIA"))).perform(click());
         onView(withId(R.id.spinnerMarca)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("CEPSA"))).perform(click());
@@ -63,9 +63,10 @@ public class GuardarConfiguracionFiltrosUITest {
         onView(withId(R.id.radioButtonMenor)).perform(click());
         onView(withId(R.id.editTextDistancia)).perform(typeText("100"), closeSoftKeyboard());
         onView(withId(R.id.checkPrecio)).perform(click());
-        onView(withId(R.id.radioButtonAsc)).perform(click());
+        onView(withId(R.id.radioButtonAsc)).perform(click());*/
         //Guardar selección de filtros con nombre
         onView(withId(R.id.btnGuardarConfig)).perform(click());
-
+        onView(allOf(withClassName(endsWith("EditText")))).perform(typeText("Gasolina"), closeSoftKeyboard());
+        onView(withText("Sí")).perform(click());
     }
 }
