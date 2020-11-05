@@ -145,7 +145,7 @@ public class FilterActivity extends AppCompatActivity {
         checkPrecio = findViewById(R.id.checkPrecio);
         //CheckBox que indica si se está filtrando por gasolineras guardadas como favoritas
         checkFavoritos = findViewById(R.id.checkFavoritos);
-        //TODO De momento esta función está desactivada
+        //TODO De momento estas funciones están desactivadas
         checkFavoritos.setEnabled(false);
         checkPrecio.setEnabled(false);
         checkDistancia.setEnabled(false);
