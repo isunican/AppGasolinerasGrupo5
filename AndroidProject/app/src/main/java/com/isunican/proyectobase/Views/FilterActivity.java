@@ -147,6 +147,10 @@ public class FilterActivity extends AppCompatActivity {
         checkFavoritos = findViewById(R.id.checkFavoritos);
         //TODO De momento esta función está desactivada
         checkFavoritos.setEnabled(false);
+        checkPrecio.setEnabled(false);
+        checkDistancia.setEnabled(false);
+        spinnerProvincia.setEnabled(false);
+        spinnerMarca.setEnabled(false);
 
         //Si el usuario indica que quiere filtrar por distancia, se habilitan los botones
         //de selección de orden y la caja de texto.
