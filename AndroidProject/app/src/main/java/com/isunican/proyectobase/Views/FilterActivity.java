@@ -27,6 +27,8 @@ import java.util.ArrayList;
 public class FilterActivity extends AppCompatActivity {
 
     Button btnGuardarConfig;
+    Button btnAceptar;
+
     Spinner spinnerMarca;
     Spinner spinnerProvincia;
     ArrayList<Gasolinera> gasolineras;
@@ -195,6 +197,14 @@ public class FilterActivity extends AppCompatActivity {
         // Filtro
         filtroDAO = FiltroDAO.get(this);
         filtro = new Filtro();
+
+        btnAceptar = findViewById(R.id.btnAceptar);
+        btnAceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aceptarFiltros(v);
+            }
+        });
     }
 
     /**
