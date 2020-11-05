@@ -1,13 +1,5 @@
 package com.isunican.proyectobase.Views;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.isunican.proyectobase.DataBase.Filtro;
-import com.isunican.proyectobase.DataBase.FiltroDAO;
-
-import com.isunican.proyectobase.Model.*;
-import com.isunican.proyectobase.R;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,11 +15,19 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.isunican.proyectobase.DataBase.Filtro;
+import com.isunican.proyectobase.DataBase.FiltroDAO;
+import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.R;
+
 import java.util.ArrayList;
 
 public class FilterActivity extends AppCompatActivity {
 
     Button btnGuardarConfig;
+    Button btnAplicarFiltros;
     Spinner spinnerMarca;
     Spinner spinnerProvincia;
     ArrayList<Gasolinera> gasolineras;
@@ -156,10 +156,6 @@ public class FilterActivity extends AppCompatActivity {
         checkFavoritos = findViewById(R.id.checkFavoritos);
         //TODO De momento estas funciones están desactivadas
         checkFavoritos.setEnabled(false);
-        checkPrecio.setEnabled(false);
-        checkDistancia.setEnabled(false);
-        spinnerProvincia.setEnabled(false);
-        spinnerMarca.setEnabled(false);
 
         //Si el usuario indica que quiere filtrar por distancia, se habilitan los botones
         //de selección de orden y la caja de texto.
@@ -200,6 +196,15 @@ public class FilterActivity extends AppCompatActivity {
                 createConfirmationDialog();
             }
         });
+
+        btnAplicarFiltros = findViewById(R.id.btnAceptar);
+        btnAplicarFiltros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aceptarFiltros();
+            }
+        });
+
     }
 
     /**
