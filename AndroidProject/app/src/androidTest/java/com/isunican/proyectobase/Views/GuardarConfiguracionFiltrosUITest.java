@@ -2,8 +2,6 @@ package com.isunican.proyectobase;
 
 import android.content.Context;
 
-import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -67,7 +65,6 @@ public class GuardarConfiguracionFiltrosUITest {
         onView(withId(R.id.checkPrecio)).perform(click());
         onView(withId(R.id.radioButtonAsc)).perform(click());*/
         //Guardar selección de filtros con nombre
-        onView(ViewMatchers.withId(R.id.scrollTabla)).perform(ViewActions.swipeUp());
         onView(withId(R.id.btnGuardarConfig)).perform(click());
         onView(allOf(withClassName(endsWith("EditText")))).perform(typeText("Gasolina"), closeSoftKeyboard());
         onView(withText("Sí")).perform(click());
