@@ -1,5 +1,7 @@
 package com.isunican.proyectobase.Views;
 
+import com.isunican.proyectobase.DataBase.Filtro;
+import com.isunican.proyectobase.DataBase.FiltroDAO;
 import com.isunican.proyectobase.Presenter.*;
 import com.isunican.proyectobase.Model.*;
 import com.isunican.proyectobase.R;
@@ -12,15 +14,11 @@ import android.os.Bundle;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Parcelable;
-import android.preference.MultiSelectListPreference;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,6 +45,8 @@ import android.widget.Toast;
 */
 public class MainActivity extends AppCompatActivity {
 
+    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+
     PresenterGasolineras presenterGasolineras;
 
     Button listaFiltros;
@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Swipe and refresh (para recargar la lista con un swipe)
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    // Se crea el filtro
+    private Filtro filtro;
 
     /**
      * onCreate
@@ -109,6 +112,15 @@ public class MainActivity extends AppCompatActivity {
                 openFilterActivity();
             }
         });
+
+        // Filtro
+        FiltroDAO filtroDAO = FiltroDAO.get(this);
+        filtro = new Filtro();
+        // Si la base de datos esta vacía, eso quiere decir que es la primera vez que se usa esta app
+        // en este dispositivo, se carga en la base de datos el filtro por defecto
+        if(filtroDAO.getFiltro("DEFECTO")==null){
+            filtroDAO.addFiltro(filtro);
+        }
     }
 
     //Abrir menú filtros
@@ -118,7 +130,56 @@ public class MainActivity extends AppCompatActivity {
         //completa de las marcas y provincias con las que se trabaja.
         ArrayList<Gasolinera> gs = new ArrayList<Gasolinera>(presenterGasolineras.getGasolineras());
         intentFilterActivity.putExtra("list_gasolineras", gs);
-        startActivity(intentFilterActivity);
+        intentFilterActivity.putExtra("filtro", filtro);
+        startActivityForResult(intentFilterActivity, SECOND_ACTIVITY_REQUEST_CODE);
+    }
+
+    // Despues de aceptar los filtros a aplicar de FilterActivity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // check that it is the SecondActivity with an OK result
+        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) { // Activity.RESULT_OK
+
+                // Se ha aceptado una configuracion de filtro
+                filtro = data.getExtras().getParcelable("filtro");
+                // Se cargan otra vez los datos con el filtro seleccionado
+                new CargaDatosGasolinerasTask(this).execute();
+            }
+
+        }
+    }
+
+    /**
+     * Se encarga de modificar el view correspondiente para que se muestre la lista de gasolineras
+     * con cumpla con los filtros seleccionados.
+     * @param view
+     */
+    private void representarFiltros(View view) {
+        View viewGasoilPrecio = view.findViewById(R.id.textViewGasoleoA);
+        View viewGasoilLabel = view.findViewById(R.id.textViewGasoleoALabel);
+        View viewGasolinaPrecio = view.findViewById(R.id.textViewGasolina95);
+        View viewGasolinaLabel = view.findViewById(R.id.textViewGasolina95Label);
+        if(filtro.isGasoil() && filtro.isGasolina()){
+            viewGasoilPrecio.setVisibility(View.VISIBLE);
+            viewGasoilLabel.setVisibility(View.VISIBLE);
+            viewGasolinaPrecio.setVisibility(View.VISIBLE);
+            viewGasolinaLabel.setVisibility(View.VISIBLE);
+        }
+        if(filtro.isGasoil() && !filtro.isGasolina()){
+            viewGasoilPrecio.setVisibility(View.VISIBLE);
+            viewGasoilLabel.setVisibility(View.VISIBLE);
+            viewGasolinaPrecio.setVisibility(View.GONE);
+            viewGasolinaLabel.setVisibility(View.GONE);
+        }
+        if(!filtro.isGasoil() && filtro.isGasolina()){
+            viewGasoilPrecio.setVisibility(View.GONE);
+            viewGasoilLabel.setVisibility(View.GONE);
+            viewGasolinaPrecio.setVisibility(View.VISIBLE);
+            viewGasolinaLabel.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -226,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
             mSwipeRefreshLayout.setRefreshing(false);
 
             // Si se ha obtenido resultado en la tarea en segundo plano
-            if (res) {
+            if (Boolean.TRUE.equals(res)) {
                 // Definimos el array adapter
                 adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
 
@@ -324,21 +385,11 @@ public class MainActivity extends AppCompatActivity {
             gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
             gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
 
+            // se modifica el view para que cumpla con los filtros seleccionados.
+            representarFiltros(view);
+
             // carga icono
-            {
-                String rotuleImageID = gasolinera.getRotulo().toLowerCase();
-
-                // Tengo que protegerme ante el caso en el que el rotulo solo tiene digitos.
-                // En ese caso getIdentifier devuelve esos digitos en vez de 0.
-                int imageID = context.getResources().getIdentifier(rotuleImageID,
-                        "drawable", context.getPackageName());
-
-                if (imageID == 0 || TextUtils.isDigitsOnly(rotuleImageID)) {
-                    imageID = context.getResources().getIdentifier(getResources().getString(R.string.pordefecto),
-                            "drawable", context.getPackageName());
-                }
-                logo.setImageResource(imageID);
-            }
+            cargaIcono(logo,gasolinera);
 
 
             // Si las dimensiones de la pantalla son menores
@@ -359,6 +410,21 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return view;
+        }
+
+        public void cargaIcono(ImageView logo, Gasolinera gasolinera){
+            String rotuleImageID = gasolinera.getRotulo().toLowerCase();
+
+            // Tengo que protegerme ante el caso en el que el rotulo solo tiene digitos.
+            // En ese caso getIdentifier devuelve esos digitos en vez de 0.
+            int imageID = context.getResources().getIdentifier(rotuleImageID,
+                    "drawable", context.getPackageName());
+
+            if (imageID == 0 || TextUtils.isDigitsOnly(rotuleImageID)) {
+                imageID = context.getResources().getIdentifier(getResources().getString(R.string.pordefecto),
+                        "drawable", context.getPackageName());
+            }
+            logo.setImageResource(imageID);
         }
     }
 
