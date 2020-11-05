@@ -1,9 +1,5 @@
 package com.isunican.proyectobase.Views;
 
-import androidx.appcompat.app.AppCompatActivity;
-import com.isunican.proyectobase.Model.*;
-import com.isunican.proyectobase.R;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,11 +12,17 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.isunican.proyectobase.Model.Filtro;
+import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.R;
+
 import java.util.ArrayList;
 
 public class FilterActivity extends AppCompatActivity {
 
-    Button btnAceptar;
+    Button btnAplicarFiltros;
     Spinner spinnerMarca;
     Spinner spinnerProvincia;
     ArrayList<Gasolinera> gasolineras;
@@ -176,8 +178,8 @@ public class FilterActivity extends AppCompatActivity {
             }
         });
 
-        btnAceptar = findViewById(R.id.btnAceptar);
-        btnAceptar.setOnClickListener(new View.OnClickListener() {
+        btnAplicarFiltros = findViewById(R.id.btnAceptar);
+        btnAplicarFiltros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 aceptarFiltros(v);
