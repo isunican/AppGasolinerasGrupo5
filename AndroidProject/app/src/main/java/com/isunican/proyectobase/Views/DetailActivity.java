@@ -79,23 +79,17 @@ public class DetailActivity extends AppCompatActivity {
 
         btnFavoritos = findViewById(R.id.btnFavoritos);
         btnMapa = findViewById(R.id.btnMapa);
-        //TODO AQUI LES ASIGNARIAMOS UN ACTION LISTENER
+        generarImagen();
+    }
 
-        // Cargamos el icono de la gasolinera, aprovechando el código de
-        //la clase MainActivity.
-        //TODO Mas adelante, en el informe de calidad, esto puede detectarse como código duplicado,
-        //por lo que igual hay que hacer un método
-        {
-            String rotuleImageID = g.getRotulo().toLowerCase();
-            int imageID = context.getResources().getIdentifier(rotuleImageID,
+    public void generarImagen(){
+        String rotuleImageID = g.getRotulo().toLowerCase();
+        int imageID = context.getResources().getIdentifier(rotuleImageID,
+                "drawable", context.getPackageName());
+        if (imageID == 0 || TextUtils.isDigitsOnly(rotuleImageID)) {
+            imageID = context.getResources().getIdentifier(getResources().getString(R.string.pordefecto),
                     "drawable", context.getPackageName());
-            if (imageID == 0 || TextUtils.isDigitsOnly(rotuleImageID)) {
-                imageID = context.getResources().getIdentifier(getResources().getString(R.string.pordefecto),
-                        "drawable", context.getPackageName());
-            }
-            imagenGasolinera.setImageResource(imageID);
         }
-
-
+        imagenGasolinera.setImageResource(imageID);
     }
 }

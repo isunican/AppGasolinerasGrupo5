@@ -246,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
          * Metodo ejecutado de forma previa a la ejecucion de la tarea definida en el metodo doInBackground()
          * Muestra un diálogo de progreso
          */
+        @Deprecated
         @Override
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);  //To show ProgressBar
@@ -277,6 +278,7 @@ public class MainActivity extends AppCompatActivity {
          *
          * @param res
          */
+        @Deprecated
         @Override
         protected void onPostExecute(Boolean res) {
             Toast toast;
