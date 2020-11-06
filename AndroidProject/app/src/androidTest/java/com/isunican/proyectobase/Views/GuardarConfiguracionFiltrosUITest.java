@@ -1,4 +1,4 @@
-package com.isunican.proyectobase;
+package com.isunican.proyectobase.Views;
 
 import android.content.Context;
 
@@ -9,6 +9,7 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Views.MainActivity;
 
 import org.junit.Rule;
