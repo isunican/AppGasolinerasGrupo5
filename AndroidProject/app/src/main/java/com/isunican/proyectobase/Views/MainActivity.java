@@ -17,8 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -154,10 +157,15 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Se encarga de modificar el view correspondiente para que se muestre la lista de gasolineras
-     * con cumpla con los filtros seleccionados.
+     * que cumpla con los filtros seleccionados.
      * @param view
      */
     private void representarFiltros(View view) {
+        filtrarPorCombustible(view);
+        ordenarPorPrecio();
+    }
+
+    private void filtrarPorCombustible(View view){
         View viewGasoilPrecio = view.findViewById(R.id.textViewGasoleoA);
         View viewGasoilLabel = view.findViewById(R.id.textViewGasoleoALabel);
         View viewGasolinaPrecio = view.findViewById(R.id.textViewGasolina95);
@@ -180,6 +188,40 @@ public class MainActivity extends AppCompatActivity {
             viewGasolinaPrecio.setVisibility(View.VISIBLE);
             viewGasolinaLabel.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void ordenarPorPrecio(){
+        String ordenarPorPrecio = filtro.getOrdenarPorPrecio();
+        switch (ordenarPorPrecio){
+            case "":
+                // No se ha especificado nada, entonces no se ordena de ninguna manera por precio
+                break;
+            case "MayorAMenor":
+                ordenarPorPrecioMayorAMenor();
+                break;
+            case "MenorAMayor":
+                ordenarPorPrecioMenorAMayor();
+                break;
+
+        }
+    }
+
+    private void ordenarPorPrecioMenorAMayor() {
+        Collections.sort(presenterGasolineras.getGasolineras(), new Comparator<Gasolinera>() {
+            @Override
+            public int compare(Gasolinera g1, Gasolinera g2) {
+                return Double.compare(g1.getGasoleoA(), g2.getGasoleoA());
+            }
+        });
+    }
+
+    private void ordenarPorPrecioMayorAMenor(){
+        Collections.sort(presenterGasolineras.getGasolineras(), new Comparator<Gasolinera>() {
+            @Override
+            public int compare(Gasolinera g1, Gasolinera g2) {
+                return Double.compare(g2.getGasoleoA(), g1.getGasoleoA());
+            }
+        });
     }
 
 
@@ -367,12 +409,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            // Obtiene el elemento que se está mostrando
-            Gasolinera gasolinera = listaGasolineras.get(position);
-
             // Indica el layout a usar en cada elemento de la lista
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.item_gasolinera, null);
+
+            // Se modifica el view para que cumpla con los filtros seleccionados.
+            representarFiltros(view);
+
+            // Obtiene el elemento que se está mostrando
+            Gasolinera gasolinera = listaGasolineras.get(position);
+            Log.d("Gasolinera", ""+gasolinera.getDireccion());
 
             // Asocia las variables de dicho layout
             ImageView logo = view.findViewById(R.id.imageViewLogo);
@@ -387,8 +433,7 @@ public class MainActivity extends AppCompatActivity {
             gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
             gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
 
-            // se modifica el view para que cumpla con los filtros seleccionados.
-            representarFiltros(view);
+
 
             // carga icono
             cargaIcono(logo,gasolinera);

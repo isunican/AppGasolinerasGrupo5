@@ -43,18 +43,19 @@ public class FilterActivity extends AppCompatActivity {
     RadioButton rdistanciaMenorA;
 
     RadioButton rprecioMayorAMenor;
-    RadioButton rprecioMenorrAMayor;
+    RadioButton rprecioMenorAMayor;
 
     EditText textNumberDistancia;
 
     Switch switchGasoil;
     Switch switchGasolina;
 
-    String nombre = "";
-
     // Se crea el filtro
     private FiltroDAO filtroDAO;
     private Filtro filtro;
+
+    private String nombre = "";
+    private String ordenarPorPrecio = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +140,7 @@ public class FilterActivity extends AppCompatActivity {
 
         //Botones "mayor a menor" y "menor a mayor"
         rprecioMayorAMenor = findViewById(R.id.radioButtonAsc);
-        rprecioMenorrAMayor = findViewById(R.id.radioButtonDesc);
+        rprecioMenorAMayor = findViewById(R.id.radioButtonDesc);
 
         //Inicialmente están desactivados, ya que no se ha especificado ningún filtro.
         rdistanciaMayorA.setEnabled(false);
@@ -147,7 +148,7 @@ public class FilterActivity extends AppCompatActivity {
         textNumberDistancia.setEnabled(false);
 
         rprecioMayorAMenor.setEnabled(false);
-        rprecioMenorrAMayor.setEnabled(false);
+        rprecioMenorAMayor.setEnabled(false);
 
         //CheckBox que indica si se está filtrando por distancia
         checkDistancia = findViewById(R.id.checkDistancia);
@@ -185,10 +186,10 @@ public class FilterActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     rprecioMayorAMenor.setEnabled(true);
-                    rprecioMenorrAMayor.setEnabled(true);
+                    rprecioMenorAMayor.setEnabled(true);
                 } else {
                     rprecioMayorAMenor.setEnabled(false);
-                    rprecioMenorrAMayor.setEnabled(false);
+                    rprecioMenorAMayor.setEnabled(false);
                 }
             }
         });
@@ -217,7 +218,16 @@ public class FilterActivity extends AppCompatActivity {
      * Y se cierra esta activity(FilterActivity).
      */
     public void aceptarFiltros() {
-        Filtro filtroSeleccionado = new Filtro(nombre, switchGasoil.isChecked(), switchGasolina.isChecked());
+        // Checkea si esta dada la cajita de ordenar por precio, y un boton de ordenar
+        ordenarPorPrecio = "";
+        if(checkPrecio.isChecked()){
+            if(rprecioMayorAMenor.isChecked()){
+                ordenarPorPrecio = "MayorAMenor";
+            }else if(rprecioMenorAMayor.isChecked()){
+                    ordenarPorPrecio = "MenorAMayor";
+            }
+        }
+        Filtro filtroSeleccionado = new Filtro(nombre, switchGasoil.isChecked(), switchGasolina.isChecked(), ordenarPorPrecio);
         Intent intent = new Intent().putExtra("filtro", filtroSeleccionado);
         setResult(RESULT_OK, intent);
         finish();
