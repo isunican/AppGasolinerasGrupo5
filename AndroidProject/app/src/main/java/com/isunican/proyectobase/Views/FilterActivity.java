@@ -83,8 +83,7 @@ public class FilterActivity extends AppCompatActivity {
 
         gasolineras = (ArrayList<Gasolinera>) getIntent().getSerializableExtra("list_gasolineras");
 
-        //La primera opción debe ser "nada seleccionado"
-        marcas.add("Ninguna");
+        marcas.add("Todas");
         provincias.add("Ninguna");
 
         //Rellenamos las listas locales para que tengan toda la información de marcas
@@ -160,7 +159,6 @@ public class FilterActivity extends AppCompatActivity {
         checkPrecio.setEnabled(false);
         checkDistancia.setEnabled(false);
         spinnerProvincia.setEnabled(false);
-        spinnerMarca.setEnabled(false);
 
         //Si el usuario indica que quiere filtrar por distancia, se habilitan los botones
         //de selección de orden y la caja de texto.
