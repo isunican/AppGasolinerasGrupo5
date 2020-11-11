@@ -72,6 +72,7 @@ public class PresenterGasolineras {
      * @param
      * @return boolean
      */
+    /**
     public boolean cargaDatosDummy(){
         this.gasolineras.add(new Gasolinera(1000,SANTANDER,SANTANDER, "Av Valdecilla", 1.299,1.359,"AVIA"));
         this.gasolineras.add(new Gasolinera(1053,SANTANDER,SANTANDER, "Plaza Matias Montero", 1.270,1.349,"CAMPSA"));
@@ -79,7 +80,7 @@ public class PresenterGasolineras {
         this.gasolineras.add(new Gasolinera(9564,SANTANDER,SANTANDER, "Av Parayas", 1.189,1.269,"EASYGAS"));
         this.gasolineras.add(new Gasolinera(1025,SANTANDER,SANTANDER, "Calle el Empalme", 1.259,1.319,"CARREFOUR"));
         return true;
-    }
+    }**/
 
     /**
      * cargaDatosLocales

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,10 +14,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 
 import com.isunican.proyectobase.DataBase.Filtro;
 import com.isunican.proyectobase.DataBase.FiltroDAO;
@@ -29,6 +30,8 @@ public class FilterActivity extends AppCompatActivity {
 
     Button btnGuardarConfig;
     Button btnAplicarFiltros;
+    Button btnCombustibles;
+
     Spinner spinnerMarca;
     Spinner spinnerProvincia;
     ArrayList<Gasolinera> gasolineras;
@@ -46,9 +49,6 @@ public class FilterActivity extends AppCompatActivity {
     RadioButton rprecioMenorrAMayor;
 
     EditText textNumberDistancia;
-
-    Switch switchGasoil;
-    Switch switchGasolina;
 
     String nombre = "";
 
@@ -68,15 +68,6 @@ public class FilterActivity extends AppCompatActivity {
         filtroDAO = FiltroDAO.get(this);
         filtro = getIntent().getExtras().getParcelable("filtro");
 
-        switchGasoil = findViewById(R.id.switchGasoil);
-        switchGasolina = findViewById(R.id.switchGasolina);
-        // Se representa los switches acorde con el filtro correspondiente activo
-        if(filtro.isGasolina()){
-            switchGasolina.setChecked(true);
-        }
-        if(filtro.isGasoil()){
-            switchGasoil.setChecked(true);
-        }
 
         marcas = new ArrayList<String>();
         provincias = new ArrayList<String>();
@@ -202,6 +193,7 @@ public class FilterActivity extends AppCompatActivity {
             }
         });
 
+
         btnAplicarFiltros = findViewById(R.id.btnAceptar);
         btnAplicarFiltros.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,6 +202,13 @@ public class FilterActivity extends AppCompatActivity {
             }
         });
 
+        btnCombustibles = findViewById(R.id.btnCombustibles);
+        btnCombustibles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarListaCombustibles();
+            }
+        });
     }
 
     /**
@@ -218,10 +217,55 @@ public class FilterActivity extends AppCompatActivity {
      * Y se cierra esta activity(FilterActivity).
      */
     public void aceptarFiltros() {
-        Filtro filtroSeleccionado = new Filtro(nombre, switchGasoil.isChecked(), switchGasolina.isChecked());
+        Filtro filtroSeleccionado = new Filtro();
         Intent intent = new Intent().putExtra("filtro", filtroSeleccionado);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    public void mostrarListaCombustibles() {
+        final String[] combustibles = new String[]{"TODOS", "GASOLEO A", "GASOLEO B",
+                "GASOLEO PREMIUM", "GASOLINA 95 E10", "GASOLINA 95 E5",
+                "GASOLINA 95 E5 PREMIUM", "GASOLINA 98 E10", "GASOLINA 98 E5",
+                "BIODIESEL", "BIOETANOL", "GAS NATURAL COMPRIMIDO", "GAS NATURAL LICUADO",
+                "GASES LICUADOS PETROLEO", "HIDROGENO"};
+        final ArrayList<Integer> itemsSelected = new ArrayList<Integer>();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(("Combustibles"));
+
+        //Opción por defecto: TODOS
+        final boolean[] checked = new boolean[]{ true, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false,};
+
+        builder.setMultiChoiceItems(combustibles, checked, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int selectedItemId, boolean isChecked) {
+                if (isChecked) {
+                    itemsSelected.add(selectedItemId);
+                } else if (itemsSelected.contains(selectedItemId)) {
+
+                    itemsSelected.remove(Integer.valueOf(selectedItemId));
+                }
+            }
+        });
+
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //TODO Aquí habría que hacer cosas con las opciones que se hayan seleccionado
+            }
+        });
+
+        builder.setNegativeButton("Atrás", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+
+        AlertDialog dialogCombustibles = builder.create();
+        dialogCombustibles.setCanceledOnTouchOutside(false);
+        dialogCombustibles.show();
     }
 
     public void createConfirmationDialog() {
@@ -241,8 +285,6 @@ public class FilterActivity extends AppCompatActivity {
                 } else {
                     // Añade nueva configuración de filtro a la base de datos de filtros
                     filtro.setNombre(nombre);
-                    filtro.setGasoil(switchGasoil.isChecked());
-                    filtro.setGasolina(switchGasolina.isChecked());
                     filtroDAO.addFiltro(filtro);
                     toast = Toast.makeText(getApplicationContext(), "Configuración guardada", Toast.LENGTH_LONG);
                 }

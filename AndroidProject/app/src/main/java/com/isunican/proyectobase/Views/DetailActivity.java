@@ -72,7 +72,7 @@ public class DetailActivity extends AppCompatActivity {
         rotulo.setText(g.getRotulo());
         direccion.setText(g.getDireccion());
         localidad.setText(g.getLocalidad());
-        precioGasolina.setText(Double.toString(g.getGasolina95()) + "€");
+        precioGasolina.setText(Double.toString(g.getGasolina95E5()) + "€");
         precioGasoil.setText(Double.toString(g.getGasoleoA()) + "€");
 
         context = this;

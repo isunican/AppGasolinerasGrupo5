@@ -79,23 +79,17 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="#99FFFFFF"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <Switch
-                            android:id="@+id/switchGasoil"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="20dp"
-                            android:layout_weight="1"
-                            android:text="Gasoil" />
 
-                        <Switch
-                            android:id="@+id/switchGasolina"
-                            android:layout_width="wrap_content"
+
+                        <Button
+                            android:id="@+id/btnCombustibles"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="20dp"
                             android:layout_weight="1"
-                            android:text="Gasolina" />
+                            android:text="Mostrar tipos"
+                            tools:text="Mostrar tipos" />
                     </LinearLayout>
 
                 </TableRow>
