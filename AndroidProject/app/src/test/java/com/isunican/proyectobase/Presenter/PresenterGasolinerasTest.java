@@ -24,12 +24,13 @@ public class PresenterGasolinerasTest {
     Comprueba que se cargan los datos de las 5 gasolineras correctamente
      */
 
+
     /* UT.2a */
-    @Test
-    public void cargaDatosDummyTest(){
-        sut.cargaDatosDummy();
-        assertEquals(sut.getGasolineras().size(), 5);
-    }
+    //@Test
+    //public void cargaDatosDummyTest(){
+    //   sut.cargaDatosDummy();
+    //  assertEquals(sut.getGasolineras().size(), 5);
+    //}
 
     /* UT.2b */
     @Test
