@@ -431,7 +431,7 @@ public class MainActivity extends AppCompatActivity {
             rotulo.setText(gasolinera.getRotulo());
             direccion.setText(gasolinera.getDireccion());
             gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
-            gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
+            gasolina95.setText(" " + gasolinera.getGasolina95E5() + getResources().getString(R.string.moneda));
 
 
 

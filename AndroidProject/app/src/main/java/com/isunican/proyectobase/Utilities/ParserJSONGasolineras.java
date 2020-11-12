@@ -106,7 +106,19 @@ public class ParserJSONGasolineras {
         String direccion = "";
         int id = -1;
         double gasoleoA = 0.0;
-        double sinplomo95 = 0.0;
+        double gasolina95E5 = 0.0;
+        double biodiesel = 0.0;
+        double bioetanol = 0.0;
+        double gasNaturalComprimido = 0.0;
+        double gasNaturalLicuado = 0.0;
+        double gasesLicuadosPetroleo = 0.0;
+        double gasoleoB = 0.0;
+        double gasoleoPremium = 0.0;
+        double gasolina95E10 = 0.0;
+        double gasolina95E5Premium = 0.0;
+        double gasolina98E10 = 0.0;
+        double gasolina98E5 = 0.0;
+        double hidrogeno = 0.0;
 
         while(reader.hasNext()){
             String name = reader.nextName();
@@ -122,16 +134,45 @@ public class ParserJSONGasolineras {
             }else if(name.equals("Precio Gasoleo A") && reader.peek() != JsonToken.NULL) {
                 gasoleoA = parseDouble(reader.nextString().replace(",", "."));
             }else if(name.equals("Precio Gasolina 95 E5") && reader.peek() != JsonToken.NULL) {
-                sinplomo95 = parseDouble(reader.nextString().replace(",", "."));
-            }else if(name.equals("Dirección")){
+                gasolina95E5 = parseDouble(reader.nextString().replace(",", "."));
+            }else if(name.equals("Dirección")) {
                 direccion = reader.nextString();
+            }else if(name.equals("Precio Biodiesel")){
+                biodiesel = parseDouble(reader.nextString().replace(",", "."));
+            }else if(name.equals("Precio Bioetanol")){
+                bioetanol = parseDouble(reader.nextString().replace(",", "."));
+            }else if(name.equals("Precio Gas Natural Comprimido")){
+                gasNaturalComprimido = parseDouble(reader.nextString().replace(",", "."));
+            }else if(name.equals("Precio Gas Natural Licuado")){
+                gasNaturalLicuado = parseDouble(reader.nextString().replace(",", "."));
+            }else if(name.equals("Precio Gases licuados del petróleo")){
+                gasesLicuadosPetroleo = parseDouble(reader.nextString().replace(",", "."));
+            }else if(name.equals("Precio Gasoleo B")){
+                gasoleoB = parseDouble(reader.nextString().replace(",", "."));
+            }else if(name.equals("Precio Gasoleo Premium")){
+                gasoleoPremium = parseDouble(reader.nextString().replace(",", "."));
+            }else if(name.equals("Precio Gasolina 95 E10")){
+                gasolina95E10 = parseDouble(reader.nextString().replace(",", "."));
+            }else if(name.equals("Precio Gasolina 95 E5")){
+                gasolina95E5 = parseDouble(reader.nextString().replace(",", "."));
+            }else if(name.equals("Precio Gasolina 98 E10")){
+                gasolina98E10 = parseDouble(reader.nextString().replace(",", "."));
+            }else if(name.equals("Precio Gasolina 98 E5")){
+                gasolina98E5 = parseDouble(reader.nextString().replace(",", "."));
+            }else if(name.equals("Precio Hidrogeno")){
+                hidrogeno = parseDouble(reader.nextString().replace(",", "."));
+            }else if(name.equals("Precio Gasolina 95 E5 Premium")){
+                gasolina95E5Premium = parseDouble(reader.nextString().replace(",", "."));
             }else{
                 reader.skipValue();
             }
 
         }
         reader.endObject();
-        return new Gasolinera(id,localidad,provincia,direccion,gasoleoA, sinplomo95,rotulo);
+        return new Gasolinera(id,localidad,provincia,direccion,biodiesel,
+                bioetanol,gasNaturalComprimido,gasNaturalLicuado,gasesLicuadosPetroleo,
+                gasoleoA,gasoleoB,gasoleoPremium,gasolina95E10,gasolina95E5,gasolina95E5Premium,
+                gasolina98E10,gasolina98E5,hidrogeno,rotulo);
     }
 
     private static double parseDouble(String str) {
