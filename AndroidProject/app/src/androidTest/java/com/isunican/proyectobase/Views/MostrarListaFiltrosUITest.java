@@ -49,11 +49,11 @@ public class MostrarListaFiltrosUITest {
         //Entramos en la lista de Filtros
         onView(withId(R.id.btnListaFiltros)).perform(click());
         //Comprobamos el estado de los componentes
-        onView(withId(R.id.switchGasoil)).check(matches(withText("Gasoil")));
-        onView(withId(R.id.switchGasolina)).check(matches(withText("Gasolina")));
+        //onView(withId(R.id.switchGasoil)).check(matches(withText("Gasoil")));
+        //onView(withId(R.id.switchGasolina)).check(matches(withText("Gasolina")));
 
-        onView(withId(R.id.switchGasoil)).check(matches(isChecked()));
-        onView(withId(R.id.switchGasolina)).check(matches(isNotChecked()));
+        //onView(withId(R.id.switchGasoil)).check(matches(isChecked()));
+        //onView(withId(R.id.switchGasolina)).check(matches(isNotChecked()));
 
         onView(withId(R.id.checkFavoritos)).check(matches(isNotChecked()));
 

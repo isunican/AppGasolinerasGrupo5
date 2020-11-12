@@ -19,6 +19,7 @@ import android.util.DisplayMetrics;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -90,6 +91,15 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.por_defecto_mod);
 
+        // Filtro
+        FiltroDAO filtroDAO = FiltroDAO.get(this);
+        filtro = new Filtro();
+        // Si la base de datos esta vacía, eso quiere decir que es la primera vez que se usa esta app
+        // en este dispositivo, se carga en la base de datos el filtro por defecto
+        if(filtroDAO.getFiltro("DEFECTO")==null){
+            filtroDAO.addFiltro(filtro);
+        }
+
         // Swipe and refresh
         // Al hacer swipe en la lista, lanza la tarea asíncrona de carga de datos
         mSwipeRefreshLayout = findViewById(R.id.swiperefresh);
@@ -113,14 +123,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Filtro
-        FiltroDAO filtroDAO = FiltroDAO.get(this);
-        filtro = new Filtro();
-        // Si la base de datos esta vacía, eso quiere decir que es la primera vez que se usa esta app
-        // en este dispositivo, se carga en la base de datos el filtro por defecto
-        if(filtroDAO.getFiltro("DEFECTO")==null){
-            filtroDAO.addFiltro(filtro);
-        }
     }
 
     //Abrir menú filtros
@@ -162,23 +164,25 @@ public class MainActivity extends AppCompatActivity {
         View viewGasoilLabel = view.findViewById(R.id.textViewGasoleoALabel);
         View viewGasolinaPrecio = view.findViewById(R.id.textViewGasolina95);
         View viewGasolinaLabel = view.findViewById(R.id.textViewGasolina95Label);
-        if(filtro.isGasoil() && filtro.isGasolina()){
-            viewGasoilPrecio.setVisibility(View.VISIBLE);
-            viewGasoilLabel.setVisibility(View.VISIBLE);
-            viewGasolinaPrecio.setVisibility(View.VISIBLE);
-            viewGasolinaLabel.setVisibility(View.VISIBLE);
-        }
-        if(filtro.isGasoil() && !filtro.isGasolina()){
-            viewGasoilPrecio.setVisibility(View.VISIBLE);
-            viewGasoilLabel.setVisibility(View.VISIBLE);
-            viewGasolinaPrecio.setVisibility(View.GONE);
-            viewGasolinaLabel.setVisibility(View.GONE);
-        }
-        if(!filtro.isGasoil() && filtro.isGasolina()){
-            viewGasoilPrecio.setVisibility(View.GONE);
-            viewGasoilLabel.setVisibility(View.GONE);
-            viewGasolinaPrecio.setVisibility(View.VISIBLE);
-            viewGasolinaLabel.setVisibility(View.VISIBLE);
+
+
+        for(String combustible : filtro.getCombustibles()){
+            switch (combustible){
+                case "TODOS":
+                    viewGasoilPrecio.setVisibility(View.VISIBLE);
+                    viewGasoilLabel.setVisibility(View.VISIBLE);
+                    viewGasolinaPrecio.setVisibility(View.VISIBLE);
+                    viewGasolinaLabel.setVisibility(View.VISIBLE);
+                    break;
+                case "GASOLEO A":
+                    viewGasoilPrecio.setVisibility(View.VISIBLE);
+                    viewGasoilLabel.setVisibility(View.VISIBLE);
+                    break;
+                case "GASOLINA 95 E5":
+                    viewGasolinaPrecio.setVisibility(View.VISIBLE);
+                    viewGasolinaLabel.setVisibility(View.VISIBLE);
+                    break;
+            }
         }
     }
 

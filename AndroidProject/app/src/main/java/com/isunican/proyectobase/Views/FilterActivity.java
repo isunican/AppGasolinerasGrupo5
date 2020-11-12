@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -50,11 +51,14 @@ public class FilterActivity extends AppCompatActivity {
 
     EditText textNumberDistancia;
 
-    String nombre = "";
+
 
     // Se crea el filtro
     private FiltroDAO filtroDAO;
     private Filtro filtro;
+
+    private String nombre = "";
+    private ArrayList<String> combustiblesSeleccionados = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,7 +220,7 @@ public class FilterActivity extends AppCompatActivity {
      * Y se cierra esta activity(FilterActivity).
      */
     public void aceptarFiltros() {
-        Filtro filtroSeleccionado = new Filtro();
+        Filtro filtroSeleccionado = new Filtro(nombre, combustiblesSeleccionados);
         Intent intent = new Intent().putExtra("filtro", filtroSeleccionado);
         setResult(RESULT_OK, intent);
         finish();
@@ -229,6 +233,7 @@ public class FilterActivity extends AppCompatActivity {
                 "BIODIESEL", "BIOETANOL", "GAS NATURAL COMPRIMIDO", "GAS NATURAL LICUADO",
                 "GASES LICUADOS PETROLEO", "HIDROGENO"};
         final ArrayList<Integer> itemsSelected = new ArrayList<Integer>();
+        itemsSelected.add(0); // es la opción todos
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(("Combustibles"));
 
@@ -242,7 +247,6 @@ public class FilterActivity extends AppCompatActivity {
                 if (isChecked) {
                     itemsSelected.add(selectedItemId);
                 } else if (itemsSelected.contains(selectedItemId)) {
-
                     itemsSelected.remove(Integer.valueOf(selectedItemId));
                 }
             }
@@ -251,7 +255,13 @@ public class FilterActivity extends AppCompatActivity {
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //TODO Aquí habría que hacer cosas con las opciones que se hayan seleccionado
+                Log.d("COMBUSTIBLE", "length"+itemsSelected.size());
+                for(int i=0; i<itemsSelected.size(); i++){
+                     Log.d("COMBUSTIBLE", "SELECCIONADO "+combustibles[itemsSelected.get(i)]);
+                    combustiblesSeleccionados.add(combustibles[itemsSelected.get(i)]);
+                }
+
+
             }
         });
 

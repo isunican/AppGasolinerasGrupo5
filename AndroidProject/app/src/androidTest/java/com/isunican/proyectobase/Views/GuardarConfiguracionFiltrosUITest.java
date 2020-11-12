@@ -55,8 +55,8 @@ public class GuardarConfiguracionFiltrosUITest {
         onView(withId(R.id.btnListaFiltros)).perform(click());
         //Posible Selección de filtros
         onView(withId(R.id.btnGuardarConfig)).check(matches(withText("GUARDAR CONFIGURACIÓN")));
-        onView(withId(R.id.switchGasoil)).perform(click());
-        onView(withId(R.id.switchGasolina)).perform(click());
+        //onView(withId(R.id.switchGasoil)).perform(click());
+        //onView(withId(R.id.switchGasolina)).perform(click());
         /**onView(withId(R.id.spinnerProvincia)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("CANTABRIA"))).perform(click());
         onView(withId(R.id.spinnerMarca)).perform(click());
