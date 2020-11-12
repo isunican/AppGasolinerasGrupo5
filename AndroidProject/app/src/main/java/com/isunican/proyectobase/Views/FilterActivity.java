@@ -148,7 +148,6 @@ public class FilterActivity extends AppCompatActivity {
         checkFavoritos = findViewById(R.id.checkFavoritos);
         //TODO De momento estas funciones están desactivadas
         checkFavoritos.setEnabled(false);
-        checkPrecio.setEnabled(false);
         checkDistancia.setEnabled(false);
         spinnerProvincia.setEnabled(false);
         spinnerMarca.setEnabled(false);
