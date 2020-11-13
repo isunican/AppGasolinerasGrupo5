@@ -6,6 +6,9 @@ import android.os.Parcelable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import java.util.ArrayList;
 
 /**
  * Clase que representa la tabla filtro.
@@ -16,21 +19,20 @@ public class Filtro implements Parcelable {
     private int id;
     @ColumnInfo(name = "nombre")
     public String nombre;
-    @ColumnInfo(name = "gasoil")
-    public boolean gasoil;
-    @ColumnInfo(name = "gasolina")
-    public boolean gasolina;
+    @TypeConverters(Converters.class)
+    @ColumnInfo(name = "combustibles")
+    public ArrayList<String> combustibles;
+
 
     public Filtro(){
         nombre = "DEFECTO";
-        gasoil = true;
-        gasolina = false;
+        combustibles = new ArrayList<>();
+        combustibles.add("TODOS");
     }
 
-    public Filtro(String nombre, boolean gasoil, boolean gasolina) {
+    public Filtro(String nombre, ArrayList<String> combustibles) {
         this.nombre = nombre;
-        this.gasoil = gasoil;
-        this.gasolina = gasolina;
+        this.combustibles = combustibles;
     }
 
     public int getId() {
@@ -49,20 +51,12 @@ public class Filtro implements Parcelable {
         this.nombre = nombre;
     }
 
-    public boolean isGasoil() {
-        return gasoil;
+    public ArrayList<String> getCombustibles() {
+        return combustibles;
     }
 
-    public void setGasoil(boolean gasoil) {
-        this.gasoil = gasoil;
-    }
-
-    public boolean isGasolina() {
-        return gasolina;
-    }
-
-    public void setGasolina(boolean gasolina) {
-        this.gasolina = gasolina;
+    public void setCombustibles(ArrayList<String> combustibles) {
+        this.combustibles = combustibles;
     }
 
     @Override
@@ -74,15 +68,13 @@ public class Filtro implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(nombre);
-        dest.writeByte((byte) (gasoil ? 1 : 0));
-        dest.writeByte((byte) (gasolina ? 1 : 0));
+        dest.writeList(combustibles);
     }
 
     protected Filtro(Parcel in) {
         id = in.readInt();
         nombre = in.readString();
-        gasoil = in.readByte() != 0;
-        gasolina = in.readByte() != 0;
+        combustibles = in.readArrayList(null);
     }
 
     public static final Creator<Filtro> CREATOR = new Creator<Filtro>() {
