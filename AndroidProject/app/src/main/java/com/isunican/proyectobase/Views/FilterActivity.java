@@ -5,9 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.util.Log;
-
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,13 +18,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import com.isunican.proyectobase.DataBase.Filtro;
 import com.isunican.proyectobase.DataBase.FiltroDAO;
 import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FilterActivity extends AppCompatActivity {
 
@@ -36,9 +34,9 @@ public class FilterActivity extends AppCompatActivity {
 
     Spinner spinnerMarca;
     Spinner spinnerProvincia;
-    ArrayList<Gasolinera> gasolineras;
-    ArrayList<String> marcas;
-    ArrayList<String> provincias;
+    List<Gasolinera> gasolineras;
+    List<String> marcas;
+    List<String> provincias;
 
     CheckBox checkDistancia;
     CheckBox checkPrecio;
@@ -58,7 +56,7 @@ public class FilterActivity extends AppCompatActivity {
     private Filtro filtro;
 
     private String nombre = "";
-    private ArrayList<String> combustiblesSeleccionados = new ArrayList<>();
+    private List<String> combustiblesSeleccionados = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -303,6 +301,8 @@ public class FilterActivity extends AppCompatActivity {
                 case "HIDROGENO":
                     itemsSelected.add(14);
                     checked[14] = true;
+                    break;
+                default:
                     break;
             }
         }
