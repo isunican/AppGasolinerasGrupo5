@@ -6,7 +6,7 @@
     <!-- Dimension logo gasolinera -->
     <dimen name="logo">60dp</dimen>
     <dimen name="marginLogo">10dp</dimen>
-    <dimen name="marginTextView">10dp</dimen>
+    <dimen name="marginTextView">8dp</dimen>
     <dimen name="marginTopLayoutPrecios">2dp</dimen>
     <dimen name="marginLeftPrecios">20dp</dimen>
     <dimen name="marginLabelsPrecio">5dp</dimen>
