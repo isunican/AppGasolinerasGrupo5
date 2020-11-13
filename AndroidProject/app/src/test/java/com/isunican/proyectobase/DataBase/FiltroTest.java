@@ -9,18 +9,20 @@ public class FiltroTest {
     private Filtro filtroConNombre;
     private Filtro filtroDefecto;
 
+    /*
     @Before
     public void setUp() {
         filtroConNombre=new Filtro("Gasolina solo", false, true);
         filtroDefecto=new Filtro();
     }
-
+    */
      /*
     Comprueba que al modificar el filtro de busqueda por tipo de combustible cambia
     correctamente los parametros de las gasolineras mostradas.
      */
 
     /* UT.1a */
+    /*
     @Test
     public void combustibleMostradoPorDefectoTest(){
 
@@ -29,6 +31,7 @@ public class FiltroTest {
     }
 
     /* UT.1b */
+    /*
     @Test
     public void modificaCombustibleTest(){
         filtroDefecto.setGasoil(false);
@@ -38,6 +41,7 @@ public class FiltroTest {
     }
 
     /* UT.1c */
+    /*
     @Test
     public void quitarFiltrosTest(){
         filtroDefecto.setGasoil(false);
@@ -49,6 +53,7 @@ public class FiltroTest {
     /**
      * Comprobamos si el nombre del filtro a anhadir escrito es correcto
      */
+    /*
     @Test
     public void filtroCorrectoTest() {
         //Caso en el que el nombre elegido es correcto
@@ -57,4 +62,6 @@ public class FiltroTest {
         //Caso en el que el nombre por defecto es correcto
         assertEquals(filtroDefecto.getNombre(),"DEFECTO");
     }
+
+     */
 }
