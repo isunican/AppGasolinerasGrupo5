@@ -27,7 +27,7 @@ public class Filtro implements Parcelable {
     public Filtro(){
         nombre = "DEFECTO";
         combustibles = new ArrayList<>();
-        combustibles.add("TODOS");
+        combustibles.add("GASOLEO A");
     }
 
     public Filtro(String nombre, ArrayList<String> combustibles) {
