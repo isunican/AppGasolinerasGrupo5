@@ -5,8 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.util.Log;
-import android.view.LayoutInflater;
+
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -52,7 +53,6 @@ public class FilterActivity extends AppCompatActivity {
     EditText textNumberDistancia;
 
 
-
     // Se crea el filtro
     private FiltroDAO filtroDAO;
     private Filtro filtro;
@@ -71,10 +71,10 @@ public class FilterActivity extends AppCompatActivity {
         // Filtro
         filtroDAO = FiltroDAO.get(this);
         filtro = getIntent().getExtras().getParcelable("filtro");
+        combustiblesSeleccionados = filtro.getCombustibles();
 
-
-        marcas = new ArrayList<String>();
-        provincias = new ArrayList<String>();
+        marcas = new ArrayList<>();
+        provincias = new ArrayList<>();
 
         gasolineras = (ArrayList<Gasolinera>) getIntent().getSerializableExtra("list_gasolineras");
 
@@ -232,14 +232,33 @@ public class FilterActivity extends AppCompatActivity {
                 "GASOLINA 95 E5 PREMIUM", "GASOLINA 98 E10", "GASOLINA 98 E5",
                 "BIODIESEL", "BIOETANOL", "GAS NATURAL COMPRIMIDO", "GAS NATURAL LICUADO",
                 "GASES LICUADOS PETROLEO", "HIDROGENO"};
+
         final ArrayList<Integer> itemsSelected = new ArrayList<Integer>();
-        itemsSelected.add(0); // es la opción todos
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(("Combustibles"));
 
         //Opción por defecto: TODOS
-        final boolean[] checked = new boolean[]{ true, false, false, false, false, false, false,
+        final boolean[] checked = new boolean[]{false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false,};
+
+        //Mantiene las cajas seleccionadas
+        for (String combustible : combustiblesSeleccionados) {
+            switch (combustible) {
+                case "TODOS":
+                    itemsSelected.add(0); // es la opción todos
+                    checked[0] = true;
+                    break;
+                case "GASOLEO A":
+                    itemsSelected.add(1); // es la opción todos
+                    checked[1] = true;
+                    break;
+                case "GASOLINA 95 E5":
+                    itemsSelected.add(5); // es la opción todos
+                    checked[5] = true;
+                    break;
+            }
+        }
+
 
         builder.setMultiChoiceItems(combustibles, checked, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
@@ -255,9 +274,10 @@ public class FilterActivity extends AppCompatActivity {
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Log.d("COMBUSTIBLE", "length"+itemsSelected.size());
-                for(int i=0; i<itemsSelected.size(); i++){
-                     Log.d("COMBUSTIBLE", "SELECCIONADO "+combustibles[itemsSelected.get(i)]);
+                combustiblesSeleccionados = new ArrayList<>();
+                Log.d("COMBUSTIBLE", "length" + combustiblesSeleccionados.size());
+                for (int i = 0; i < itemsSelected.size(); i++) {
+                    Log.d("COMBUSTIBLE", "SELECCIONADO " + combustibles[itemsSelected.get(i)]);
                     combustiblesSeleccionados.add(combustibles[itemsSelected.get(i)]);
                 }
 
@@ -268,6 +288,7 @@ public class FilterActivity extends AppCompatActivity {
         builder.setNegativeButton("Atrás", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                // TODO Aquí habría que hacer cosas con las opciones que se hayan seleccionado
             }
         });
 
@@ -299,11 +320,12 @@ public class FilterActivity extends AppCompatActivity {
                 }
                 toast.show();
             }
-            });
+        });
 
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {}
+            public void onClick(DialogInterface dialog, int which) {
+            }
         });
         AlertDialog confirmation = builder.create();
         confirmation.show();
