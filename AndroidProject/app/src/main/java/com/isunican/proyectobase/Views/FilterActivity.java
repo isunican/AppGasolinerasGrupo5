@@ -5,8 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.util.Log;
-import android.view.LayoutInflater;
+
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -72,8 +73,8 @@ public class FilterActivity extends AppCompatActivity {
         filtro = getIntent().getExtras().getParcelable("filtro");
         combustiblesSeleccionados = filtro.getCombustibles();
 
-        marcas = new ArrayList<String>();
-        provincias = new ArrayList<String>();
+        marcas = new ArrayList<>();
+        provincias = new ArrayList<>();
 
         gasolineras = (ArrayList<Gasolinera>) getIntent().getSerializableExtra("list_gasolineras");
 
@@ -231,6 +232,7 @@ public class FilterActivity extends AppCompatActivity {
                 "GASOLINA 95 E5 PREMIUM", "GASOLINA 98 E10", "GASOLINA 98 E5",
                 "BIODIESEL", "BIOETANOL", "GAS NATURAL COMPRIMIDO", "GAS NATURAL LICUADO",
                 "GASES LICUADOS PETROLEO", "HIDROGENO"};
+
         final ArrayList<Integer> itemsSelected = new ArrayList<Integer>();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(("Combustibles"));
@@ -286,6 +288,7 @@ public class FilterActivity extends AppCompatActivity {
         builder.setNegativeButton("Atrás", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                // TODO Aquí habría que hacer cosas con las opciones que se hayan seleccionado
             }
         });
 
