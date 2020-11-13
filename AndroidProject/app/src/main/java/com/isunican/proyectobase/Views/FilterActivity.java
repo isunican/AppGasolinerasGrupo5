@@ -362,6 +362,7 @@ public class FilterActivity extends AppCompatActivity {
                 } else {
                     // Añade nueva configuración de filtro a la base de datos de filtros
                     filtro.setNombre(nombre);
+                    filtro.setCombustibles(combustiblesSeleccionados);
                     filtroDAO.addFiltro(filtro);
                     toast = Toast.makeText(getApplicationContext(), "Configuración guardada", Toast.LENGTH_LONG);
                 }
