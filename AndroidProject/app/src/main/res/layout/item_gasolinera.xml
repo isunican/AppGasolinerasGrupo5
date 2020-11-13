@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayoutGasolinera"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,16 +11,15 @@
         android:id="@+id/imageViewLogo"
         android:layout_width="@dimen/logo"
         android:layout_height="@dimen/logo"
-        android:layout_marginBottom="@dimen/marginLogo"
         android:layout_marginLeft="@dimen/marginLogo"
+        android:layout_marginTop="@dimen/marginLogo"
         android:layout_marginRight="@dimen/marginLogo"
-        android:layout_marginTop="@dimen/marginLogo" />
+        android:layout_marginBottom="@dimen/marginLogo" />
 
     <TextView
         android:id="@+id/textViewRotulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marginTextView"
         android:layout_marginTop="@dimen/marginTextView"
         android:layout_toRightOf="@+id/imageViewLogo"
         android:textStyle="bold" />
@@ -28,52 +29,307 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewRotulo"
-        android:layout_marginLeft="@dimen/marginTextView"
         android:layout_marginTop="@dimen/marginTopLayoutPrecios"
         android:layout_toRightOf="@+id/imageViewLogo" />
 
-    <RelativeLayout
-        android:id="@+id/relativeLayoutPrecios"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewDireccion"
         android:layout_marginTop="@dimen/marginTopLayoutPrecios"
-        android:layout_toRightOf="@id/imageViewLogo">
+        android:layout_toRightOf="@id/imageViewLogo"
+        android:layout_marginBottom="20dp">
 
-        <TextView
-            android:id="@+id/textViewGasoleoALabel"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/relativeLayoutPrecios"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/marginLeftPrecios"
-            android:text="@string/gasoleoa"
-            android:textStyle="bold"
-            android:visibility="gone" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textViewGasoleoA"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/marginLabelsPrecio"
-            android:layout_toRightOf="@+id/textViewGasoleoALabel"
-            android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/textViewGasolina95Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/marginTextView"
-            android:layout_toRightOf="@+id/textViewGasoleoA"
-            android:text="@string/gasolina95"
-            android:textStyle="bold"
-            android:visibility="gone" />
+            <TextView
+                android:id="@+id/textViewGasoleoALabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gasoleoa"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textViewGasolina95"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/marginLabelsPrecio"
-            android:layout_toRightOf="@+id/textViewGasolina95Label"
-            android:visibility="gone" />
+            <TextView
+                android:id="@+id/textViewGasoleoA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewGasoleoALabel"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/textViewGasoleoALabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewGasoleoALabel" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/textViewGasoleoBLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewGasoleoALabel"
+                android:layout_alignParentStart="true"
+                android:text="@string/gasoleoB"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGasoleoALabel" />
+
+            <TextView
+                android:id="@+id/textViewGasoleoB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewGasoleoBLabel"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/textViewGasoleoBLabel"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGasoleoALabel" />
+
+            <TextView
+                android:id="@+id/textViewGasoleoPremiumLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewGasoleoBLabel"
+                android:text="@string/gasoleoPremium"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGasoleoBLabel" />
+
+            <TextView
+                android:id="@+id/textViewGasoleoPremium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewGasoleoPremiumLabel"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/textViewGasoleoPremiumLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewGasoleoPremiumLabel" />
+
+            <TextView
+                android:id="@+id/textViewGasolina95E10Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewGasoleoPremiumLabel"
+                android:text="@string/gasolina95E10"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGasoleoPremiumLabel" />
+
+            <TextView
+                android:id="@+id/textViewGasolina95E10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewGasolina95E10Label"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/textViewGasolina95E10Label"
+                app:layout_constraintTop_toTopOf="@+id/textViewGasolina95E10Label" />
+
+            <TextView
+                android:id="@+id/textViewGasolina95E5Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewGasolina95E10Label"
+                android:text="@string/gasolina95E5"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGasolina95E10Label" />
+
+            <TextView
+                android:id="@+id/textViewGasolina95E5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewGasolina95E5Label"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/textViewGasolina95E5Label"
+                app:layout_constraintTop_toTopOf="@+id/textViewGasolina95E5Label" />
+
+            <TextView
+                android:id="@+id/textViewGasolina95E5PremiumLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewGasolina95E5Label"
+                android:text="@string/gasolina95E5Premium"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGasolina95E5Label" />
+
+            <TextView
+                android:id="@+id/textViewGasolina95E5Premium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewGasolina95E5PremiumLabel"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/textViewGasolina95E5PremiumLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewGasolina95E5PremiumLabel" />
+
+            <TextView
+                android:id="@+id/textViewGasolina98E10Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewGasolina95E5PremiumLabel"
+                android:text="@string/gasolina98E10"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGasolina95E5PremiumLabel" />
+
+            <TextView
+                android:id="@+id/textViewGasolina98E10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewGasolina98E10Label"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/textViewGasolina98E10Label"
+                app:layout_constraintTop_toTopOf="@+id/textViewGasolina98E10Label" />
+
+            <TextView
+                android:id="@+id/textViewGasolina98E5Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewGasolina98E10Label"
+                android:text="@string/gasolina98E5"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGasolina98E10Label" />
+
+            <TextView
+                android:id="@+id/textViewGasolina98E5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewGasolina98E5Label"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/textViewGasolina98E5Label"
+                app:layout_constraintTop_toTopOf="@+id/textViewGasolina98E5Label" />
+
+            <TextView
+                android:id="@+id/textViewBiodieselLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewGasolina98E5Label"
+                android:text="@string/biodiesel"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGasolina98E5Label" />
+
+            <TextView
+                android:id="@+id/textViewBiodiesel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewBiodieselLabel"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/textViewBiodieselLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewBiodieselLabel" />
+
+            <TextView
+                android:id="@+id/textViewBioetanolLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewBiodieselLabel"
+                android:text="@string/bioetanol"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBiodieselLabel" />
+
+            <TextView
+                android:id="@+id/textViewBioetanol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewBioetanolLabel"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/textViewBioetanolLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewBioetanolLabel" />
+
+            <TextView
+                android:id="@+id/textViewGasNaturalComprimidoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewBioetanolLabel"
+                android:text="@string/gasNaturalComprimido"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBioetanolLabel" />
+
+            <TextView
+                android:id="@+id/textViewGasNaturalComprimido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewGasNaturalComprimidoLabel"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/textViewGasNaturalComprimidoLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewGasNaturalComprimidoLabel" />
+
+            <TextView
+                android:id="@+id/textViewGasNaturalLicuadoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewGasNaturalComprimidoLabel"
+                android:text="@string/gasNaturalLicuado"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGasNaturalComprimidoLabel" />
+
+            <TextView
+                android:id="@+id/textViewGasNaturalLicuado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewGasNaturalLicuadoLabel"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/textViewGasNaturalLicuadoLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewGasNaturalLicuadoLabel" />
+
+            <TextView
+                android:id="@+id/textViewGasesLicuadosPetroleoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewGasNaturalLicuadoLabel"
+                android:text="@string/gasesLicuadosPetroleo"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGasNaturalLicuadoLabel" />
+
+            <TextView
+                android:id="@+id/textViewGasesLicuadosPetroleo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewGasesLicuadosPetroleoLabel"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/textViewGasesLicuadosPetroleoLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewGasesLicuadosPetroleoLabel" />
+
+            <TextView
+                android:id="@+id/textViewHidrogenoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewGasesLicuadosPetroleoLabel"
+                android:text="@string/hidrogeno"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGasesLicuadosPetroleoLabel" />
+
+            <TextView
+                android:id="@+id/textViewHidrogeno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textViewHidrogenoLabel"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/textViewHidrogenoLabel"
+                app:layout_constraintTop_toTopOf="@+id/textViewHidrogenoLabel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
