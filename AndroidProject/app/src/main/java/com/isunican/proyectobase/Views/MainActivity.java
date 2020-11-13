@@ -511,6 +511,7 @@ public class MainActivity extends AppCompatActivity {
             gasesLicuadosPetroleo.setText(" " + gasolinera.getGasesLicuadosPetroleo() + getResources().getString(R.string.moneda));
             hidrogeno.setText(" " + gasolinera.getHidrogeno() + getResources().getString(R.string.moneda));
 
+
             // se modifica el view para que cumpla con los filtros seleccionados.
             representarFiltros(view);
 

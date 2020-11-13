@@ -238,7 +238,7 @@ public class FilterActivity extends AppCompatActivity {
         builder.setTitle(("Combustibles"));
 
         //Opción por defecto: TODOS
-        final boolean[] checked = new boolean[]{false, false, false, false, false, false, false,
+        final boolean[] checked = new boolean[] {false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false,};
 
         //Mantiene las cajas seleccionadas
@@ -306,7 +306,6 @@ public class FilterActivity extends AppCompatActivity {
                     break;
             }
         }
-
 
         builder.setMultiChoiceItems(combustibles, checked, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
