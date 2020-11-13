@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intentFilterActivity = new Intent(this, FilterActivity.class);
         //Le pasamos la lista de gasolineras para que la nueva ventana tenga la información
         //completa de las marcas y provincias con las que se trabaja.
-        ArrayList<Gasolinera> gs = new ArrayList<Gasolinera>(presenterGasolineras.getGasolineras());
+        ArrayList<Gasolinera> gs = new ArrayList<>(presenterGasolineras.getGasolineras());
         intentFilterActivity.putExtra("list_gasolineras", gs);
         intentFilterActivity.putExtra("filtro", filtro);
         startActivityForResult(intentFilterActivity, SECOND_ACTIVITY_REQUEST_CODE);
@@ -140,15 +140,11 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         // check that it is the SecondActivity with an OK result
-        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) { // Activity.RESULT_OK
-
+        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
                 // Se ha aceptado una configuracion de filtro
                 filtro = data.getExtras().getParcelable("filtro");
                 // Se cargan otra vez los datos con el filtro seleccionado
                 new CargaDatosGasolinerasTask(this).execute();
-            }
-
         }
     }
 
