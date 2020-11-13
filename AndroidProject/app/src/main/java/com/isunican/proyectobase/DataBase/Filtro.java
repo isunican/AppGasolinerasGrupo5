@@ -9,6 +9,7 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase que representa la tabla filtro.
@@ -21,7 +22,7 @@ public class Filtro implements Parcelable {
     public String nombre;
     @TypeConverters(Converters.class)
     @ColumnInfo(name = "combustibles")
-    public ArrayList<String> combustibles;
+    public List<String> combustibles;
 
 
     public Filtro(){
@@ -30,7 +31,7 @@ public class Filtro implements Parcelable {
         combustibles.add("GASOLEO A");
     }
 
-    public Filtro(String nombre, ArrayList<String> combustibles) {
+    public Filtro(String nombre, List<String> combustibles) {
         this.nombre = nombre;
         this.combustibles = combustibles;
     }
@@ -51,11 +52,11 @@ public class Filtro implements Parcelable {
         this.nombre = nombre;
     }
 
-    public ArrayList<String> getCombustibles() {
+    public List<String> getCombustibles() {
         return combustibles;
     }
 
-    public void setCombustibles(ArrayList<String> combustibles) {
+    public void setCombustibles(List<String> combustibles) {
         this.combustibles = combustibles;
     }
 
