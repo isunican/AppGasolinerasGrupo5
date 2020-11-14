@@ -303,7 +303,7 @@ public class FilterActivity extends AppCompatActivity {
                     itemsSelected.add(8);
                     checked[8] = true;
                     break;
-                case "BIODISEL":
+                case "BIODIESEL":
                     itemsSelected.add(9);
                     checked[9] = true;
                     break;
