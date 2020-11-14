@@ -46,10 +46,9 @@ public class FilterActivity extends AppCompatActivity {
     RadioButton rdistanciaMenorA;
 
     RadioButton rprecioMayorAMenor;
-    RadioButton rprecioMenorrAMayor;
+    RadioButton rprecioMenorAMayor;
 
     EditText textNumberDistancia;
-
 
     // Se crea el filtro
     private FiltroDAO filtroDAO;
@@ -57,6 +56,8 @@ public class FilterActivity extends AppCompatActivity {
 
     private String nombre = "";
     private List<String> combustiblesSeleccionados = new ArrayList<>();
+    private String ordenarPorPrecio = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +133,7 @@ public class FilterActivity extends AppCompatActivity {
 
         //Botones "mayor a menor" y "menor a mayor"
         rprecioMayorAMenor = findViewById(R.id.radioButtonAsc);
-        rprecioMenorrAMayor = findViewById(R.id.radioButtonDesc);
+        rprecioMenorAMayor = findViewById(R.id.radioButtonDesc);
 
         //Inicialmente están desactivados, ya que no se ha especificado ningún filtro.
         rdistanciaMayorA.setEnabled(false);
@@ -140,12 +141,25 @@ public class FilterActivity extends AppCompatActivity {
         textNumberDistancia.setEnabled(false);
 
         rprecioMayorAMenor.setEnabled(false);
-        rprecioMenorrAMayor.setEnabled(false);
+        rprecioMenorAMayor.setEnabled(false);
 
         //CheckBox que indica si se está filtrando por distancia
         checkDistancia = findViewById(R.id.checkDistancia);
         //CheckBox que indica si se está filtrando por precio
         checkPrecio = findViewById(R.id.checkPrecio);
+        if(!filtro.getOrdenarPorPrecio().equals("")){
+            checkPrecio.setChecked(true);
+            rprecioMayorAMenor.setEnabled(true);
+            rprecioMenorAMayor.setEnabled(true);
+            switch(filtro.getOrdenarPorPrecio()){
+                case "MayorAMenor":
+                    rprecioMayorAMenor.setChecked(true);
+                    break;
+                case "MenorAMayor":
+                    rprecioMenorAMayor.setChecked(true);
+                    break;
+            }
+        }
         //CheckBox que indica si se está filtrando por gasolineras guardadas como favoritas
         checkFavoritos = findViewById(R.id.checkFavoritos);
         //TODO De momento estas funciones están desactivadas
@@ -178,10 +192,10 @@ public class FilterActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     rprecioMayorAMenor.setEnabled(true);
-                    rprecioMenorrAMayor.setEnabled(true);
+                    rprecioMenorAMayor.setEnabled(true);
                 } else {
                     rprecioMayorAMenor.setEnabled(false);
-                    rprecioMenorrAMayor.setEnabled(false);
+                    rprecioMenorAMayor.setEnabled(false);
                 }
             }
         });
@@ -218,7 +232,18 @@ public class FilterActivity extends AppCompatActivity {
      * Y se cierra esta activity(FilterActivity).
      */
     public void aceptarFiltros() {
-        Filtro filtroSeleccionado = new Filtro(nombre, combustiblesSeleccionados);
+
+        // Checkea si esta dada la cajita de ordenar por precio, y un boton de ordenar
+        ordenarPorPrecio = "";
+        if(checkPrecio.isChecked()){
+            if(rprecioMayorAMenor.isChecked()){
+                ordenarPorPrecio = "MayorAMenor";
+            }else if(rprecioMenorAMayor.isChecked()){
+                    ordenarPorPrecio = "MenorAMayor";
+            }
+        }
+
+        Filtro filtroSeleccionado = new Filtro(nombre, combustiblesSeleccionados, ordenarPorPrecio);
         Intent intent = new Intent().putExtra("filtro", filtroSeleccionado);
         setResult(RESULT_OK, intent);
         finish();
@@ -278,7 +303,7 @@ public class FilterActivity extends AppCompatActivity {
                     itemsSelected.add(8);
                     checked[8] = true;
                     break;
-                case "BIODISEL":
+                case "BIODIESEL":
                     itemsSelected.add(9);
                     checked[9] = true;
                     break;
@@ -363,6 +388,7 @@ public class FilterActivity extends AppCompatActivity {
                     // Añade nueva configuración de filtro a la base de datos de filtros
                     filtro.setNombre(nombre);
                     filtro.setCombustibles(combustiblesSeleccionados);
+                    filtro.setOrdenarPorPrecio(ordenarPorPrecio);
                     filtroDAO.addFiltro(filtro);
                     toast = Toast.makeText(getApplicationContext(), "Configuración guardada", Toast.LENGTH_LONG);
                 }

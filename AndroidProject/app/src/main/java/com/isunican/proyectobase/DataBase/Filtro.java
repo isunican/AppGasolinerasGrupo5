@@ -23,17 +23,21 @@ public class Filtro implements Parcelable {
     @TypeConverters(Converters.class)
     @ColumnInfo(name = "combustibles")
     public List<String> combustibles;
+    @ColumnInfo(name = "ordenarPorPrecio")
+    public String ordenarPorPrecio;
 
 
     public Filtro(){
         nombre = "DEFECTO";
         combustibles = new ArrayList<>();
         combustibles.add("GASOLEO A");
+        ordenarPorPrecio="";
     }
 
-    public Filtro(String nombre, List<String> combustibles) {
+    public Filtro(String nombre, List<String> combustibles, String ordenarPorPrecio) {
         this.nombre = nombre;
         this.combustibles = combustibles;
+        this.ordenarPorPrecio = ordenarPorPrecio;
     }
 
     public int getId() {
@@ -60,6 +64,10 @@ public class Filtro implements Parcelable {
         this.combustibles = combustibles;
     }
 
+    public String getOrdenarPorPrecio() { return ordenarPorPrecio;}
+
+    public void setOrdenarPorPrecio(String ordenarPorPrecio) {this.ordenarPorPrecio = ordenarPorPrecio; }
+
     @Override
     public int describeContents() {
         return 0;
@@ -70,12 +78,14 @@ public class Filtro implements Parcelable {
         dest.writeInt(id);
         dest.writeString(nombre);
         dest.writeList(combustibles);
+        dest.writeString(ordenarPorPrecio);
     }
 
     protected Filtro(Parcel in) {
         id = in.readInt();
         nombre = in.readString();
         combustibles = in.readArrayList(null);
+        ordenarPorPrecio = in.readString();
     }
 
     public static final Creator<Filtro> CREATOR = new Creator<Filtro>() {
