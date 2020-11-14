@@ -399,6 +399,7 @@ public class FilterActivity extends AppCompatActivity {
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //TODO: explicar por que esta vacio este metodo.
             }
         });
         AlertDialog confirmation = builder.create();
