@@ -4,8 +4,11 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.TypeConverter;
 import androidx.room.Update;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,3 +36,4 @@ public interface IFiltroDao {
     void deleteFiltro(Filtro filtro);
 
 }
+

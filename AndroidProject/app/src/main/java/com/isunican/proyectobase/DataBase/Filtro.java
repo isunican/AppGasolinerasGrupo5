@@ -6,6 +6,10 @@ import android.os.Parcelable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase que representa la tabla filtro.
@@ -16,24 +20,23 @@ public class Filtro implements Parcelable {
     private int id;
     @ColumnInfo(name = "nombre")
     public String nombre;
-    @ColumnInfo(name = "gasoil")
-    public boolean gasoil;
-    @ColumnInfo(name = "gasolina")
-    public boolean gasolina;
+    @TypeConverters(Converters.class)
+    @ColumnInfo(name = "combustibles")
+    public List<String> combustibles;
     @ColumnInfo(name = "ordenarPorPrecio")
     public String ordenarPorPrecio;
 
+
     public Filtro(){
         nombre = "DEFECTO";
-        gasoil = true;
-        gasolina = false;
-        ordenarPorPrecio = "";
+        combustibles = new ArrayList<>();
+        combustibles.add("GASOLEO A");
+        ordenarPorPrecio="";
     }
 
-    public Filtro(String nombre, boolean gasoil, boolean gasolina, String ordenarPorPrecio) {
+    public Filtro(String nombre, List<String> combustibles, String ordenarPorPrecio) {
         this.nombre = nombre;
-        this.gasoil = gasoil;
-        this.gasolina = gasolina;
+        this.combustibles = combustibles;
         this.ordenarPorPrecio = ordenarPorPrecio;
     }
 
@@ -53,20 +56,12 @@ public class Filtro implements Parcelable {
         this.nombre = nombre;
     }
 
-    public boolean isGasoil() {
-        return gasoil;
+    public List<String> getCombustibles() {
+        return combustibles;
     }
 
-    public void setGasoil(boolean gasoil) {
-        this.gasoil = gasoil;
-    }
-
-    public boolean isGasolina() {
-        return gasolina;
-    }
-
-    public void setGasolina(boolean gasolina) {
-        this.gasolina = gasolina;
+    public void setCombustibles(List<String> combustibles) {
+        this.combustibles = combustibles;
     }
 
     public String getOrdenarPorPrecio() { return ordenarPorPrecio;}
@@ -82,16 +77,14 @@ public class Filtro implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(nombre);
-        dest.writeByte((byte) (gasoil ? 1 : 0));
-        dest.writeByte((byte) (gasolina ? 1 : 0));
+        dest.writeList(combustibles);
         dest.writeString(ordenarPorPrecio);
     }
 
     protected Filtro(Parcel in) {
         id = in.readInt();
         nombre = in.readString();
-        gasoil = in.readByte() != 0;
-        gasolina = in.readByte() != 0;
+        combustibles = in.readArrayList(null);
         ordenarPorPrecio = in.readString();
     }
 

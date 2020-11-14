@@ -1,21 +1,13 @@
 package com.isunican.proyectobase.Views;
 
-import com.isunican.proyectobase.DataBase.Filtro;
-import com.isunican.proyectobase.DataBase.FiltroDAO;
-import com.isunican.proyectobase.Presenter.*;
-import com.isunican.proyectobase.Model.*;
-import com.isunican.proyectobase.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -36,6 +28,18 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.isunican.proyectobase.DataBase.Filtro;
+import com.isunican.proyectobase.DataBase.FiltroDAO;
+import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.Presenter.PresenterGasolineras;
+import com.isunican.proyectobase.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /*
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * onCreate
-     *
+     * <p>
      * Crea los elementos que conforman la actividad
      *
      * @param savedInstanceState
@@ -83,15 +87,24 @@ public class MainActivity extends AppCompatActivity {
 
         // Barra de progreso
         // https://materialdoc.com/components/progress/
-        progressBar = new ProgressBar(MainActivity.this,null,android.R.attr.progressBarStyleLarge);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
+        progressBar = new ProgressBar(MainActivity.this, null, android.R.attr.progressBarStyleLarge);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
         RelativeLayout layout = findViewById(R.id.activity_precio_gasolina);
-        layout.addView(progressBar,params);
+        layout.addView(progressBar, params);
 
         // Muestra el logo en el actionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.por_defecto_mod);
+
+        // Filtro
+        FiltroDAO filtroDAO = FiltroDAO.get(this);
+        filtro = new Filtro();
+        // Si la base de datos esta vacía, eso quiere decir que es la primera vez que se usa esta app
+        // en este dispositivo, se carga en la base de datos el filtro por defecto
+        if (filtroDAO.getFiltro("DEFECTO") == null) {
+            filtroDAO.addFiltro(filtro);
+        }
 
         // Swipe and refresh
         // Al hacer swipe en la lista, lanza la tarea asíncrona de carga de datos
@@ -116,22 +129,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Filtro
-        FiltroDAO filtroDAO = FiltroDAO.get(this);
-        filtro = new Filtro();
-        // Si la base de datos esta vacía, eso quiere decir que es la primera vez que se usa esta app
-        // en este dispositivo, se carga en la base de datos el filtro por defecto
-        if(filtroDAO.getFiltro("DEFECTO")==null){
-            filtroDAO.addFiltro(filtro);
-        }
     }
 
     //Abrir menú filtros
-    public void openFilterActivity(){
+    public void openFilterActivity() {
         Intent intentFilterActivity = new Intent(this, FilterActivity.class);
         //Le pasamos la lista de gasolineras para que la nueva ventana tenga la información
         //completa de las marcas y provincias con las que se trabaja.
-        ArrayList<Gasolinera> gs = new ArrayList<Gasolinera>(presenterGasolineras.getGasolineras());
+        ArrayList<Gasolinera> gs = new ArrayList<>(presenterGasolineras.getGasolineras());
         intentFilterActivity.putExtra("list_gasolineras", gs);
         intentFilterActivity.putExtra("filtro", filtro);
         startActivityForResult(intentFilterActivity, SECOND_ACTIVITY_REQUEST_CODE);
@@ -143,20 +148,17 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         // check that it is the SecondActivity with an OK result
-        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) { // Activity.RESULT_OK
-
-                // Se ha aceptado una configuracion de filtro
-                filtro = data.getExtras().getParcelable("filtro");
-                // Se cargan otra vez los datos con el filtro seleccionado
-                new CargaDatosGasolinerasTask(this).execute();
-            }
-
+        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            // Se ha aceptado una configuracion de filtro
+            filtro = data.getExtras().getParcelable("filtro");
+            // Se cargan otra vez los datos con el filtro seleccionado
+            new CargaDatosGasolinerasTask(this).execute();
         }
     }
 
     /**
      * Se encarga de modificar el view correspondiente para que se muestre la lista de gasolineras
+<<<<<<< HEAD
      * que cumpla con los filtros seleccionados.
      * @param view
      */
@@ -166,27 +168,126 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void filtrarPorCombustible(View view){
-        View viewGasoilPrecio = view.findViewById(R.id.textViewGasoleoA);
-        View viewGasoilLabel = view.findViewById(R.id.textViewGasoleoALabel);
-        View viewGasolinaPrecio = view.findViewById(R.id.textViewGasolina95);
-        View viewGasolinaLabel = view.findViewById(R.id.textViewGasolina95Label);
-        if(filtro.isGasoil() && filtro.isGasolina()){
-            viewGasoilPrecio.setVisibility(View.VISIBLE);
-            viewGasoilLabel.setVisibility(View.VISIBLE);
-            viewGasolinaPrecio.setVisibility(View.VISIBLE);
-            viewGasolinaLabel.setVisibility(View.VISIBLE);
-        }
-        if(filtro.isGasoil() && !filtro.isGasolina()){
-            viewGasoilPrecio.setVisibility(View.VISIBLE);
-            viewGasoilLabel.setVisibility(View.VISIBLE);
-            viewGasolinaPrecio.setVisibility(View.GONE);
-            viewGasolinaLabel.setVisibility(View.GONE);
-        }
-        if(!filtro.isGasoil() && filtro.isGasolina()){
-            viewGasoilPrecio.setVisibility(View.GONE);
-            viewGasoilLabel.setVisibility(View.GONE);
-            viewGasolinaPrecio.setVisibility(View.VISIBLE);
-            viewGasolinaLabel.setVisibility(View.VISIBLE);
+        View viewGasoilAPrecio = view.findViewById(R.id.textViewGasoleoA);
+        View viewGasoilALabel = view.findViewById(R.id.textViewGasoleoALabel);
+        View viewGasoilBPrecio = view.findViewById(R.id.textViewGasoleoB);
+        View viewGasoilBLabel = view.findViewById(R.id.textViewGasoleoBLabel);
+        View viewGasoilPremiumPrecio = view.findViewById(R.id.textViewGasoleoPremium);
+        View viewGasoilPremiumLabel = view.findViewById(R.id.textViewGasoleoPremiumLabel);
+        View viewGasolina95E10Precio = view.findViewById(R.id.textViewGasolina95E10);
+        View viewGasolina95E10Label = view.findViewById(R.id.textViewGasolina95E10Label);
+        View viewGasolina95E5Precio = view.findViewById(R.id.textViewGasolina95E5);
+        View viewGasolina95E5Label = view.findViewById(R.id.textViewGasolina95E5Label);
+        View viewGasolina95E5PremiumPrecio = view.findViewById(R.id.textViewGasolina95E5Premium);
+        View viewGasolina95E5PremiumLabel = view.findViewById(R.id.textViewGasolina95E5PremiumLabel);
+        View viewGasolina98E10Precio = view.findViewById(R.id.textViewGasolina98E10);
+        View viewGasolina98E10Label = view.findViewById(R.id.textViewGasolina98E10Label);
+        View viewGasolina98E5Precio = view.findViewById(R.id.textViewGasolina98E5);
+        View viewGasolina98E5Label = view.findViewById(R.id.textViewGasolina98E5Label);
+        View viewBiodieselPrecio = view.findViewById(R.id.textViewBiodiesel);
+        View viewBiodieselLabel = view.findViewById(R.id.textViewBiodieselLabel);
+        View viewBioetanolPrecio = view.findViewById(R.id.textViewBioetanol);
+        View viewBioetanolLabel = view.findViewById(R.id.textViewBioetanolLabel);
+        View viewGasNaturalComprimidoPrecio = view.findViewById(R.id.textViewGasNaturalComprimido);
+        View viewGasNaturalComprimidoLabel = view.findViewById(R.id.textViewGasNaturalComprimidoLabel);
+        View viewGasNaturalLicuadoPrecio = view.findViewById(R.id.textViewGasNaturalLicuado);
+        View viewGasNaturalLicuadoLabel = view.findViewById(R.id.textViewGasNaturalLicuadoLabel);
+        View viewGasesLicuadosPetroleoPrecio = view.findViewById(R.id.textViewGasesLicuadosPetroleo);
+        View viewGasesLicuadosPetroleoLabel = view.findViewById(R.id.textViewGasesLicuadosPetroleoLabel);
+        View viewHidrogenoPrecio = view.findViewById(R.id.textViewHidrogeno);
+        View viewHidrogenoLabel = view.findViewById(R.id.textViewHidrogenoLabel);
+
+        for (String combustible : filtro.getCombustibles()) {
+            switch (combustible) {
+                case "TODOS":
+                    viewGasoilAPrecio.setVisibility(View.VISIBLE);
+                    viewGasoilALabel.setVisibility(View.VISIBLE);
+                    viewGasoilBPrecio.setVisibility(View.VISIBLE);
+                    viewGasoilBLabel.setVisibility(View.VISIBLE);
+                    viewGasoilPremiumPrecio.setVisibility(View.VISIBLE);
+                    viewGasoilPremiumLabel.setVisibility(View.VISIBLE);
+                    viewGasolina95E10Precio.setVisibility(View.VISIBLE);
+                    viewGasolina95E10Label.setVisibility(View.VISIBLE);
+                    viewGasolina95E5Precio.setVisibility(View.VISIBLE);
+                    viewGasolina95E5Label.setVisibility(View.VISIBLE);
+                    viewGasolina95E5PremiumPrecio.setVisibility(View.VISIBLE);
+                    viewGasolina95E5PremiumLabel.setVisibility(View.VISIBLE);
+                    viewGasolina98E10Precio.setVisibility(View.VISIBLE);
+                    viewGasolina98E10Label.setVisibility(View.VISIBLE);
+                    viewGasolina98E5Precio.setVisibility(View.VISIBLE);
+                    viewGasolina98E5Label.setVisibility(View.VISIBLE);
+                    viewBiodieselPrecio.setVisibility(View.VISIBLE);
+                    viewBiodieselLabel.setVisibility(View.VISIBLE);
+                    viewBioetanolPrecio.setVisibility(View.VISIBLE);
+                    viewBioetanolLabel.setVisibility(View.VISIBLE);
+                    viewGasNaturalComprimidoPrecio.setVisibility(View.VISIBLE);
+                    viewGasNaturalComprimidoLabel.setVisibility(View.VISIBLE);
+                    viewGasNaturalLicuadoPrecio.setVisibility(View.VISIBLE);
+                    viewGasNaturalLicuadoLabel.setVisibility(View.VISIBLE);
+                    viewGasesLicuadosPetroleoPrecio.setVisibility(View.VISIBLE);
+                    viewGasesLicuadosPetroleoLabel.setVisibility(View.VISIBLE);
+                    viewHidrogenoPrecio.setVisibility(View.VISIBLE);
+                    viewHidrogenoLabel.setVisibility(View.VISIBLE);
+                    break;
+                case "GASOLEO A":
+                    viewGasoilAPrecio.setVisibility(View.VISIBLE);
+                    viewGasoilALabel.setVisibility(View.VISIBLE);
+                    break;
+                case "GASOLEO B":
+                    viewGasoilBPrecio.setVisibility(View.VISIBLE);
+                    viewGasoilBLabel.setVisibility(View.VISIBLE);
+                    break;
+                case "GASOLEO PREMIUM":
+                    viewGasoilPremiumPrecio.setVisibility(View.VISIBLE);
+                    viewGasoilPremiumLabel.setVisibility(View.VISIBLE);
+                    break;
+                case "GASOLINA 95 E10":
+                    viewGasolina95E10Precio.setVisibility(View.VISIBLE);
+                    viewGasolina95E10Label.setVisibility(View.VISIBLE);
+                    break;
+                case "GASOLINA 95 E5":
+                    viewGasolina95E5Precio.setVisibility(View.VISIBLE);
+                    viewGasolina95E5Label.setVisibility(View.VISIBLE);
+                    break;
+                case "GASOLINA 95 E5 PREMIUM":
+                    viewGasolina95E5PremiumPrecio.setVisibility(View.VISIBLE);
+                    viewGasolina95E5PremiumLabel.setVisibility(View.VISIBLE);
+                    break;
+                case "GASOLINA 98 E10":
+                    viewGasolina98E10Precio.setVisibility(View.VISIBLE);
+                    viewGasolina98E10Label.setVisibility(View.VISIBLE);
+                    break;
+                case "GASOLINA 98 E5":
+                    viewGasolina98E5Precio.setVisibility(View.VISIBLE);
+                    viewGasolina98E5Label.setVisibility(View.VISIBLE);
+                    break;
+                case "BIODISEL":
+                    viewBiodieselPrecio.setVisibility(View.VISIBLE);
+                    viewBiodieselLabel.setVisibility(View.VISIBLE);
+                    break;
+                case "BIOETANOL":
+                    viewBioetanolPrecio.setVisibility(View.VISIBLE);
+                    viewBioetanolLabel.setVisibility(View.VISIBLE);
+                    break;
+                case "GAS NATURAL COMPRIMIDO":
+                    viewGasNaturalComprimidoPrecio.setVisibility(View.VISIBLE);
+                    viewGasNaturalComprimidoLabel.setVisibility(View.VISIBLE);
+                    break;
+                case "GAS NATURAL LICUADO":
+                    viewGasNaturalLicuadoPrecio.setVisibility(View.VISIBLE);
+                    viewGasNaturalLicuadoLabel.setVisibility(View.VISIBLE);
+                    break;
+                case "GASES LICUADOS PETROLEO":
+                    viewGasesLicuadosPetroleoPrecio.setVisibility(View.VISIBLE);
+                    viewGasesLicuadosPetroleoLabel.setVisibility(View.VISIBLE);
+                    break;
+                case "HIDROGENO":
+                    viewHidrogenoPrecio.setVisibility(View.VISIBLE);
+                    viewHidrogenoLabel.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -227,12 +328,12 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Menú action bar
-     *
+     * <p>
      * Redefine métodos para el uso de un menú de tipo action bar.
-     *
+     * <p>
      * onCreateOptionsMenu
      * Carga las opciones del menú a partir del fichero de recursos menu/menu.xml
-     *
+     * <p>
      * onOptionsItemSelected
      * Define las respuestas a las distintas opciones del menú
      */
@@ -241,33 +342,33 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.itemActualizar){
+        if (item.getItemId() == R.id.itemActualizar) {
             mSwipeRefreshLayout.setRefreshing(true);
             new CargaDatosGasolinerasTask(this).execute();
-        }
-        else if(item.getItemId()==R.id.itemInfo){
+        } else if (item.getItemId() == R.id.itemInfo) {
             Intent myIntent = new Intent(MainActivity.this, InfoActivity.class);
             MainActivity.this.startActivity(myIntent);
-            }
+        }
         return true;
     }
 
 
     /**
      * CargaDatosGasolinerasTask
-     *
+     * <p>
      * Tarea asincrona para obtener los datos de las gasolineras
      * en segundo plano.
-     *
+     * <p>
      * Redefinimos varios métodos que se ejecutan en el siguiente orden:
      * onPreExecute: activamos el dialogo de progreso
      * doInBackground: solicitamos que el presenter cargue los datos
      * onPostExecute: desactiva el dialogo de progreso,
-     *    muestra las gasolineras en formato lista (a partir de un adapter)
-     *    y define la acción al realizar al seleccionar alguna de ellas
-     *
+     * muestra las gasolineras en formato lista (a partir de un adapter)
+     * y define la acción al realizar al seleccionar alguna de ellas
+     * <p>
      * http://www.sgoliver.net/blog/tareas-en-segundo-plano-en-android-i-thread-y-asynctask/
      */
     private class CargaDatosGasolinerasTask extends AsyncTask<Void, Void, Boolean> {
@@ -276,6 +377,7 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * Constructor de la tarea asincrona
+         *
          * @param activity
          */
         public CargaDatosGasolinerasTask(Activity activity) {
@@ -284,7 +386,7 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * onPreExecute
-         *
+         * <p>
          * Metodo ejecutado de forma previa a la ejecucion de la tarea definida en el metodo doInBackground()
          * Muestra un diálogo de progreso
          */
@@ -296,9 +398,10 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * doInBackground
-         *
+         * <p>
          * Tarea ejecutada en segundo plano
          * Llama al presenter para que lance el método de carga de los datos de las gasolineras
+         *
          * @param params
          * @return boolean
          */
@@ -309,7 +412,7 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * onPostExecute
-         *
+         * <p>
          * Se ejecuta al finalizar doInBackground
          * Oculta el diálogo de progreso.
          * Muestra en una lista los datos de las gasolineras cargadas,
@@ -425,18 +528,43 @@ public class MainActivity extends AppCompatActivity {
             TextView rotulo = view.findViewById(R.id.textViewRotulo);
             TextView direccion = view.findViewById(R.id.textViewDireccion);
             TextView gasoleoA = view.findViewById(R.id.textViewGasoleoA);
-            TextView gasolina95 = view.findViewById(R.id.textViewGasolina95);
+            TextView gasoleoB = view.findViewById(R.id.textViewGasoleoB);
+            TextView gasoleoPremium = view.findViewById(R.id.textViewGasoleoPremium);
+            TextView gasolina95E10 = view.findViewById(R.id.textViewGasolina95E10);
+            TextView gasolina95E5 = view.findViewById(R.id.textViewGasolina95E5);
+            TextView gasolina95E5Premium = view.findViewById(R.id.textViewGasolina95E5Premium);
+            TextView gasolina98E10 = view.findViewById(R.id.textViewGasolina98E10);
+            TextView gasolina98E5 = view.findViewById(R.id.textViewGasolina98E5);
+            TextView biodiesel = view.findViewById(R.id.textViewBiodiesel);
+            TextView bioetanol = view.findViewById(R.id.textViewBioetanol);
+            TextView gasNaturalComprimido = view.findViewById(R.id.textViewGasNaturalComprimido);
+            TextView gasNaturalLicuado = view.findViewById(R.id.textViewGasNaturalLicuado);
+            TextView gasesLicuadosPetroleo = view.findViewById(R.id.textViewGasesLicuadosPetroleo);
+            TextView hidrogeno = view.findViewById(R.id.textViewHidrogeno);
 
             // Y carga los datos del item
             rotulo.setText(gasolinera.getRotulo());
             direccion.setText(gasolinera.getDireccion());
             gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
-            gasolina95.setText(" " + gasolinera.getGasolina95E5() + getResources().getString(R.string.moneda));
+            gasoleoB.setText(" " + gasolinera.getGasoleoB() + getResources().getString(R.string.moneda));
+            gasoleoPremium.setText(" " + gasolinera.getGasoleoPremium() + getResources().getString(R.string.moneda));
+            gasolina95E10.setText(" " + gasolinera.getGasolina95E10() + getResources().getString(R.string.moneda));
+            gasolina95E5.setText(" " + gasolinera.getGasolina95E5() + getResources().getString(R.string.moneda));
+            gasolina95E5Premium.setText(" " + gasolinera.getGasolina95E5Premium() + getResources().getString(R.string.moneda));
+            gasolina98E10.setText(" " + gasolinera.getGasolina98E10() + getResources().getString(R.string.moneda));
+            gasolina98E5.setText(" " + gasolinera.getGasolina98E5() + getResources().getString(R.string.moneda));
+            biodiesel.setText(" " + gasolinera.getBiodiesel() + getResources().getString(R.string.moneda));
+            bioetanol.setText(" " + gasolinera.getBioetanol() + getResources().getString(R.string.moneda));
+            gasNaturalComprimido.setText(" " + gasolinera.getGasNaturalComprimido() + getResources().getString(R.string.moneda));
+            gasNaturalLicuado.setText(" " + gasolinera.getGasNaturalLicuado() + getResources().getString(R.string.moneda));
+            gasesLicuadosPetroleo.setText(" " + gasolinera.getGasesLicuadosPetroleo() + getResources().getString(R.string.moneda));
+            hidrogeno.setText(" " + gasolinera.getHidrogeno() + getResources().getString(R.string.moneda));
+
 
 
 
             // carga icono
-            cargaIcono(logo,gasolinera);
+            cargaIcono(logo, gasolinera);
 
 
             // Si las dimensiones de la pantalla son menores
@@ -448,18 +576,22 @@ public class MainActivity extends AppCompatActivity {
                 params.setMargins(15, 0, 0, 0);
                 tv.setTextSize(11);
                 TextView tmp;
-                tmp = view.findViewById(R.id.textViewGasolina95Label);
+                tmp = view.findViewById(R.id.textViewGasolina95E5Label);
                 tmp.setTextSize(11);
                 tmp = view.findViewById(R.id.textViewGasoleoA);
                 tmp.setTextSize(11);
-                tmp = view.findViewById(R.id.textViewGasolina95);
+                tmp = view.findViewById(R.id.textViewGasoleoB);
+                tmp.setTextSize(11);
+                tmp = view.findViewById(R.id.textViewGasoleoBLabel);
+                tmp.setTextSize(11);
+                tmp = view.findViewById(R.id.textViewGasolina95E5);
                 tmp.setTextSize(11);
             }
 
             return view;
         }
 
-        public void cargaIcono(ImageView logo, Gasolinera gasolinera){
+        public void cargaIcono(ImageView logo, Gasolinera gasolinera) {
             String rotuleImageID = gasolinera.getRotulo().toLowerCase();
 
             // Tengo que protegerme ante el caso en el que el rotulo solo tiene digitos.

@@ -4,8 +4,22 @@
     <string name="datos_exito">Datos obtenidos con éxito</string>
     <string name="datos_no_accesibles">Los datos están siendo actualizados en el servidor, inténtelo más tarde</string>
     <string name="datos_no_obtenidos">No se han podido obtener los datos</string>
-    <string name="gasoleoa">Gasóleo:</string>
-    <string name="gasolina95">Gasolina:</string>
+    <string name="gasoleoa">Gasóleo A:</string>
+    <string name="gasoleoB">Gasóleo B:</string>
+    <string name="gasoleoPremium">Gasóleo Premium:</string>
+    <string name="gasolina95E10">Gasolina 95 E10:</string>
+    <string name="gasolina95E5">Gasolina 95 E5:</string>
+    <string name="gasolina95E5Premium">Gasolina 95 E5 Premium:</string>
+    <string name="gasolina98E10">Gasolina 98 E10:</string>
+    <string name="gasolina98E5">Gasolina 98 E5:</string>
+    <string name="biodiesel">Biodiesel:</string>
+    <string name="bioetanol">Bioetanol:</string>
+    <string name="gasNaturalComprimido">Gas Natural Comprimido:</string>
+    <string name="gasNaturalLicuado">Gas Natural Licuado:</string>
+    <string name="gasesLicuadosPetroleo">Gases Licuados Petróleo:</string>
+    <string name="hidrogeno">Hidrógeno:</string>
+
+
     <string name="pordefecto">por_defecto</string>
     <string name="moneda">€</string>
     <string name="infoTexto">App desarrollada por los magníficos docentes de Ingeniería del Software de la UC</string>
