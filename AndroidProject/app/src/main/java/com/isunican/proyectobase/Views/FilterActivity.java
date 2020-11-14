@@ -147,6 +147,19 @@ public class FilterActivity extends AppCompatActivity {
         checkDistancia = findViewById(R.id.checkDistancia);
         //CheckBox que indica si se está filtrando por precio
         checkPrecio = findViewById(R.id.checkPrecio);
+        if(!filtro.getOrdenarPorPrecio().equals("")){
+            checkPrecio.setChecked(true);
+            rprecioMayorAMenor.setEnabled(true);
+            rprecioMenorAMayor.setEnabled(true);
+            switch(filtro.getOrdenarPorPrecio()){
+                case "MayorAMenor":
+                    rprecioMayorAMenor.setChecked(true);
+                    break;
+                case "MenorAMayor":
+                    rprecioMenorAMayor.setChecked(true);
+                    break;
+            }
+        }
         //CheckBox que indica si se está filtrando por gasolineras guardadas como favoritas
         checkFavoritos = findViewById(R.id.checkFavoritos);
         //TODO De momento estas funciones están desactivadas
