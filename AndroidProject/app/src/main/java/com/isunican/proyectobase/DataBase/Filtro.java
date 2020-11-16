@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -23,21 +24,25 @@ public class Filtro implements Parcelable {
     @TypeConverters(Converters.class)
     @ColumnInfo(name = "combustibles")
     public List<String> combustibles;
+    @ColumnInfo(name = "marca")
+    public String marca;
     @ColumnInfo(name = "ordenarPorPrecio")
     public String ordenarPorPrecio;
 
-
-    public Filtro(){
+    @Ignore
+    public Filtro() {
         nombre = "DEFECTO";
         combustibles = new ArrayList<>();
         combustibles.add("GASOLEO A");
-        ordenarPorPrecio="";
+        marca = "";
+        ordenarPorPrecio = "";
     }
 
-    public Filtro(String nombre, List<String> combustibles, String ordenarPorPrecio) {
+    public Filtro(String nombre, List<String> combustibles, String marca, String ordenarPorPrecio) {
         this.nombre = nombre;
         this.combustibles = combustibles;
         this.ordenarPorPrecio = ordenarPorPrecio;
+        this.marca = marca;
     }
 
     public int getId() {
@@ -64,9 +69,22 @@ public class Filtro implements Parcelable {
         this.combustibles = combustibles;
     }
 
-    public String getOrdenarPorPrecio() { return ordenarPorPrecio;}
+    public String getOrdenarPorPrecio() {
+        return ordenarPorPrecio;
+    }
 
-    public void setOrdenarPorPrecio(String ordenarPorPrecio) {this.ordenarPorPrecio = ordenarPorPrecio; }
+    public void setOrdenarPorPrecio(String ordenarPorPrecio) {
+        this.ordenarPorPrecio = ordenarPorPrecio;
+    }
+
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
 
     @Override
     public int describeContents() {
@@ -79,6 +97,7 @@ public class Filtro implements Parcelable {
         dest.writeString(nombre);
         dest.writeList(combustibles);
         dest.writeString(ordenarPorPrecio);
+        dest.writeString(marca);
     }
 
     protected Filtro(Parcel in) {
@@ -86,6 +105,7 @@ public class Filtro implements Parcelable {
         nombre = in.readString();
         combustibles = in.readArrayList(null);
         ordenarPorPrecio = in.readString();
+        marca = in.readString();
     }
 
     public static final Creator<Filtro> CREATOR = new Creator<Filtro>() {

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -56,6 +57,7 @@ public class FilterActivity extends AppCompatActivity {
 
     private String nombre = "";
     private List<String> combustiblesSeleccionados = new ArrayList<>();
+    private String marca ="";
     private String ordenarPorPrecio = "";
 
 
@@ -77,8 +79,7 @@ public class FilterActivity extends AppCompatActivity {
 
         gasolineras = (ArrayList<Gasolinera>) getIntent().getSerializableExtra("list_gasolineras");
 
-        //La primera opción debe ser "nada seleccionado"
-        marcas.add("Ninguna");
+        marcas.add("Todas");
         provincias.add("Ninguna");
 
         //Rellenamos las listas locales para que tengan toda la información de marcas
@@ -99,15 +100,17 @@ public class FilterActivity extends AppCompatActivity {
         //Opción por defecto: ninguna marca seleccionada
         spinnerMarca.setSelection(0);
 
-        /**spinnerMarca.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerMarca.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //  TODO Acción para cuando se seleccione una opción del spinner
+            marca=marcas.get(position);
+
+
         }
 
         @Override public void onNothingSelected(AdapterView<?> parent) {
         //TODO Acción para cuando se seleccione una opción del spinner
         }
-        });**/
+        });
 
         //Construimos el adapter del spinner de manera que éste tenga de posibles opciones seleccionables todas las marcas
         ArrayAdapter<CharSequence> adpProvincia = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, provincias);
@@ -166,7 +169,6 @@ public class FilterActivity extends AppCompatActivity {
         checkFavoritos.setEnabled(false);
         checkDistancia.setEnabled(false);
         spinnerProvincia.setEnabled(false);
-        spinnerMarca.setEnabled(false);
 
         //Si el usuario indica que quiere filtrar por distancia, se habilitan los botones
         //de selección de orden y la caja de texto.
@@ -232,7 +234,6 @@ public class FilterActivity extends AppCompatActivity {
      * Y se cierra esta activity(FilterActivity).
      */
     public void aceptarFiltros() {
-
         // Checkea si esta dada la cajita de ordenar por precio, y un boton de ordenar
         ordenarPorPrecio = "";
         if(checkPrecio.isChecked()){
@@ -243,7 +244,7 @@ public class FilterActivity extends AppCompatActivity {
             }
         }
 
-        Filtro filtroSeleccionado = new Filtro(nombre, combustiblesSeleccionados, ordenarPorPrecio);
+        Filtro filtroSeleccionado = new Filtro(nombre, combustiblesSeleccionados, marca, ordenarPorPrecio);
         Intent intent = new Intent().putExtra("filtro", filtroSeleccionado);
         setResult(RESULT_OK, intent);
         finish();

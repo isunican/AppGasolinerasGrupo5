@@ -11,6 +11,7 @@ import com.isunican.proyectobase.Utilities.RemoteFetch;
 
 import java.io.BufferedInputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /*
@@ -244,6 +245,20 @@ public class PresenterGasolineras {
                     break;
                 default:
                     break;
+            }
+        }
+    }
+
+    public void filtrarPorMarca(List<Gasolinera> gasolineras, Filtro filtro) {
+        if (filtro.getMarca().equals("")) {
+            return;
+        }
+        Iterator<Gasolinera> itr = gasolineras.iterator();
+        while (itr.hasNext()) {
+            Gasolinera g = itr.next();
+
+            if (!filtro.getMarca().equals(g.getRotulo())) {
+                itr.remove();
             }
         }
     }

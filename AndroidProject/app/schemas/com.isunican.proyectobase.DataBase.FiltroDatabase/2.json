@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "a1efbd4367857d5ac6d4dcd70aaa1945",
+    "version": 2,
+    "identityHash": "e6a663e860f075da0132880c8913e1ac",
     "entities": [
       {
         "tableName": "filtro",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT, `combustibles` TEXT, `marca` TEXT, `ordenarPorPrecio` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT, `gasoil` INTEGER NOT NULL, `gasolina` INTEGER NOT NULL, `ordenarPorPrecio` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -21,16 +21,16 @@
             "notNull": false
           },
           {
-            "fieldPath": "combustibles",
-            "columnName": "combustibles",
-            "affinity": "TEXT",
-            "notNull": false
+            "fieldPath": "gasoil",
+            "columnName": "gasoil",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
-            "fieldPath": "marca",
-            "columnName": "marca",
-            "affinity": "TEXT",
-            "notNull": false
+            "fieldPath": "gasolina",
+            "columnName": "gasolina",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "ordenarPorPrecio",
@@ -52,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a1efbd4367857d5ac6d4dcd70aaa1945')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e6a663e860f075da0132880c8913e1ac')"
     ]
   }
 }
