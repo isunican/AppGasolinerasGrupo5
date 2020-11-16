@@ -11,6 +11,7 @@ import android.util.DisplayMetrics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 import android.util.Log;
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Se crea el filtro
     private Filtro filtro;
+    ArrayList<Gasolinera> gasolineras = new ArrayList<Gasolinera>();
 
     /**
      * onCreate
@@ -165,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
             filtro = data.getExtras().getParcelable("filtro");
             // Se cargan otra vez los datos con el filtro seleccionado
             new CargaDatosGasolinerasTask(this).execute();
+
         }
     }
 
@@ -455,7 +458,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * Menú action bar
      * <p>
@@ -647,9 +649,14 @@ public class MainActivity extends AppCompatActivity {
             View view = inflater.inflate(R.layout.item_gasolinera, null);
 
             // Se modifica el view para que cumpla con los filtros seleccionados.
+            presenterGasolineras.filtrarPorMarca(listaGasolineras, filtro);
             representarFiltros(view);
 
             // Obtiene el elemento que se está mostrando
+            Log.d("position", ""+position);
+            if(position>=listaGasolineras.size()){
+                return view;
+            }
             Gasolinera gasolinera = listaGasolineras.get(position);
             Log.d("Gasolinera", "" + gasolinera.getDireccion());
 
