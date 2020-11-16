@@ -169,10 +169,26 @@ public class ParserJSONGasolineras {
 
         }
         reader.endObject();
-        return new Gasolinera(id,localidad,provincia,direccion,biodiesel,
-                bioetanol,gasNaturalComprimido,gasNaturalLicuado,gasesLicuadosPetroleo,
-                gasoleoA,gasoleoB,gasoleoPremium,gasolina95E10,gasolina95E5,gasolina95E5Premium,
-                gasolina98E10,gasolina98E5,hidrogeno,rotulo);
+        Gasolinera g = new Gasolinera(id);
+        g.setLocalidad(localidad);
+        g.setProvincia(provincia);
+        g.setDireccion(direccion);
+        g.setBiodiesel(biodiesel);
+        g.setBioetanol(bioetanol);
+        g.setGasNaturalComprimido(gasNaturalComprimido);
+        g.setGasNaturalLicuado(gasNaturalLicuado);
+        g.setGasesLicuadosPetroleo(gasesLicuadosPetroleo);
+        g.setGasoleoA(gasoleoA);
+        g.setGasoleoB(gasoleoB);
+        g.setGasoleoPremium(gasoleoPremium);
+        g.setGasolina95E10(gasolina95E10);
+        g.setGasolina95E5(gasolina95E5);
+        g.setGasolina95E5Premium(gasolina95E5Premium);
+        g.setGasolina98E10(gasolina98E10);
+        g.setGasolina98E5(gasolina98E5);
+        g.setHidrogeno(hidrogeno);
+        g.setRotulo(rotulo);
+        return g;
     }
 
     private static double parseDouble(String str) {
