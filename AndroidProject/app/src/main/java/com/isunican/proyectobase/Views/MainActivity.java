@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         this.presenterGasolineras = new PresenterGasolineras();
 
         // Barra de progreso
@@ -176,132 +175,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     private void representarFiltros(View view) {
-        filtrarPorCombustible(view);
+        presenterGasolineras.filtrarPorCombustible(view, filtro);
         ordenarPorPrecio();
-    }
-
-    private void filtrarPorCombustible(View view) {
-        View viewGasoilAPrecio = view.findViewById(R.id.textViewGasoleoA);
-        View viewGasoilALabel = view.findViewById(R.id.textViewGasoleoALabel);
-        View viewGasoilBPrecio = view.findViewById(R.id.textViewGasoleoB);
-        View viewGasoilBLabel = view.findViewById(R.id.textViewGasoleoBLabel);
-        View viewGasoilPremiumPrecio = view.findViewById(R.id.textViewGasoleoPremium);
-        View viewGasoilPremiumLabel = view.findViewById(R.id.textViewGasoleoPremiumLabel);
-        View viewGasolina95E10Precio = view.findViewById(R.id.textViewGasolina95E10);
-        View viewGasolina95E10Label = view.findViewById(R.id.textViewGasolina95E10Label);
-        View viewGasolina95E5Precio = view.findViewById(R.id.textViewGasolina95E5);
-        View viewGasolina95E5Label = view.findViewById(R.id.textViewGasolina95E5Label);
-        View viewGasolina95E5PremiumPrecio = view.findViewById(R.id.textViewGasolina95E5Premium);
-        View viewGasolina95E5PremiumLabel = view.findViewById(R.id.textViewGasolina95E5PremiumLabel);
-        View viewGasolina98E10Precio = view.findViewById(R.id.textViewGasolina98E10);
-        View viewGasolina98E10Label = view.findViewById(R.id.textViewGasolina98E10Label);
-        View viewGasolina98E5Precio = view.findViewById(R.id.textViewGasolina98E5);
-        View viewGasolina98E5Label = view.findViewById(R.id.textViewGasolina98E5Label);
-        View viewBiodieselPrecio = view.findViewById(R.id.textViewBiodiesel);
-        View viewBiodieselLabel = view.findViewById(R.id.textViewBiodieselLabel);
-        View viewBioetanolPrecio = view.findViewById(R.id.textViewBioetanol);
-        View viewBioetanolLabel = view.findViewById(R.id.textViewBioetanolLabel);
-        View viewGasNaturalComprimidoPrecio = view.findViewById(R.id.textViewGasNaturalComprimido);
-        View viewGasNaturalComprimidoLabel = view.findViewById(R.id.textViewGasNaturalComprimidoLabel);
-        View viewGasNaturalLicuadoPrecio = view.findViewById(R.id.textViewGasNaturalLicuado);
-        View viewGasNaturalLicuadoLabel = view.findViewById(R.id.textViewGasNaturalLicuadoLabel);
-        View viewGasesLicuadosPetroleoPrecio = view.findViewById(R.id.textViewGasesLicuadosPetroleo);
-        View viewGasesLicuadosPetroleoLabel = view.findViewById(R.id.textViewGasesLicuadosPetroleoLabel);
-        View viewHidrogenoPrecio = view.findViewById(R.id.textViewHidrogeno);
-        View viewHidrogenoLabel = view.findViewById(R.id.textViewHidrogenoLabel);
-
-        for (String combustible : filtro.getCombustibles()) {
-            switch (combustible) {
-                case TODOS:
-                    viewGasoilAPrecio.setVisibility(View.VISIBLE);
-                    viewGasoilALabel.setVisibility(View.VISIBLE);
-                    viewGasoilBPrecio.setVisibility(View.VISIBLE);
-                    viewGasoilBLabel.setVisibility(View.VISIBLE);
-                    viewGasoilPremiumPrecio.setVisibility(View.VISIBLE);
-                    viewGasoilPremiumLabel.setVisibility(View.VISIBLE);
-                    viewGasolina95E10Precio.setVisibility(View.VISIBLE);
-                    viewGasolina95E10Label.setVisibility(View.VISIBLE);
-                    viewGasolina95E5Precio.setVisibility(View.VISIBLE);
-                    viewGasolina95E5Label.setVisibility(View.VISIBLE);
-                    viewGasolina95E5PremiumPrecio.setVisibility(View.VISIBLE);
-                    viewGasolina95E5PremiumLabel.setVisibility(View.VISIBLE);
-                    viewGasolina98E10Precio.setVisibility(View.VISIBLE);
-                    viewGasolina98E10Label.setVisibility(View.VISIBLE);
-                    viewGasolina98E5Precio.setVisibility(View.VISIBLE);
-                    viewGasolina98E5Label.setVisibility(View.VISIBLE);
-                    viewBiodieselPrecio.setVisibility(View.VISIBLE);
-                    viewBiodieselLabel.setVisibility(View.VISIBLE);
-                    viewBioetanolPrecio.setVisibility(View.VISIBLE);
-                    viewBioetanolLabel.setVisibility(View.VISIBLE);
-                    viewGasNaturalComprimidoPrecio.setVisibility(View.VISIBLE);
-                    viewGasNaturalComprimidoLabel.setVisibility(View.VISIBLE);
-                    viewGasNaturalLicuadoPrecio.setVisibility(View.VISIBLE);
-                    viewGasNaturalLicuadoLabel.setVisibility(View.VISIBLE);
-                    viewGasesLicuadosPetroleoPrecio.setVisibility(View.VISIBLE);
-                    viewGasesLicuadosPetroleoLabel.setVisibility(View.VISIBLE);
-                    viewHidrogenoPrecio.setVisibility(View.VISIBLE);
-                    viewHidrogenoLabel.setVisibility(View.VISIBLE);
-                    break;
-                case GASOLEO_A:
-                    viewGasoilAPrecio.setVisibility(View.VISIBLE);
-                    viewGasoilALabel.setVisibility(View.VISIBLE);
-                    break;
-                case GASOLEO_B:
-                    viewGasoilBPrecio.setVisibility(View.VISIBLE);
-                    viewGasoilBLabel.setVisibility(View.VISIBLE);
-                    break;
-                case GASOLEO_PREMIUM:
-                    viewGasoilPremiumPrecio.setVisibility(View.VISIBLE);
-                    viewGasoilPremiumLabel.setVisibility(View.VISIBLE);
-                    break;
-                case GASOLINA_95_E10:
-                    viewGasolina95E10Precio.setVisibility(View.VISIBLE);
-                    viewGasolina95E10Label.setVisibility(View.VISIBLE);
-                    break;
-                case GASOLINA_95_E5:
-                    viewGasolina95E5Precio.setVisibility(View.VISIBLE);
-                    viewGasolina95E5Label.setVisibility(View.VISIBLE);
-                    break;
-                case GASOLINA_95_E5_PREMIUM:
-                    viewGasolina95E5PremiumPrecio.setVisibility(View.VISIBLE);
-                    viewGasolina95E5PremiumLabel.setVisibility(View.VISIBLE);
-                    break;
-                case GASOLINA_98_E10:
-                    viewGasolina98E10Precio.setVisibility(View.VISIBLE);
-                    viewGasolina98E10Label.setVisibility(View.VISIBLE);
-                    break;
-                case GASOLINA_98_E5:
-                    viewGasolina98E5Precio.setVisibility(View.VISIBLE);
-                    viewGasolina98E5Label.setVisibility(View.VISIBLE);
-                    break;
-                case BIODIESEL:
-                    viewBiodieselPrecio.setVisibility(View.VISIBLE);
-                    viewBiodieselLabel.setVisibility(View.VISIBLE);
-                    break;
-                case BIOETANOL:
-                    viewBioetanolPrecio.setVisibility(View.VISIBLE);
-                    viewBioetanolLabel.setVisibility(View.VISIBLE);
-                    break;
-                case GAS_NATURAL_COMPRIMIDO:
-                    viewGasNaturalComprimidoPrecio.setVisibility(View.VISIBLE);
-                    viewGasNaturalComprimidoLabel.setVisibility(View.VISIBLE);
-                    break;
-                case GAS_NATURAL_LICUADO:
-                    viewGasNaturalLicuadoPrecio.setVisibility(View.VISIBLE);
-                    viewGasNaturalLicuadoLabel.setVisibility(View.VISIBLE);
-                    break;
-                case GASES_LICUADOS_PETROLEO:
-                    viewGasesLicuadosPetroleoPrecio.setVisibility(View.VISIBLE);
-                    viewGasesLicuadosPetroleoLabel.setVisibility(View.VISIBLE);
-                    break;
-                case HIDROGENO:
-                    viewHidrogenoPrecio.setVisibility(View.VISIBLE);
-                    viewHidrogenoLabel.setVisibility(View.VISIBLE);
-                    break;
-                default:
-                    break;
-            }
-        }
     }
 
     private void ordenarPorPrecio() {
