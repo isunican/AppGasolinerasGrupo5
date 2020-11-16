@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Se crea el filtro
     private Filtro filtro;
+    ArrayList<Gasolinera>gasolineras=new ArrayList<Gasolinera>();
 
     /**
      * onCreate
@@ -145,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Se ha aceptado una configuracion de filtro
                 filtro = data.getExtras().getParcelable("filtro");
+
                 // Se cargan otra vez los datos con el filtro seleccionado
                 new CargaDatosGasolinerasTask(this).execute();
             }
@@ -179,6 +181,16 @@ public class MainActivity extends AppCompatActivity {
             viewGasoilLabel.setVisibility(View.GONE);
             viewGasolinaPrecio.setVisibility(View.VISIBLE);
             viewGasolinaLabel.setVisibility(View.VISIBLE);
+        }
+    }
+    private void filtrarPorMarca(List<Gasolinera>gasolineras){
+       if(filtro.getMarca().equals("")){
+           return;
+       }
+       for(Gasolinera g : gasolineras){
+            if(filtro.getMarca().equals(g.getRotulo())){
+                gasolineras.remove(g);
+            }
         }
     }
 
@@ -369,6 +381,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Obtiene el elemento que se está mostrando
             Gasolinera gasolinera = listaGasolineras.get(position);
+            filtrarPorMarca(listaGasolineras);
 
             // Indica el layout a usar en cada elemento de la lista
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);

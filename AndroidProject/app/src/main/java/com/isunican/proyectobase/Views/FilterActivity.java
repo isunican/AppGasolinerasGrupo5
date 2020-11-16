@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -55,6 +56,8 @@ public class FilterActivity extends AppCompatActivity {
     // Se crea el filtro
     private FiltroDAO filtroDAO;
     private Filtro filtro;
+    String marca ="";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,15 +107,17 @@ public class FilterActivity extends AppCompatActivity {
         //Opción por defecto: ninguna marca seleccionada
         spinnerMarca.setSelection(0);
 
-        /**spinnerMarca.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerMarca.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //  TODO Acción para cuando se seleccione una opción del spinner
+            marca=marcas.get(position);
+
+
         }
 
         @Override public void onNothingSelected(AdapterView<?> parent) {
         //TODO Acción para cuando se seleccione una opción del spinner
         }
-        });**/
+        });
 
         //Construimos el adapter del spinner de manera que éste tenga de posibles opciones seleccionables todas las marcas
         ArrayAdapter<CharSequence> adpProvincia = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, provincias);
@@ -216,8 +221,10 @@ public class FilterActivity extends AppCompatActivity {
      * Y se cierra esta activity(FilterActivity).
      */
     public void aceptarFiltros() {
-        Filtro filtroSeleccionado = new Filtro(nombre, switchGasoil.isChecked(), switchGasolina.isChecked());
+        Filtro filtroSeleccionado = new Filtro(nombre, switchGasoil.isChecked(), switchGasolina.isChecked(),marca);
+
         Intent intent = new Intent().putExtra("filtro", filtroSeleccionado);
+
         setResult(RESULT_OK, intent);
         finish();
     }

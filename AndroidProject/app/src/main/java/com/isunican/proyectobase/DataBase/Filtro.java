@@ -20,17 +20,21 @@ public class Filtro implements Parcelable {
     public boolean gasoil;
     @ColumnInfo(name = "gasolina")
     public boolean gasolina;
+    @ColumnInfo (name = "marca")
+    public String marca;
 
     public Filtro(){
         nombre = "DEFECTO";
         gasoil = true;
         gasolina = false;
+        marca="";
     }
 
-    public Filtro(String nombre, boolean gasoil, boolean gasolina) {
+    public Filtro(String nombre, boolean gasoil, boolean gasolina,String marca) {
         this.nombre = nombre;
         this.gasoil = gasoil;
         this.gasolina = gasolina;
+        this.marca=marca;
     }
 
     public int getId() {
@@ -65,6 +69,16 @@ public class Filtro implements Parcelable {
         this.gasolina = gasolina;
     }
 
+
+
+   public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -76,6 +90,7 @@ public class Filtro implements Parcelable {
         dest.writeString(nombre);
         dest.writeByte((byte) (gasoil ? 1 : 0));
         dest.writeByte((byte) (gasolina ? 1 : 0));
+        dest.writeString(marca);
     }
 
     protected Filtro(Parcel in) {
@@ -83,6 +98,7 @@ public class Filtro implements Parcelable {
         nombre = in.readString();
         gasoil = in.readByte() != 0;
         gasolina = in.readByte() != 0;
+        marca=in.readString();
     }
 
     public static final Creator<Filtro> CREATOR = new Creator<Filtro>() {
