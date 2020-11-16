@@ -38,10 +38,6 @@ import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 /*
 ------------------------------------------------------------------
     Vista principal
@@ -55,6 +51,23 @@ public class MainActivity extends AppCompatActivity {
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
 
     PresenterGasolineras presenterGasolineras;
+
+    private static final String TODOS = "TODOS";
+    private static final String GASOLEO_A = "GASOLEO A";
+    private static final String GASOLEO_B = "GASOLEO B";
+    private static final String GASOLEO_PREMIUM = "GASOLEO PREMIUM";
+    private static final String GASOLINA_95_E10 = "GASOLINA 95 E10";
+    private static final String GASOLINA_95_E5 = "GASOLINA 95 E5";
+    private static final String GASOLINA_95_E5_PREMIUM = "GASOLINA 95 E5 PREMIUM";
+    private static final String GASOLINA_98_E10 = "GASOLINA 98 E10";
+    private static final String GASOLINA_98_E5 = "GASOLINA 98 E5";
+    private static final String BIODIESEL = "BIODIESEL";
+    private static final String BIOETANOL = "BIOETANOL";
+    private static final String GAS_NATURAL_COMPRIMIDO = "GAS NATURAL COMPRIMIDO";
+    private static final String GAS_NATURAL_LICUADO = "GAS NATURAL LICUADO";
+    private static final String GASES_LICUADOS_PETROLEO = "GASES LICUADOS PETROLEO";
+    private static final String HIDROGENO = "HIDROGENO";
+
 
     Button listaFiltros;
 
@@ -167,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
         ordenarPorPrecio();
     }
 
+
     private void ordenarPorPrecio() {
         String ordenarPorPrecio = filtro.getOrdenarPorPrecio();
         switch (ordenarPorPrecio) {
@@ -182,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
 
     /**
      * Menú action bar
