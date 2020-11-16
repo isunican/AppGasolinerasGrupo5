@@ -253,13 +253,11 @@ public class PresenterGasolineras {
         if (filtro.getMarca().equals("")) {
             return;
         }
-        Log.d("MARCA", "FILTRAR POR "+filtro.getMarca());
         Iterator<Gasolinera> itr = gasolineras.iterator();
         while (itr.hasNext()) {
             Gasolinera g = itr.next();
-            Log.d("MARCA", "GASOLINERA "+g.getRotulo());
+
             if (!filtro.getMarca().equals(g.getRotulo())) {
-                Log.d("MARCA", "ENTRO");
                 itr.remove();
             }
         }
