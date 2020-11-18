@@ -3,58 +3,71 @@ package com.isunican.proyectobase.DataBase;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FiltroTest {
-    private Filtro filtroConNombre;
-    private Filtro filtroDefecto;
+    private Filtro filtro;
+    //Aqui guardamos todas las marcas disponibles
+    private ArrayList<String> marcasDisponibles= new ArrayList<String>();
 
+    /**
+     * @author Javier Gomez Serrano
+     * Anhadimos varias marcas, como todas son string con el mismo comportamiento probamos
+     * con un espacio de prueba reducido
+     */
     @Before
     public void setUp() {
-        filtroConNombre=new Filtro("Gasolina solo", false, true);
-        filtroDefecto=new Filtro();
-    }
-
-     /*
-    Comprueba que al modificar el filtro de busqueda por tipo de combustible cambia
-    correctamente los parametros de las gasolineras mostradas.
-     */
-
-    /* UT.1a */
-    @Test
-    public void combustibleMostradoPorDefectoTest(){
-
-        assertEquals(filtroDefecto.isGasoil(), true);
-        assertEquals(filtroDefecto.isGasolina(), false);
-    }
-
-    /* UT.1b */
-    @Test
-    public void modificaCombustibleTest(){
-        filtroDefecto.setGasoil(false);
-        filtroDefecto.setGasolina(true);
-        assertEquals(filtroDefecto.isGasoil(), false);
-        assertEquals(filtroDefecto.isGasolina(), true);
-    }
-
-    /* UT.1c */
-    @Test
-    public void quitarFiltrosTest(){
-        filtroDefecto.setGasoil(false);
-        filtroDefecto.setGasolina(false);
-        assertEquals(filtroDefecto.isGasoil(), false);
-        assertEquals(filtroDefecto.isGasolina(), false);
+        filtro =new Filtro();
+        marcasDisponibles.add("CEPSA");
+        marcasDisponibles.add("REPSOL");
+        marcasDisponibles.add("PETRONOR");
+        marcasDisponibles.add("CAMPSA");
+        marcasDisponibles.add("G2");
     }
 
     /**
-     * Comprobamos si el nombre del filtro a anhadir escrito es correcto
+     * @author Javier Gomez Serrano
+     * Probamos con una sola marca
      */
     @Test
-    public void filtroCorrectoTest() {
-        //Caso en el que el nombre elegido es correcto
-        assertEquals(filtroConNombre.getNombre(),"Gasolina solo");
+    public void unaMarcaTest()
+    {
+        //Anhadimos el filtrado por la marca CEPSA
+        filtro.setMarca(marcasDisponibles.get(0));
+        assertEquals(filtro.getMarca().equals("CEPSA"), true);
+    }
 
-        //Caso en el que el nombre por defecto es correcto
-        assertEquals(filtroDefecto.getNombre(),"DEFECTO");
+    /**
+     * @author Javier Gomez Serrano
+     * Probamos con todo el espacio de prueba reducido, al existir mas marcas
+     * la prueba seria igual para todo el numero de marcas diferentes que hubiera
+     */
+    @Test
+    public void variasMarcasTest()
+    {
+        for (int i = 0; i<marcasDisponibles.size(); i++)
+        {
+            filtro.setMarca(marcasDisponibles.get(i));
+            assertEquals(filtro.getMarca().equals(marcasDisponibles.get(i)), true);
+        }
+    }
+
+    /**
+     * @author Javier Gomez Serrano
+     * Probamos que al pasar un null como parametro se maneja la excepcion NullPointerException
+     */
+    @Test
+    public void marcaNullTest()
+    {
+        //Anhadimos el filtrado por null
+        try {
+            filtro.setMarca(null);
+        } catch (NullPointerException e) {
+            assertTrue(true);
+        }
     }
 }
