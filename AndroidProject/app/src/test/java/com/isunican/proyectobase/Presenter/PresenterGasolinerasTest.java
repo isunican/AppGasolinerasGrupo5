@@ -18,24 +18,20 @@ public class PresenterGasolinerasTest {
     private ArrayList<Gasolinera> gasolineras;
     private ArrayList<String> combustibles;
 
+    /**
+     * @author Víctor Martínez Vila
+     */
     @Before
     public void setUp() {
         sut = new PresenterGasolineras();
         gasolineras = new ArrayList<Gasolinera>();
-        Gasolinera g1 = new Gasolinera(1,"SANTANDER","CANTABRIA","AA",
-                1, 2, 3, 4, 5,
-                6, 7,
-                8, 9, 10, 11, 12,
-                13, 14, "CEPSA");
-        Gasolinera g2 = new Gasolinera(2, "MALIAÑO", "CANTABRIA",
-                "AA2", 14,13, 12, 11,
-                10, 9, 8, 7, 6, 5,
-                4, 3, 2, 1, "CEPSA");
+        Gasolinera g1 = new Gasolinera(1);
+        g1.setGasoleoA(1);
+        Gasolinera g2 = new Gasolinera(2);
+        g2.setGasoleoA(2);
+        Gasolinera g3 = new Gasolinera(3);
+        g3.setGasoleoA(3);
 
-        Gasolinera g3 = new Gasolinera(3,"ASTILLERO","CANTABRIA","AA3",
-                24,23,22,21,20,19,
-                18,17,16,15,14,13,
-                12,11,"CAMPSA");
         gasolineras.add(g1);
         gasolineras.add(g2);
         gasolineras.add(g3);
@@ -52,6 +48,9 @@ public class PresenterGasolinerasTest {
         assertTrue(true);
     }
 
+    /**
+     * @author Víctor Martínez Vila
+     */
     @Test
     public void ordenarPorPrecioMenorAMayorTest(){
         Filtro f = new Filtro("filtro",combustibles,"MenorAMayor");
@@ -91,6 +90,9 @@ public class PresenterGasolinerasTest {
         } catch (PresenterGasolineras.OrdenacionNoValida e){}
     }
 
+    /**
+     * @author Víctor Martínez Vila
+     */
     @Test
     public void ordenarPorPrecioMayorAMenor(){
         Filtro f = new Filtro("filtro",combustibles,"MayorAMenor");

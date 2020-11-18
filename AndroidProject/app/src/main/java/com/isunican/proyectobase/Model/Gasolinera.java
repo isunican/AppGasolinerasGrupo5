@@ -36,12 +36,7 @@ public class Gasolinera implements Parcelable {
     /**
      * Constructor, getters y setters
      */
-    public Gasolinera (int ideess, String localidad, String provincia,
-                       String direccion, double biodiesel, double bioetanol,
-                       double gasNaturalComprimido, double gasNaturalLicuado, double gasesLicuadosPetroleo,
-                       double gasoleoA, double gasoleoB, double gasoleoPremium,
-                       double gasolina95E10, double gasolina95E5, double gasolina95E5Premium,
-                       double gasolina98E10, double gasolina98E5, double hidrogeno, String rotulo){
+    public Gasolinera (int ideess){
         this.ideess = ideess;
         this.biodiesel = biodiesel;
         this.bioetanol = bioetanol;
