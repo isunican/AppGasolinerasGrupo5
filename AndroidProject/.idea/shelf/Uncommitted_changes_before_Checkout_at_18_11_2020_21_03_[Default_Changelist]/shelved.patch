@@ -1,0 +1,247 @@
+Index: app/src/androidTest/java/com/isunican/proyectobase/Views/MostrarListaFiltrosUITest.java
+===================================================================
+--- app/src/androidTest/java/com/isunican/proyectobase/Views/MostrarListaFiltrosUITest.java	(revision 014502bc2d722e0bc89140021b8b4fff682387a8)
++++ app/src/androidTest/java/com/isunican/proyectobase/Views/MostrarListaFiltrosUITest.java	(revision 014502bc2d722e0bc89140021b8b4fff682387a8)
+@@ -1,67 +0,0 @@
+-package com.isunican.proyectobase.Views;
+-
+-
+-
+-import android.widget.ArrayAdapter;
+-import android.widget.SpinnerAdapter;
+-
+-import androidx.test.ext.junit.runners.AndroidJUnit4;
+-import androidx.test.rule.ActivityTestRule;
+-
+-import com.isunican.proyectobase.R;
+-
+-import org.junit.Rule;
+-import org.junit.Test;
+-import org.junit.runner.RunWith;
+-
+-import java.util.ArrayList;
+-
+-import static androidx.test.espresso.Espresso.onData;
+-import static androidx.test.espresso.Espresso.onView;
+-import static androidx.test.espresso.action.ViewActions.click;
+-import static androidx.test.espresso.assertion.ViewAssertions.matches;
+-import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
+-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+-import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
+-import static androidx.test.espresso.matcher.ViewMatchers.isSelected;
+-import static androidx.test.espresso.matcher.ViewMatchers.withId;
+-import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
+-import static androidx.test.espresso.matcher.ViewMatchers.withText;
+-import static org.hamcrest.Matchers.allOf;
+-import static org.hamcrest.Matchers.containsString;
+-import static org.hamcrest.Matchers.instanceOf;
+-import static org.hamcrest.Matchers.is;
+-
+-/**
+- * Instrumented test, which will execute on an Android device.
+- *
+- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+- */
+-@RunWith(AndroidJUnit4.class)
+-public class MostrarListaFiltrosUITest {
+-
+-    @Rule
+-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+-
+-    /* Comprueba si la aplicación muestra la lista de filtros que pueden seleccionarse */
+-    @Test
+-    public void listaFiltros() {
+-        //Entramos en la lista de Filtros
+-        onView(withId(R.id.btnListaFiltros)).perform(click());
+-        //Comprobamos el estado de los componentes
+-        onView(withId(R.id.switchGasoil)).check(matches(withText("Gasoil")));
+-        onView(withId(R.id.switchGasolina)).check(matches(withText("Gasolina")));
+-
+-        onView(withId(R.id.switchGasoil)).check(matches(isChecked()));
+-        onView(withId(R.id.switchGasolina)).check(matches(isNotChecked()));
+-
+-        onView(withId(R.id.checkFavoritos)).check(matches(isNotChecked()));
+-
+-        onView(withId(R.id.spinnerMarca)).check(matches(isDisplayed()));
+-        onView(withId(R.id.spinnerProvincia)).check(matches(isDisplayed()));
+-
+-        onView(withId(R.id.checkDistancia)).check(matches(isNotChecked()));
+-        onView(withId(R.id.checkPrecio)).check(matches(isNotChecked()));
+-    }
+-}
+-
+Index: app/src/androidTest/java/com/isunican/proyectobase/Views/FiltraCombustibleUITest.java
+===================================================================
+--- app/src/androidTest/java/com/isunican/proyectobase/Views/FiltraCombustibleUITest.java	(revision 014502bc2d722e0bc89140021b8b4fff682387a8)
++++ app/src/androidTest/java/com/isunican/proyectobase/Views/FiltraCombustibleUITest.java	(revision 014502bc2d722e0bc89140021b8b4fff682387a8)
+@@ -1,55 +0,0 @@
+-package com.isunican.proyectobase.Views;
+-
+-import android.widget.ListView;
+-import com.isunican.proyectobase.R;
+-
+-import androidx.test.espresso.action.ViewActions;
+-import androidx.test.espresso.matcher.ViewMatchers;
+-import androidx.test.ext.junit.runners.AndroidJUnit4;
+-import androidx.test.rule.ActivityTestRule;
+-
+-import org.junit.Rule;
+-import org.junit.Test;
+-import org.junit.runner.RunWith;
+-
+-import static androidx.test.espresso.Espresso.onData;
+-import static androidx.test.espresso.Espresso.onView;
+-import static androidx.test.espresso.action.ViewActions.click;
+-import static androidx.test.espresso.assertion.ViewAssertions.matches;
+-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+-import static androidx.test.espresso.matcher.ViewMatchers.withId;
+-import static org.hamcrest.Matchers.anything;
+-import static org.hamcrest.Matchers.not;
+-
+-/**
+- * Instrumented test, which will execute on an Android device.
+- *
+- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+- */
+-@RunWith(AndroidJUnit4.class)
+-public class FiltraCombustibleUITest {
+-
+-    @Rule
+-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+-
+-    /* Filtra por combustible: gasolina */
+-    @Test
+-    public void filtraCombustible(){
+-        // introducimos filtrar por gasolina y quitamos el filtro por diesel
+-        onView(withId(R.id.btnListaFiltros)).perform(click());
+-        onView(withId(R.id.switchGasoil)).perform(click());
+-        onView(withId(R.id.switchGasolina)).perform(click());
+-        onView(ViewMatchers.withId(R.id.scrollTabla)).perform(ViewActions.swipeUp());
+-        onView(withId(R.id.btnAceptar)).perform((click()));
+-
+-        ListView vista = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
+-        // Comprobamos que se muestran solo los precios de gasolina
+-        for (int i=0; i<vista.getAdapter().getCount();i++) {
+-            onData(anything())
+-                    .inAdapterView(withId(R.id.listViewGasolineras))
+-                    .atPosition(i)
+-                    .onChildView(withId(R.id.textViewGasoleoA))
+-                    .check(matches(not(isDisplayed())));
+-        }
+-    }
+-}
+Index: app/src/androidTest/java/com/isunican/proyectobase/Views/GuardarConfiguracionFiltrosUITest.java
+===================================================================
+--- app/src/androidTest/java/com/isunican/proyectobase/Views/GuardarConfiguracionFiltrosUITest.java	(revision 014502bc2d722e0bc89140021b8b4fff682387a8)
++++ app/src/androidTest/java/com/isunican/proyectobase/Views/GuardarConfiguracionFiltrosUITest.java	(revision 014502bc2d722e0bc89140021b8b4fff682387a8)
+@@ -1,75 +0,0 @@
+-package com.isunican.proyectobase.Views;
+-
+-import android.content.Context;
+-
+-import androidx.test.espresso.action.ViewActions;
+-import androidx.test.espresso.matcher.ViewMatchers;
+-import androidx.test.ext.junit.runners.AndroidJUnit4;
+-import androidx.test.filters.LargeTest;
+-import androidx.test.platform.app.InstrumentationRegistry;
+-import androidx.test.rule.ActivityTestRule;
+-
+-import com.isunican.proyectobase.R;
+-import com.isunican.proyectobase.Views.MainActivity;
+-
+-import org.junit.Rule;
+-import org.junit.Test;
+-import org.junit.runner.RunWith;
+-
+-import static androidx.test.espresso.Espresso.onView;
+-import static androidx.test.espresso.action.ViewActions.click;
+-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+-import static androidx.test.espresso.action.ViewActions.typeText;
+-import static androidx.test.espresso.assertion.ViewAssertions.matches;
+-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
+-import static androidx.test.espresso.matcher.ViewMatchers.withId;
+-import static androidx.test.espresso.matcher.ViewMatchers.withText;
+-import static org.hamcrest.Matchers.allOf;
+-import static org.hamcrest.Matchers.endsWith;
+-import static org.junit.Assert.assertEquals;
+-
+-/**
+- * Instrumented test, which will execute on an Android device.
+- *
+- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+- */
+-@RunWith(AndroidJUnit4.class)
+-@LargeTest
+-public class GuardarConfiguracionFiltrosUITest {
+-
+-    @Rule
+-    public ActivityTestRule<MainActivity> activityRule
+-            = new ActivityTestRule<>(MainActivity.class);
+-    @Test
+-    public void useAppContext() {
+-        // Context of the app under test.
+-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+-        assertEquals("com.isunican.proyectobase", appContext.getPackageName());
+-    }
+-
+-    @Test
+-    public void guardaConfiguracionTest (){
+-
+-        //Selección del boton lista filtros para mostrar la lista de filtros
+-        onView(withId(R.id.btnListaFiltros)).check(matches(withText("MOSTRAR FILTROS")));
+-        onView(withId(R.id.btnListaFiltros)).perform(click());
+-        //Posible Selección de filtros
+-        onView(withId(R.id.btnGuardarConfig)).check(matches(withText("GUARDAR CONFIGURACIÓN")));
+-        onView(withId(R.id.switchGasoil)).perform(click());
+-        onView(withId(R.id.switchGasolina)).perform(click());
+-        /**onView(withId(R.id.spinnerProvincia)).perform(click());
+-        onData(allOf(is(instanceOf(String.class)), is("CANTABRIA"))).perform(click());
+-        onView(withId(R.id.spinnerMarca)).perform(click());
+-        onData(allOf(is(instanceOf(String.class)), is("CEPSA"))).perform(click());
+-        onView(withId(R.id.checkDistancia)).perform(click());
+-        onView(withId(R.id.radioButtonMenor)).perform(click());
+-        onView(withId(R.id.editTextDistancia)).perform(typeText("100"), closeSoftKeyboard());
+-        onView(withId(R.id.checkPrecio)).perform(click());
+-        onView(withId(R.id.radioButtonAsc)).perform(click());*/
+-        //Guardar selección de filtros con nombre
+-        onView(ViewMatchers.withId(R.id.scrollTabla)).perform(ViewActions.swipeUp());
+-        onView(withId(R.id.btnGuardarConfig)).perform(click());
+-        onView(allOf(withClassName(endsWith("EditText")))).perform(typeText("Gasolina"), closeSoftKeyboard());
+-        onView(withText("Sí")).perform(click());
+-    }
+-}
+Index: app/src/androidTest/399114-OrdenarPorPrecio/PresenterGasolinerasTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/androidTest/399114-OrdenarPorPrecio/PresenterGasolinerasTest.java	(date 1605729729860)
++++ app/src/androidTest/399114-OrdenarPorPrecio/PresenterGasolinerasTest.java	(date 1605729729860)
+@@ -0,0 +1,26 @@
++
++
++
++import androidx.test.ext.junit.runners.AndroidJUnit4;
++
++import com.isunican.proyectobase.Presenter.PresenterGasolineras;
++import org.junit.Test;
++import org.junit.runner.RunWith;
++
++
++/**
++ * Instrumented test, which will execute on an Android device.
++ *
++ * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
++ */
++@RunWith(AndroidJUnit4.class)
++public class PresenterGasolinerasTest {
++
++    PresenterGasolineras presenter;
++
++    @Test
++    public void listaFiltros() {
++
++    }
++}
++
+diff --git .idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2020_17_15__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2020_17_15__Default_Changelist_.xml
