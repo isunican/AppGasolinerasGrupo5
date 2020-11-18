@@ -43,9 +43,21 @@ public class PresenterGasolinerasTest {
         combustibles.add("GASOLEO A");
     }
 
+    /**
+     * @author Víctor Argueso Cano
+     */
     @Test
-    public void cargaDatosRemotosTest(){
-        assertTrue(true);
+    public void cargaDatosRemotosTest() {
+        try {
+            sut.cargaDatosRemotos(null);
+            fail("No se ha lanzado la excepción NullPointerException");
+        } catch (NullPointerException e){}
+        try {
+            sut.cargaDatosRemotos(PresenterGasolineras.URL_GASOLINERAS_SPAIN);
+        } catch (Exception e) {
+            fail("Ha saltado la excepcion e");
+
+        }
     }
 
     /**
@@ -132,10 +144,77 @@ public class PresenterGasolinerasTest {
         } catch (PresenterGasolineras.OrdenacionNoValida e){}
     }
 
+    /**
+     * @author Víctor Argueso Cano
+     */
     @Test
     public void ordenarPorPrecioTest(){
-        assertTrue(true);
+        Filtro f = new Filtro("filtro",combustibles,"MayorAMenor");
+        Filtro f1 = new Filtro("filtro",combustibles,"MenorAMayor");
+        //CASO 1 - Filtro nulo
+        try {
+            sut.ordenarPorPrecioMayorAMenor(null);
+            fail("No se ha lanzado la excepción NullPointerException");
+        } catch (NullPointerException e){}
+
+        //CASO 2 - Caso correcto
+        try {
+            sut.ordenarPorPrecioMayorAMenor(f);
+        } catch (PresenterGasolineras.OrdenacionNoValida e){
+            fail("Ha saltado la excepcion OrdenacionNoValida");
+        } catch (PresenterGasolineras.CombustiblesInvalidos e){
+            fail("Ha saltado la excepcion CombustiblesInvalidos");
+        }
+
+        //CASO 3 - Combustibles no válidos
+        ArrayList<String> combustiblesIncorrectos = new ArrayList<String>();
+        combustiblesIncorrectos.add("LUIS");
+        combustiblesIncorrectos.add("GONZALO");
+        combustiblesIncorrectos.add("ALBERTO");
+        combustiblesIncorrectos.add("ROQUE");
+
+        Filtro f2 = new Filtro("filtro2",combustiblesIncorrectos,"MayorAMenor");
+
+        try {
+            sut.ordenarPorPrecioMayorAMenor(f2);
+            fail("No ha saltado la excepcion CombustiblesInvalidos");
+        } catch (PresenterGasolineras.CombustiblesInvalidos e){}
+
+        //CASO 4 - Ordenacion no valida
+        f = new Filtro("filtro",combustibles,"LUIS");
+        try {
+            sut.ordenarPorPrecioMayorAMenor(f);
+            fail("No ha saltado la excepcion OrdenacionNoValida");
+        } catch (PresenterGasolineras.OrdenacionNoValida e){}
+
+
+
+    //CASO 2 - Caso correcto
+        try {
+        sut.ordenarPorPrecioMenorAMayor(f1);
+    } catch (PresenterGasolineras.OrdenacionNoValida e){
+        fail("Ha saltado la excepcion OrdenacionNoValida");
+    } catch (PresenterGasolineras.CombustiblesInvalidos e){
+        fail("Ha saltado la excepcion CombustiblesInvalidos");
     }
+
+    //CASO 3 - Combustibles no válidos
+
+    Filtro f3 = new Filtro("filtro3",combustiblesIncorrectos,"MenorAMayor");
+
+        try {
+        sut.ordenarPorPrecioMenorAMayor(f3);
+        fail("No ha saltado la excepcion CombustiblesInvalidos");
+    } catch (PresenterGasolineras.CombustiblesInvalidos e){}
+
+    //CASO 4 - Ordenacion no valida
+    f1 = new Filtro("filtro",combustibles,"LUIS");
+        try {
+        sut.ordenarPorPrecioMenorAMayor(f);
+        fail("No ha saltado la excepcion OrdenacionNoValida");
+    } catch (PresenterGasolineras.OrdenacionNoValida e){}
+}
+
 
 
 }
