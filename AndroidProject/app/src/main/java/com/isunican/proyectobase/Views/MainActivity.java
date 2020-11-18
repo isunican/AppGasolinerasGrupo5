@@ -7,12 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +32,9 @@ import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 ------------------------------------------------------------------
     Vista principal
@@ -51,23 +48,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
 
     PresenterGasolineras presenterGasolineras;
-
-    private static final String TODOS = "TODOS";
-    private static final String GASOLEO_A = "GASOLEO A";
-    private static final String GASOLEO_B = "GASOLEO B";
-    private static final String GASOLEO_PREMIUM = "GASOLEO PREMIUM";
-    private static final String GASOLINA_95_E10 = "GASOLINA 95 E10";
-    private static final String GASOLINA_95_E5 = "GASOLINA 95 E5";
-    private static final String GASOLINA_95_E5_PREMIUM = "GASOLINA 95 E5 PREMIUM";
-    private static final String GASOLINA_98_E10 = "GASOLINA 98 E10";
-    private static final String GASOLINA_98_E5 = "GASOLINA 98 E5";
-    private static final String BIODIESEL = "BIODIESEL";
-    private static final String BIOETANOL = "BIOETANOL";
-    private static final String GAS_NATURAL_COMPRIMIDO = "GAS NATURAL COMPRIMIDO";
-    private static final String GAS_NATURAL_LICUADO = "GAS NATURAL LICUADO";
-    private static final String GASES_LICUADOS_PETROLEO = "GASES LICUADOS PETROLEO";
-    private static final String HIDROGENO = "HIDROGENO";
-
 
     Button listaFiltros;
 
@@ -177,25 +157,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private void representarFiltros(View view) {
         presenterGasolineras.filtrarPorCombustible(view, filtro);
-        ordenarPorPrecio();
+        presenterGasolineras.ordenarPorPrecio(filtro);
     }
 
-
-    private void ordenarPorPrecio() {
-        String ordenarPorPrecio = filtro.getOrdenarPorPrecio();
-        switch (ordenarPorPrecio) {
-            case "":
-                // No se ha especificado nada, entonces no se ordena de ninguna manera por precio
-                break;
-            case "MayorAMenor":
-                presenterGasolineras.ordenarPorPrecioMayorAMenor(filtro);
-                break;
-            case "MenorAMayor":
-                presenterGasolineras.ordenarPorPrecioMenorAMayor(filtro);
-                break;
-
-        }
-    }
 
     /**
      * Menú action bar

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "2ca4b4c2b747494a9790fbacc9f2e4a3",
+    "identityHash": "87bf9d6fe4b7007f440863d1ff618d76",
     "entities": [
       {
         "tableName": "filtro",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT, `combustibles` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT, `combustibles` TEXT, `ordenarPorPrecio` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -25,6 +25,12 @@
             "columnName": "combustibles",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "ordenarPorPrecio",
+            "columnName": "ordenarPorPrecio",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -40,7 +46,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2ca4b4c2b747494a9790fbacc9f2e4a3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '87bf9d6fe4b7007f440863d1ff618d76')"
     ]
   }
 }

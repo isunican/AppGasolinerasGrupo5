@@ -4,7 +4,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.isunican.proyectobase.DataBase.Filtro;
-import com.isunican.proyectobase.Model.*;
+import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Utilities.ParserJSONGasolineras;
 import com.isunican.proyectobase.Utilities.RemoteFetch;
@@ -507,6 +507,22 @@ public class PresenterGasolineras {
                 }
             });
             return;
+        }
+    }
+
+    public void ordenarPorPrecio(Filtro filtro) {
+        String ordenarPorPrecio = filtro.getOrdenarPorPrecio();
+        switch (ordenarPorPrecio) {
+            case "":
+                // No se ha especificado nada, entonces no se ordena de ninguna manera por precio
+                break;
+            case "MayorAMenor":
+                ordenarPorPrecioMayorAMenor(filtro);
+                break;
+            case "MenorAMayor":
+                ordenarPorPrecioMenorAMayor(filtro);
+                break;
+
         }
     }
 }
