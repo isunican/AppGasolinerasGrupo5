@@ -14,6 +14,9 @@ public class FiltroTest {
     //Lista que usaremos para la selección de múltiples combustibles
     private ArrayList<String> combustibles= new ArrayList<String>();
 
+    /**
+     * @author Javier Gomez Serrano
+     */
     @Before
     public void setUp() {
         filtro =new Filtro();
@@ -27,6 +30,7 @@ public class FiltroTest {
     }
 
     /**
+     * @author Javier Gomez Serrano
      * Test de seleccion de varios combustibles
      */
     @Test
@@ -42,6 +46,7 @@ public class FiltroTest {
     }
 
     /**
+     * @author Javier Gomez Serrano
      * Test de deseleccion de varios combustibles
      */
     @Test
@@ -57,6 +62,7 @@ public class FiltroTest {
     }
 
     /**
+     * @author Javier Gomez Serrano
      * Test de comprobacion de manejo de NullPointerException si se le pasa null como
      * parametro
      */
