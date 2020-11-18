@@ -39,6 +39,22 @@ public class PresenterGasolineras {
     public static final String URL_GASOLINERAS_SANTANDER="https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/FiltroMunicipio/5819";
     public static final String SANTANDER="Santander";
 
+    private static final String TODOS = "TODOS";
+    private static final String GASOLEO_A = "GASOLEO A";
+    private static final String GASOLEO_B = "GASOLEO B";
+    private static final String GASOLEO_PREMIUM = "GASOLEO PREMIUM";
+    private static final String GASOLINA_95_E10 = "GASOLINA 95 E10";
+    private static final String GASOLINA_95_E5 = "GASOLINA 95 E5";
+    private static final String GASOLINA_95_E5_PREMIUM = "GASOLINA 95 E5 PREMIUM";
+    private static final String GASOLINA_98_E10 = "GASOLINA 98 E10";
+    private static final String GASOLINA_98_E5 = "GASOLINA 98 E5";
+    private static final String BIODIESEL = "BIODIESEL";
+    private static final String BIOETANOL = "BIOETANOL";
+    private static final String GAS_NATURAL_COMPRIMIDO = "GAS NATURAL COMPRIMIDO";
+    private static final String GAS_NATURAL_LICUADO = "GAS NATURAL LICUADO";
+    private static final String GASES_LICUADOS_PETROLEO = "GASES LICUADOS PETROLEO";
+    private static final String HIDROGENO = "HIDROGENO";
+
     /**
      * Constructor, getters y setters
      */
@@ -169,7 +185,7 @@ public class PresenterGasolineras {
 
         for (String combustible : filtro.getCombustibles()) {
             switch (combustible) {
-                case "TODOS":
+                case TODOS:
                     viewGasoilAPrecio.setVisibility(View.VISIBLE);
                     viewGasoilALabel.setVisibility(View.VISIBLE);
                     viewGasoilBPrecio.setVisibility(View.VISIBLE);
@@ -199,59 +215,59 @@ public class PresenterGasolineras {
                     viewHidrogenoPrecio.setVisibility(View.VISIBLE);
                     viewHidrogenoLabel.setVisibility(View.VISIBLE);
                     break;
-                case "GASOLEO A":
+                case GASOLEO_A:
                     viewGasoilAPrecio.setVisibility(View.VISIBLE);
                     viewGasoilALabel.setVisibility(View.VISIBLE);
                     break;
-                case "GASOLEO B":
+                case GASOLEO_B:
                     viewGasoilBPrecio.setVisibility(View.VISIBLE);
                     viewGasoilBLabel.setVisibility(View.VISIBLE);
                     break;
-                case "GASOLEO PREMIUM":
+                case GASOLEO_PREMIUM:
                     viewGasoilPremiumPrecio.setVisibility(View.VISIBLE);
                     viewGasoilPremiumLabel.setVisibility(View.VISIBLE);
                     break;
-                case "GASOLINA 95 E10":
+                case GASOLINA_95_E10:
                     viewGasolina95E10Precio.setVisibility(View.VISIBLE);
                     viewGasolina95E10Label.setVisibility(View.VISIBLE);
                     break;
-                case "GASOLINA 95 E5":
+                case GASOLINA_95_E5:
                     viewGasolina95E5Precio.setVisibility(View.VISIBLE);
                     viewGasolina95E5Label.setVisibility(View.VISIBLE);
                     break;
-                case "GASOLINA 95 E5 PREMIUM":
+                case GASOLINA_95_E5_PREMIUM:
                     viewGasolina95E5PremiumPrecio.setVisibility(View.VISIBLE);
                     viewGasolina95E5PremiumLabel.setVisibility(View.VISIBLE);
                     break;
-                case "GASOLINA 98 E10":
+                case GASOLINA_98_E10:
                     viewGasolina98E10Precio.setVisibility(View.VISIBLE);
                     viewGasolina98E10Label.setVisibility(View.VISIBLE);
                     break;
-                case "GASOLINA 98 E5":
+                case GASOLINA_98_E5:
                     viewGasolina98E5Precio.setVisibility(View.VISIBLE);
                     viewGasolina98E5Label.setVisibility(View.VISIBLE);
                     break;
-                case "BIODIESEL":
+                case BIODIESEL:
                     viewBiodieselPrecio.setVisibility(View.VISIBLE);
                     viewBiodieselLabel.setVisibility(View.VISIBLE);
                     break;
-                case "BIOETANOL":
+                case BIOETANOL:
                     viewBioetanolPrecio.setVisibility(View.VISIBLE);
                     viewBioetanolLabel.setVisibility(View.VISIBLE);
                     break;
-                case "GAS NATURAL COMPRIMIDO":
+                case GAS_NATURAL_COMPRIMIDO:
                     viewGasNaturalComprimidoPrecio.setVisibility(View.VISIBLE);
                     viewGasNaturalComprimidoLabel.setVisibility(View.VISIBLE);
                     break;
-                case "GAS NATURAL LICUADO":
+                case GAS_NATURAL_LICUADO:
                     viewGasNaturalLicuadoPrecio.setVisibility(View.VISIBLE);
                     viewGasNaturalLicuadoLabel.setVisibility(View.VISIBLE);
                     break;
-                case "GASES LICUADOS PETROLEO":
+                case GASES_LICUADOS_PETROLEO:
                     viewGasesLicuadosPetroleoPrecio.setVisibility(View.VISIBLE);
                     viewGasesLicuadosPetroleoLabel.setVisibility(View.VISIBLE);
                     break;
-                case "HIDROGENO":
+                case HIDROGENO:
                     viewHidrogenoPrecio.setVisibility(View.VISIBLE);
                     viewHidrogenoLabel.setVisibility(View.VISIBLE);
                     break;
@@ -286,7 +302,7 @@ public class PresenterGasolineras {
 
     public void ordenarPorPrecioMenorAMayor(Filtro filtro) {
         List<String> combustiblesAFiltar = filtro.getCombustibles();
-        if (combustiblesAFiltar.contains("TODOS") || combustiblesAFiltar.contains("GASOLEO A")) {
+        if (combustiblesAFiltar.contains(TODOS) || combustiblesAFiltar.contains(GASOLEO_A)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -295,7 +311,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASOLEO B")) {
+        if (combustiblesAFiltar.contains(GASOLEO_B)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -304,7 +320,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASOLEO PREMIUM")) {
+        if (combustiblesAFiltar.contains(GASOLEO_PREMIUM)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -313,7 +329,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASOLINA 95 E10")) {
+        if (combustiblesAFiltar.contains(GASOLINA_95_E10)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -322,7 +338,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASOLINA 95 E5")) {
+        if (combustiblesAFiltar.contains(GASOLINA_95_E5)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -331,7 +347,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASOLINA 95 E5 PREMIUM")) {
+        if (combustiblesAFiltar.contains(GASOLINA_95_E5_PREMIUM)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -340,7 +356,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASOLINA 98 E10")) {
+        if (combustiblesAFiltar.contains(GASOLINA_98_E10)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -349,7 +365,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASOLINA 98 E5")) {
+        if (combustiblesAFiltar.contains(GASOLINA_98_E5)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -358,7 +374,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("BIODIESEL")) {
+        if (combustiblesAFiltar.contains(BIODIESEL)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -367,7 +383,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("BIOETANOL")) {
+        if (combustiblesAFiltar.contains(BIOETANOL)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -376,7 +392,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GAS NATURAL COMPRIMIDO")) {
+        if (combustiblesAFiltar.contains(GAS_NATURAL_COMPRIMIDO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -385,7 +401,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GAS NATURAL LICUADO")) {
+        if (combustiblesAFiltar.contains(GAS_NATURAL_LICUADO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -394,7 +410,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASES LICUADOS PETROLEO")) {
+        if (combustiblesAFiltar.contains(GASES_LICUADOS_PETROLEO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -403,7 +419,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("HIDROGENO")) {
+        if (combustiblesAFiltar.contains(HIDROGENO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -416,7 +432,7 @@ public class PresenterGasolineras {
 
     public void ordenarPorPrecioMayorAMenor(Filtro filtro) {
         List<String> combustiblesAFiltar = filtro.getCombustibles();
-        if (combustiblesAFiltar.contains("TODOS") || combustiblesAFiltar.contains("GASOLEO A")) {
+        if (combustiblesAFiltar.contains(TODOS) || combustiblesAFiltar.contains(GASOLEO_A)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -425,7 +441,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASOLEO B")) {
+        if (combustiblesAFiltar.contains(GASOLEO_B)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -434,7 +450,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASOLEO PREMIUM")) {
+        if (combustiblesAFiltar.contains(GASOLEO_PREMIUM)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -443,7 +459,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASOLINA 95 E10")) {
+        if (combustiblesAFiltar.contains(GASOLINA_95_E10)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -452,7 +468,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASOLINA 95 E5")) {
+        if (combustiblesAFiltar.contains(GASOLINA_95_E5)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -461,7 +477,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASOLINA 95 E5 PREMIUM")) {
+        if (combustiblesAFiltar.contains(GASOLINA_95_E5_PREMIUM)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -470,7 +486,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASOLINA 98 E10")) {
+        if (combustiblesAFiltar.contains(GASOLINA_98_E10)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -479,7 +495,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASOLINA 98 E5")) {
+        if (combustiblesAFiltar.contains(GASOLINA_98_E5)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -488,7 +504,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("BIODIESEL")) {
+        if (combustiblesAFiltar.contains(BIODIESEL)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -497,7 +513,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("BIOETANOL")) {
+        if (combustiblesAFiltar.contains(BIOETANOL)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -506,7 +522,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GAS NATURAL COMPRIMIDO")) {
+        if (combustiblesAFiltar.contains(GAS_NATURAL_COMPRIMIDO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -515,7 +531,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GAS NATURAL LICUADO")) {
+        if (combustiblesAFiltar.contains(GAS_NATURAL_LICUADO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -524,7 +540,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("GASES LICUADOS PETROLEO")) {
+        if (combustiblesAFiltar.contains(GASES_LICUADOS_PETROLEO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -533,7 +549,7 @@ public class PresenterGasolineras {
             });
             return;
         }
-        if (combustiblesAFiltar.contains("HIDROGENO")) {
+        if (combustiblesAFiltar.contains(HIDROGENO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
                 public int compare(Gasolinera g1, Gasolinera g2) {
@@ -556,7 +572,8 @@ public class PresenterGasolineras {
             case "MenorAMayor":
                 ordenarPorPrecioMenorAMayor(filtro);
                 break;
-
+            default:
+                break;
         }
     }
 }
