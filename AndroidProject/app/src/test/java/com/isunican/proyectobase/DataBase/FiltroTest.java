@@ -3,58 +3,72 @@ package com.isunican.proyectobase.DataBase;
 import org.junit.Before;
 import org.junit.Test;
 
+
+
+import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FiltroTest {
-    private Filtro filtroConNombre;
-    private Filtro filtroDefecto;
+    private Filtro filtro;
+    //Lista que usaremos para la selección de múltiples combustibles
+    private ArrayList<String> combustibles= new ArrayList<String>();
 
     @Before
     public void setUp() {
-        filtroConNombre=new Filtro("Gasolina solo", false, true);
-        filtroDefecto=new Filtro();
-    }
-
-     /*
-    Comprueba que al modificar el filtro de busqueda por tipo de combustible cambia
-    correctamente los parametros de las gasolineras mostradas.
-     */
-
-    /* UT.1a */
-    @Test
-    public void combustibleMostradoPorDefectoTest(){
-
-        assertEquals(filtroDefecto.isGasoil(), true);
-        assertEquals(filtroDefecto.isGasolina(), false);
-    }
-
-    /* UT.1b */
-    @Test
-    public void modificaCombustibleTest(){
-        filtroDefecto.setGasoil(false);
-        filtroDefecto.setGasolina(true);
-        assertEquals(filtroDefecto.isGasoil(), false);
-        assertEquals(filtroDefecto.isGasolina(), true);
-    }
-
-    /* UT.1c */
-    @Test
-    public void quitarFiltrosTest(){
-        filtroDefecto.setGasoil(false);
-        filtroDefecto.setGasolina(false);
-        assertEquals(filtroDefecto.isGasoil(), false);
-        assertEquals(filtroDefecto.isGasolina(), false);
+        filtro =new Filtro();
+        //Creación de una lista de combustibles para probar con varios combustibles seleccionados
+        //a la vez, probando con cinco de las posibles opciones de combustibles.
+        combustibles.add("GASOLEO A");
+        combustibles.add("GASOLEO B");
+        combustibles.add("GASOLEO PREMIUM");
+        combustibles.add("GASOLINA 95 E10");
+        combustibles.add("GASOLINA 95 E5");
     }
 
     /**
-     * Comprobamos si el nombre del filtro a anhadir escrito es correcto
+     * Test de seleccion de varios combustibles
      */
     @Test
-    public void filtroCorrectoTest() {
-        //Caso en el que el nombre elegido es correcto
-        assertEquals(filtroConNombre.getNombre(),"Gasolina solo");
-
-        //Caso en el que el nombre por defecto es correcto
-        assertEquals(filtroDefecto.getNombre(),"DEFECTO");
+    public void seleccionVariosCombustiblesTest()
+    {
+        filtro.setCombustibles(combustibles);
+        assertEquals(filtro.getCombustibles().equals(combustibles), true);
+        assertEquals(filtro.getCombustibles().get(0).equals("GASOLEO A"), true);
+        assertEquals(filtro.getCombustibles().get(1).equals("GASOLEO B"), true);
+        assertEquals(filtro.getCombustibles().get(2).equals("GASOLEO PREMIUM"), true);
+        assertEquals(filtro.getCombustibles().get(3).equals("GASOLINA 95 E10"), true);
+        assertEquals(filtro.getCombustibles().get(4).equals("GASOLINA 95 E5"), true);
     }
+
+    /**
+     * Test de deseleccion de varios combustibles
+     */
+    @Test
+    public void quitaVariosCombustiblesTest()
+    {
+        combustibles.remove(4);
+        combustibles.remove(3);
+        combustibles.remove(2);
+        filtro.setCombustibles(combustibles);
+        assertEquals(filtro.getCombustibles().equals(combustibles), true);
+        assertEquals(filtro.getCombustibles().get(0).equals("GASOLEO A"), true);
+        assertEquals(filtro.getCombustibles().get(1).equals("GASOLEO B"), true);
+    }
+
+    /**
+     * Test de comprobacion de manejo de NullPointerException si se le pasa null como
+     * parametro
+     */
+
+    @Test
+    public void compruebaNullTest()
+    {
+        try {
+            filtro.setCombustibles(null);
+        } catch (NullPointerException e) {
+            assertTrue(true);
+        }
+    }
+
 }
