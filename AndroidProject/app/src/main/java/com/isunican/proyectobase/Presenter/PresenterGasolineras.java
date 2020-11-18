@@ -28,8 +28,8 @@ public class PresenterGasolineras {
 
     private List<Gasolinera> gasolineras;
 
-    public static class combustiblesInvalidos extends RuntimeException{}
-    public static class ordenacionNoValida extends RuntimeException{}
+    public static class CombustiblesInvalidos extends RuntimeException{}
+    public static class OrdenacionNoValida extends RuntimeException{}
 
     //URLs para obtener datos de las gasolineras
     //https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/help
@@ -254,10 +254,10 @@ public class PresenterGasolineras {
     }
 
     public void ordenarPorPrecioMenorAMayor(Filtro filtro)
-            throws combustiblesInvalidos, ordenacionNoValida {
+            throws CombustiblesInvalidos, OrdenacionNoValida {
 
         if (! filtro.getOrdenarPorPrecio().equals("MenorAMayor")){
-            throw new ordenacionNoValida();
+            throw new OrdenacionNoValida();
         }
 
         List<String> combustiblesAFiltar = filtro.getCombustibles();
@@ -374,15 +374,15 @@ public class PresenterGasolineras {
             });
             return;
         } else {
-            throw new combustiblesInvalidos();
+            throw new CombustiblesInvalidos();
         }
     }
 
     public void ordenarPorPrecioMayorAMenor(Filtro filtro)
-            throws ordenacionNoValida, combustiblesInvalidos {
+            throws OrdenacionNoValida, CombustiblesInvalidos {
 
         if (! filtro.getOrdenarPorPrecio().equals("MayorAMenor")){
-            throw new ordenacionNoValida();
+            throw new OrdenacionNoValida();
         }
 
         List<String> combustiblesAFiltar = filtro.getCombustibles();
@@ -499,7 +499,7 @@ public class PresenterGasolineras {
             });
             return;
         } else {
-            throw new combustiblesInvalidos();
+            throw new CombustiblesInvalidos();
         }
     }
 
