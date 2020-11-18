@@ -278,12 +278,6 @@ public class PresenterGasolineras {
     }
 
     public void filtrarPorMarca( Filtro filtro) {
-        gasolineras.clear();
-
-        for (Gasolinera gasolinera : copia) {
-            gasolineras.add(gasolinera);
-        }
-
         if (filtro.getMarca().equals("")) {
             return;
         }
@@ -574,6 +568,14 @@ public class PresenterGasolineras {
                 break;
             default:
                 break;
+        }
+    }
+
+    public void resetGasolineras(){
+        gasolineras.clear();
+
+        for (Gasolinera gasolinera : copia) {
+            gasolineras.add(gasolinera);
         }
     }
 }
