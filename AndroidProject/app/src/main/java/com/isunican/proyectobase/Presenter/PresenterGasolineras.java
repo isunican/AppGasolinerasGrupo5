@@ -26,6 +26,10 @@ import java.util.List;
 public class PresenterGasolineras {
 
     private List<Gasolinera> gasolineras;
+    private List<Gasolinera> copia;
+
+
+
 
     //URLs para obtener datos de las gasolineras
     //https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/help
@@ -44,6 +48,10 @@ public class PresenterGasolineras {
     public List<Gasolinera> getGasolineras(){
         return gasolineras;
     }
+    public List<Gasolinera> getFiltradas(){
+        return copia;
+    }
+
 
     public void setGasolineras(List<Gasolinera> l) {
         this.gasolineras = l;
@@ -116,8 +124,11 @@ public class PresenterGasolineras {
     public boolean cargaDatosRemotos(String direccion){
         try {
             BufferedInputStream buffer = RemoteFetch.cargaBufferDesdeURL(direccion);
-            gasolineras = ParserJSONGasolineras.parseaArrayGasolineras(buffer);
+            copia = ParserJSONGasolineras.parseaArrayGasolineras(buffer);
             Log.d("ENTRA", "Obten gasolineras:" + gasolineras.size());
+            for (Gasolinera gasolinera : copia) {
+                gasolineras.add(gasolinera);
+            }
             return true;
         } catch (Exception e) {
             Log.e("ERROR", "Error en la obtención de gasolineras: " + e.getMessage());
@@ -249,17 +260,30 @@ public class PresenterGasolineras {
         }
     }
 
-    public void filtrarPorMarca(List<Gasolinera> gasolineras, Filtro filtro) {
+
+
+
+    public void filtrarPorMarca( Filtro filtro) {
+        gasolineras.clear();
+
+        for (Gasolinera gasolinera : copia) {
+            gasolineras.add(gasolinera);
+        }
+
         if (filtro.getMarca().equals("")) {
             return;
         }
-        Iterator<Gasolinera> itr = gasolineras.iterator();
-        while (itr.hasNext()) {
-            Gasolinera g = itr.next();
 
-            if (!filtro.getMarca().equals(g.getRotulo())) {
-                itr.remove();
+        if (!filtro.getMarca().equals("Todas")) {
+            Iterator<Gasolinera> itr = gasolineras.iterator();
+            while (itr.hasNext()) {
+                Gasolinera g = itr.next();
+
+                if (!g.getRotulo().equals(filtro.getMarca())) {
+                    itr.remove();
+                }
             }
         }
+
     }
 }

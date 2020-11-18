@@ -7,13 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +31,11 @@ import com.isunican.proyectobase.DataBase.FiltroDAO;
 import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.R;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /*
 ------------------------------------------------------------------
@@ -565,6 +563,10 @@ public class MainActivity extends AppCompatActivity {
 
             mSwipeRefreshLayout.setRefreshing(false);
 
+            presenterGasolineras.filtrarPorMarca( filtro);
+
+
+
             // Si se ha obtenido resultado en la tarea en segundo plano
             if (Boolean.TRUE.equals(res)) {
                 // Definimos el array adapter
@@ -649,7 +651,7 @@ public class MainActivity extends AppCompatActivity {
             View view = inflater.inflate(R.layout.item_gasolinera, null);
 
             // Se modifica el view para que cumpla con los filtros seleccionados.
-            presenterGasolineras.filtrarPorMarca(listaGasolineras, filtro);
+
             representarFiltros(view);
 
             // Obtiene el elemento que se está mostrando
