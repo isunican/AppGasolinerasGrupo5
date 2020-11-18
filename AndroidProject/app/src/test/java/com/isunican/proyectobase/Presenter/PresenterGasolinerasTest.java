@@ -7,8 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -18,6 +16,9 @@ public class PresenterGasolinerasTest {
     private ArrayList<Gasolinera> gasolineras;
     private ArrayList<String> combustibles;
 
+    /**
+     * @author Víctor Martínez Vila
+     */
     @Before
     public void setUp() {
         sut = new PresenterGasolineras();
@@ -40,11 +41,27 @@ public class PresenterGasolinerasTest {
         combustibles.add("GASOLEO A");
     }
 
+    /**
+     * @author Víctor Argueso Cano
+     */
     @Test
-    public void cargaDatosRemotosTest(){
-        assertTrue(true);
+    public void cargaDatosRemotosTest() {
+        try {
+            sut.cargaDatosRemotos(null);
+            fail("No se ha lanzado la excepción RuntimeException");
+        } catch (Exception e) {}
+
+        try {
+            sut.cargaDatosRemotos(PresenterGasolineras.URL_GASOLINERAS_CANTABRIA);
+        } catch (Exception e) {
+            fail("Ha saltado una excepcion");
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * @author Víctor Martínez Vila
+     */
     @Test
     public void ordenarPorPrecioMenorAMayorTest(){
         Filtro f = new Filtro("filtro",combustibles,"MARCA","MenorAMayor");
@@ -58,6 +75,12 @@ public class PresenterGasolinerasTest {
         //CASO 2 - Caso correcto
         try {
             sut.ordenarPorPrecioMenorAMayor(f);
+            //Comprobamos que están en orden
+            assertTrue(sut.getGasolineras().get(0).getGasoleoA() <
+                    sut.getGasolineras().get(1).getGasoleoA());
+            assertTrue(sut.getGasolineras().get(1).getGasoleoA() <
+                    sut.getGasolineras().get(2).getGasoleoA());
+
         } catch (PresenterGasolineras.OrdenacionNoValida e){
             fail("Ha saltado la excepcion OrdenacionNoValida");
         } catch (PresenterGasolineras.CombustiblesInvalidos e){
@@ -84,6 +107,9 @@ public class PresenterGasolinerasTest {
         } catch (PresenterGasolineras.OrdenacionNoValida e){}
     }
 
+    /**
+     * @author Víctor Martínez Vila
+     */
     @Test
     public void ordenarPorPrecioMayorAMenor(){
         Filtro f = new Filtro("filtro",combustibles,"MARCA","MayorAMenor");
@@ -97,6 +123,10 @@ public class PresenterGasolinerasTest {
         //CASO 2 - Caso correcto
         try {
             sut.ordenarPorPrecioMayorAMenor(f);
+            assertTrue(sut.getGasolineras().get(0).getGasoleoA() >
+                    sut.getGasolineras().get(1).getGasoleoA());
+            assertTrue(sut.getGasolineras().get(1).getGasoleoA() >
+                    sut.getGasolineras().get(2).getGasoleoA());
         } catch (PresenterGasolineras.OrdenacionNoValida e){
             fail("Ha saltado la excepcion OrdenacionNoValida");
         } catch (PresenterGasolineras.CombustiblesInvalidos e){
@@ -123,10 +153,84 @@ public class PresenterGasolinerasTest {
         } catch (PresenterGasolineras.OrdenacionNoValida e){}
     }
 
+    /**
+     * @author Víctor Argueso Cano
+     */
     @Test
     public void ordenarPorPrecioTest(){
-        assertTrue(true);
+        Filtro f = new Filtro("filtro",combustibles, "MARCA","MayorAMenor");
+        Filtro f1 = new Filtro("filtro",combustibles,"MARCA","MenorAMayor");
+        //CASO 1 - Filtro nulo
+        try {
+            sut.ordenarPorPrecio(null);
+            fail("No se ha lanzado la excepción NullPointerException");
+        } catch (NullPointerException e){}
+
+        //CASO 2 - Caso correcto (Mayor a menor)
+        try {
+            sut.ordenarPorPrecio(f);
+            assertTrue(sut.getGasolineras().get(0).getGasoleoA() >
+                    sut.getGasolineras().get(1).getGasoleoA());
+            assertTrue(sut.getGasolineras().get(1).getGasoleoA() >
+                    sut.getGasolineras().get(2).getGasoleoA());
+        } catch (PresenterGasolineras.OrdenacionNoValida e){
+            fail("Ha saltado la excepcion OrdenacionNoValida");
+        } catch (PresenterGasolineras.CombustiblesInvalidos e){
+            fail("Ha saltado la excepcion CombustiblesInvalidos");
+        }
+
+        //CASO 3 - Combustibles no válidos
+        ArrayList<String> combustiblesIncorrectos = new ArrayList<String>();
+        combustiblesIncorrectos.add("LUIS");
+        combustiblesIncorrectos.add("GONZALO");
+        combustiblesIncorrectos.add("ALBERTO");
+        combustiblesIncorrectos.add("ROQUE");
+
+        Filtro f2 = new Filtro("filtro2",combustiblesIncorrectos,"MARCA","MayorAMenor");
+
+        try {
+            sut.ordenarPorPrecio(f2);
+            fail("No ha saltado la excepcion CombustiblesInvalidos");
+        } catch (PresenterGasolineras.CombustiblesInvalidos e){}
+
+        //CASO 4 - Ordenacion no valida
+        f = new Filtro("filtro",combustibles,"MARCA","LUIS");
+        try {
+            sut.ordenarPorPrecio(f);
+            fail("No ha saltado la excepcion OrdenacionNoValida");
+        } catch (PresenterGasolineras.OrdenacionNoValida e){}
+
+
+    //CASO 4 - Caso correcto (Menor a mayor)
+        try {
+        sut.ordenarPorPrecio(f1);
+            assertTrue(sut.getGasolineras().get(0).getGasoleoA() <
+                    sut.getGasolineras().get(1).getGasoleoA());
+            assertTrue(sut.getGasolineras().get(1).getGasoleoA() <
+                    sut.getGasolineras().get(2).getGasoleoA());
+    } catch (PresenterGasolineras.OrdenacionNoValida e){
+        fail("Ha saltado la excepcion OrdenacionNoValida");
+    } catch (PresenterGasolineras.CombustiblesInvalidos e){
+        fail("Ha saltado la excepcion CombustiblesInvalidos");
     }
+
+    //CASO 3 - Combustibles no válidos
+
+    Filtro f3 = new Filtro("filtro3",combustiblesIncorrectos,"MARCA","MenorAMayor");
+
+        try {
+        sut.ordenarPorPrecioMenorAMayor(f3);
+        fail("No ha saltado la excepcion CombustiblesInvalidos");
+    } catch (PresenterGasolineras.CombustiblesInvalidos e){}
+
+    //CASO 4 - Ordenacion no valida
+    f1 = new Filtro("filtro",combustibles,"MARCA","LUIS");
+        try {
+        sut.ordenarPorPrecioMenorAMayor(f);
+        fail("No ha saltado la excepcion OrdenacionNoValida");
+    } catch (PresenterGasolineras.OrdenacionNoValida e){}
+}
+
 
 
 }

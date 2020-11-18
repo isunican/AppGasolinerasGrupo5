@@ -170,6 +170,7 @@ public class ParserJSONGasolineras {
         }
         reader.endObject();
         Gasolinera g = new Gasolinera(id);
+
         g.setLocalidad(localidad);
         g.setProvincia(provincia);
         g.setDireccion(direccion);

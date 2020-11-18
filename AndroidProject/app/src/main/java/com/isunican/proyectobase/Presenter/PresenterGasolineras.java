@@ -503,7 +503,7 @@ public class PresenterGasolineras {
         }
     }
 
-    public void ordenarPorPrecio(Filtro filtro) {
+    public void ordenarPorPrecio(Filtro filtro) throws OrdenacionNoValida {
         String ordenarPorPrecio = filtro.getOrdenarPorPrecio();
         switch (ordenarPorPrecio) {
             case "":
@@ -515,6 +515,8 @@ public class PresenterGasolineras {
             case "MenorAMayor":
                 ordenarPorPrecioMenorAMayor(filtro);
                 break;
+            default:
+                throw new OrdenacionNoValida();
         }
     }
 }
