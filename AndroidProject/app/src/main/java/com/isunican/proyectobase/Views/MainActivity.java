@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
 
             mSwipeRefreshLayout.setRefreshing(false);
 
-            presenterGasolineras.filtrarPorMarca( filtro);
+            presenterGasolineras.filtrarPorMarca(filtro);
 
 
 
