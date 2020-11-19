@@ -31,6 +31,10 @@ import static org.hamcrest.Matchers.not;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+
+ /**
+ Victor Argueso Cano
+ * */
 @RunWith(AndroidJUnit4.class)
 public class FiltraCombustibleUITest {
 
@@ -40,7 +44,32 @@ public class FiltraCombustibleUITest {
     /* Filtra por combustible: gasolina */
     @Test
     public void filtraCombustible() {
-        // introducimos filtar por todas las gasolineras
+        //comprobamos la opcion por defecto que es GasoleoA
+        onView(withId(R.id.btnListaFiltros)).perform(click());
+        onView(withId(R.id.btnCombustibles)).perform(click());
+
+        onView(withText("Aceptar")).perform(click());
+
+        onView(ViewMatchers.withId(R.id.scrollTabla)).perform(ViewActions.swipeUp());
+        onView(withId(R.id.btnAceptar)).perform((click()));
+
+
+        ListView vista = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
+        // Comprobamos que se muestra solo el precio del GasoleoA
+        for (int i = 0; i < vista.getAdapter().getCount(); i++) {
+            onData(anything())
+                    .inAdapterView(withId(R.id.listViewGasolineras))
+                    .atPosition(i)
+                    .onChildView(withId(R.id.textViewGasoleoA))
+                    .check(matches((isDisplayed())));
+            onData(anything())
+                    .inAdapterView(withId(R.id.listViewGasolineras))
+                    .atPosition(i)
+                    .onChildView(withId(R.id.textViewGasoleoB))
+                    .check(matches(not(isDisplayed())));
+        }
+        // Filtramos por Todas
+
         onView(withId(R.id.btnListaFiltros)).perform(click());
         onView(withId(R.id.btnCombustibles)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("GASOLEO A"))).perform(click());
@@ -52,8 +81,7 @@ public class FiltraCombustibleUITest {
         onView(withId(R.id.btnAceptar)).perform((click()));
 
 
-        ListView vista = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
-        // Comprobamos que se muestran solo los precios de gasolina
+        // Comprobamos que se muestran todos los precios
         for (int i = 0; i < vista.getAdapter().getCount(); i++) {
             onData(anything())
                     .inAdapterView(withId(R.id.listViewGasolineras))
@@ -84,11 +112,22 @@ public class FiltraCombustibleUITest {
         onView(withText("Aceptar")).perform(click());
         onView(ViewMatchers.withId(R.id.scrollTabla)).perform(ViewActions.swipeUp());
         onView(withId(R.id.btnAceptar)).perform((click()));
+        //Comprobamos que se muestran los 3 seleccionados y que no se muestran algunos de los demás
         for (int i = 0; i < vista.getAdapter().getCount(); i++) {
             onData(anything())
                     .inAdapterView(withId(R.id.listViewGasolineras))
                     .atPosition(i)
                     .onChildView(withId(R.id.textViewGasoleoA))
+                    .check(matches(not(isDisplayed())));
+            onData(anything())
+                    .inAdapterView(withId(R.id.listViewGasolineras))
+                    .atPosition(i)
+                    .onChildView(withId(R.id.textViewBiodiesel))
+                    .check(matches(not(isDisplayed())));
+            onData(anything())
+                    .inAdapterView(withId(R.id.listViewGasolineras))
+                    .atPosition(i)
+                    .onChildView(withId(R.id.textViewBioetanol))
                     .check(matches(not(isDisplayed())));
             onData(anything())
                     .inAdapterView(withId(R.id.listViewGasolineras))
