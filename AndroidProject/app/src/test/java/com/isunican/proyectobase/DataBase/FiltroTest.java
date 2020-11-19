@@ -3,71 +3,78 @@ package com.isunican.proyectobase.DataBase;
 import org.junit.Before;
 import org.junit.Test;
 
+
+
 import java.util.ArrayList;
-
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class FiltroTest {
     private Filtro filtro;
-    //Aqui guardamos todas las marcas disponibles
-    private ArrayList<String> marcasDisponibles= new ArrayList<String>();
+    //Lista que usaremos para la selección de múltiples combustibles
+    private ArrayList<String> combustibles= new ArrayList<String>();
 
     /**
      * @author Javier Gomez Serrano
-     * Anhadimos varias marcas, como todas son string con el mismo comportamiento probamos
-     * con un espacio de prueba reducido
      */
     @Before
     public void setUp() {
         filtro =new Filtro();
-        marcasDisponibles.add("CEPSA");
-        marcasDisponibles.add("REPSOL");
-        marcasDisponibles.add("PETRONOR");
-        marcasDisponibles.add("CAMPSA");
-        marcasDisponibles.add("G2");
+        //Creación de una lista de combustibles para probar con varios combustibles seleccionados
+        //a la vez, probando con cinco de las posibles opciones de combustibles.
+        combustibles.add("GASOLEO A");
+        combustibles.add("GASOLEO B");
+        combustibles.add("GASOLEO PREMIUM");
+        combustibles.add("GASOLINA 95 E10");
+        combustibles.add("GASOLINA 95 E5");
     }
 
     /**
      * @author Javier Gomez Serrano
-     * Probamos con una sola marca
+     * Test de seleccion de varios combustibles
      */
     @Test
-    public void unaMarcaTest()
+    public void seleccionVariosCombustiblesTest()
     {
-        //Anhadimos el filtrado por la marca CEPSA
-        filtro.setMarca(marcasDisponibles.get(0));
-        assertEquals(filtro.getMarca().equals("CEPSA"), true);
+        filtro.setCombustibles(combustibles);
+        assertEquals(filtro.getCombustibles().equals(combustibles), true);
+        assertEquals(filtro.getCombustibles().get(0).equals("GASOLEO A"), true);
+        assertEquals(filtro.getCombustibles().get(1).equals("GASOLEO B"), true);
+        assertEquals(filtro.getCombustibles().get(2).equals("GASOLEO PREMIUM"), true);
+        assertEquals(filtro.getCombustibles().get(3).equals("GASOLINA 95 E10"), true);
+        assertEquals(filtro.getCombustibles().get(4).equals("GASOLINA 95 E5"), true);
     }
 
     /**
      * @author Javier Gomez Serrano
-     * Probamos con todo el espacio de prueba reducido, al existir mas marcas
-     * la prueba seria igual para todo el numero de marcas diferentes que hubiera
+     * Test de deseleccion de varios combustibles
      */
     @Test
-    public void variasMarcasTest()
+    public void quitaVariosCombustiblesTest()
     {
-        for (int i = 0; i<marcasDisponibles.size(); i++)
-        {
-            filtro.setMarca(marcasDisponibles.get(i));
-            assertEquals(filtro.getMarca().equals(marcasDisponibles.get(i)), true);
-        }
+        combustibles.remove(4);
+        combustibles.remove(3);
+        combustibles.remove(2);
+        filtro.setCombustibles(combustibles);
+        assertEquals(filtro.getCombustibles().equals(combustibles), true);
+        assertEquals(filtro.getCombustibles().get(0).equals("GASOLEO A"), true);
+        assertEquals(filtro.getCombustibles().get(1).equals("GASOLEO B"), true);
     }
 
     /**
      * @author Javier Gomez Serrano
-     * Probamos que al pasar un null como parametro se maneja la excepcion NullPointerException
+     * Test de comprobacion de manejo de NullPointerException si se le pasa null como
+     * parametro
      */
+
     @Test
-    public void marcaNullTest()
+    public void compruebaNullTest()
     {
-        //Anhadimos el filtrado por null
         try {
-            filtro.setMarca(null);
+            filtro.setCombustibles(null);
         } catch (NullPointerException e) {
             assertTrue(true);
         }
     }
+
 }
