@@ -13,6 +13,7 @@ import java.io.BufferedInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 /*
@@ -27,6 +28,7 @@ import java.util.List;
 public class PresenterGasolineras {
 
     private List<Gasolinera> gasolineras;
+    private List<Gasolinera> copia;
 
     public static class CombustiblesInvalidos extends RuntimeException{}
     public static class OrdenacionNoValida extends RuntimeException{}
@@ -47,6 +49,10 @@ public class PresenterGasolineras {
 
     public List<Gasolinera> getGasolineras(){
         return gasolineras;
+    }
+
+    public List<Gasolinera> getFiltradas(){
+        return copia;
     }
 
     public void setGasolineras(List<Gasolinera> l) {
@@ -120,8 +126,11 @@ public class PresenterGasolineras {
     public boolean cargaDatosRemotos(String direccion){
         try {
             BufferedInputStream buffer = RemoteFetch.cargaBufferDesdeURL(direccion);
-            gasolineras = ParserJSONGasolineras.parseaArrayGasolineras(buffer);
+            copia  = ParserJSONGasolineras.parseaArrayGasolineras(buffer);
             Log.d("ENTRA", "Obten gasolineras:" + gasolineras.size());
+            for (Gasolinera gasolinera : copia) {
+                gasolineras.add(gasolinera);
+            }
             return true;
         } catch (Exception e) {
             Log.e("ERROR", "Error en la obtención de gasolineras: " + e.getMessage());
@@ -517,6 +526,31 @@ public class PresenterGasolineras {
                 break;
             default:
                 throw new OrdenacionNoValida();
+        }
+    }
+    public void filtrarPorMarca( Filtro filtro) {
+        if (filtro.getMarca().equals("")) {
+            return;
+        }
+
+        if (!filtro.getMarca().equals("Todas")) {
+            Iterator<Gasolinera> itr = gasolineras.iterator();
+            while (itr.hasNext()) {
+                Gasolinera g = itr.next();
+
+                if (!g.getRotulo().equals(filtro.getMarca())) {
+                    itr.remove();
+                }
+            }
+        }
+
+    }
+
+    public void resetGasolineras(){
+        gasolineras.clear();
+
+        for (Gasolinera gasolinera : copia) {
+            gasolineras.add(gasolinera);
         }
     }
 }
