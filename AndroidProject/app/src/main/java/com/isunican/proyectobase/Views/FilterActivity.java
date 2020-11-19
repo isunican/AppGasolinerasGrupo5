@@ -4,7 +4,9 @@ package com.isunican.proyectobase.Views;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -96,13 +98,19 @@ public class FilterActivity extends AppCompatActivity {
 
         //Construimos el adapter del spinner de manera que éste tenga de posibles opciones seleccionables todas las marcas
         ArrayAdapter<CharSequence> adpMarca = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, marcas);
+        SharedPreferences mMyPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final SharedPreferences.Editor mMyEdit = mMyPrefs.edit();
+
         spinnerMarca.setAdapter(adpMarca);
         //Opción por defecto: ninguna marca seleccionada
-        spinnerMarca.setSelection(0);
+        int selectedPosition = mMyPrefs.getInt("selected_position", 0) ;
+        spinnerMarca.setSelection(selectedPosition);
 
         spinnerMarca.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             marca=marcas.get(position);
+            mMyEdit.putInt("selected_position", spinnerMarca.getSelectedItemPosition());
+            mMyEdit.commit();
 
 
         }
