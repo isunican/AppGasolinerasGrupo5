@@ -19,7 +19,10 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
 /**
@@ -38,10 +41,20 @@ public class FiltraCombustibleUITest {
     public void filtraCombustible(){
         // introducimos filtrar por gasolina y quitamos el filtro por diesel
         onView(withId(R.id.btnListaFiltros)).perform(click());
+        onView(withId(R.id.btnCombustibles)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("TODOS"))).perform(click());
+        //onData(allOf(is(instanceOf(String.class)), is("GASOLINA 95 E5"))).perform(click());
+        //onData(allOf(is(instanceOf(String.class)), is("GASOLINA 95 E5"))).perform(click());
         //onView(withId(R.id.switchGasoil)).perform(click());
         //onView(withId(R.id.switchGasolina)).perform(click());
         onView(ViewMatchers.withId(R.id.scrollTabla)).perform(ViewActions.swipeUp());
         onView(withId(R.id.btnAceptar)).perform((click()));
+        onView(withId(R.id.btnSeleccionConfig)).perform((click()));
+
+        onView(withId(R.id.btnListaFiltros)).perform(click());
+        onView(withId(R.id.btnCombustibles)).perform(click());
+
+
 
         ListView vista = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
         // Comprobamos que se muestran solo los precios de gasolina
