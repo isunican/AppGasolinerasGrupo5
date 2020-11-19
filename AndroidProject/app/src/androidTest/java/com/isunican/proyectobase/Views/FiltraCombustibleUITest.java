@@ -39,21 +39,41 @@ public class FiltraCombustibleUITest {
     /* Filtra por combustible: gasolina */
     @Test
     public void filtraCombustible(){
-        // introducimos filtrar por gasolina y quitamos el filtro por diesel
+        // introducimos filtar por todas las gasolineras
         onView(withId(R.id.btnListaFiltros)).perform(click());
         onView(withId(R.id.btnCombustibles)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("GASOLEO A"))).perform(click());
+
         onData(allOf(is(instanceOf(String.class)), is("TODOS"))).perform(click());
-        //onData(allOf(is(instanceOf(String.class)), is("GASOLINA 95 E5"))).perform(click());
-        //onData(allOf(is(instanceOf(String.class)), is("GASOLINA 95 E5"))).perform(click());
-        //onView(withId(R.id.switchGasoil)).perform(click());
-        //onView(withId(R.id.switchGasolina)).perform(click());
+
+        onView(ViewMatchers.withId(R.id.scrollTabla)).perform(ViewActions.swipeUp());
+        onView(withId(R.id.btnSeleccionConfig)).perform((click()));
+        onView(withId(R.id.btnAceptar)).perform((click()));
+
+
+
+        onView(withId(R.id.btnListaFiltros)).perform(click());
+        onView(withId(R.id.btnCombustibles)).perform(click());
+
+        //filtramos con varios combustibles
+       /* onView(withId(R.id.btnListaFiltros)).perform(click());
+        onView(withId(R.id.btnCombustibles)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("GASOLEO B"))).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("GASOLINA 95 E10"))).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("GAS NATURAL COMPRIMIDO"))).perform(click());
+
+
+        onView(ViewMatchers.withId(R.id.scrollTabla)).perform(ViewActions.swipeUp());
+        onView(withId(R.id.btnSeleccionConfig)).perform((click()));
+        onView(withId(R.id.btnAceptar)).perform((click()));
+
+        //No aplicamos ningun filtro
+        onView(withId(R.id.btnListaFiltros)).perform(click());
+        onView(withId(R.id.btnCombustibles)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Gasleo A"))).perform(click());
+
         onView(ViewMatchers.withId(R.id.scrollTabla)).perform(ViewActions.swipeUp());
         onView(withId(R.id.btnAceptar)).perform((click()));
-        onView(withId(R.id.btnSeleccionConfig)).perform((click()));
-
-        onView(withId(R.id.btnListaFiltros)).perform(click());
-        onView(withId(R.id.btnCombustibles)).perform(click());
-
 
 
         ListView vista = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
@@ -64,6 +84,6 @@ public class FiltraCombustibleUITest {
                     .atPosition(i)
                     .onChildView(withId(R.id.textViewGasoleoA))
                     .check(matches(not(isDisplayed())));
-        }
+        }*/
     }
 }
