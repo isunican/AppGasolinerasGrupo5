@@ -29,17 +29,17 @@ public class FiltraMarcaUITest {
     //author: Roberto González Jiménez
     @Test
     public void filtraMarca(){
-        //Primero vamos a la vista de seleccionar filtros y clickamos en el spinner de las marcas
+        //Primero vamos a la vista de seleccionar filtros y clickamos en el spinner de las marcas.
         onView(withId(R.id.btnListaFiltros)).perform(click());
         onView(withId(R.id.spinnerMarca)).perform(click());
-        //Aqui podemos filtrar por la marca que queramos o por todas, por ejemplo elegimos "CARREFOUR" y aplicamos filtros
+        //Aqui podemos filtrar por la marca que queramos o por todas, por ejemplo elegimos "CARREFOUR" y aplicamos filtros.
         onData(allOf(is(instanceOf(String.class)), is("CARREFOUR"))).perform(click());
         onView(withId(R.id.btnAceptar)).perform((click()));
 
-        //Podemos observar que en la lista de gasolineras se muestran solo las de CARREFOUR
+        //Podemos observar que en la lista de gasolineras se muestran solo las de CARREFOUR.
         onView(ViewMatchers.withId(R.id.listViewGasolineras)).perform(ViewActions.swipeUp());
 
-        //Vemos que la marca que está en el spinner por defecto es la seleccionada anteriormente
+        //Vemos que la marca que está en el spinner por defecto es la seleccionada anteriormente.
         onView(withId(R.id.btnListaFiltros)).perform(click());
         onView(withId(R.id.spinnerMarca)).perform(click());
     }
