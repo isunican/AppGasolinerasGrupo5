@@ -25,7 +25,8 @@ public class FiltraMarcaUITest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
-    /* Filtra por combustible: marca */
+    /* Filtrar por una marca, seleccionada del spinner */
+    //author: Roberto González Jiménez
     @Test
     public void filtraMarca(){
         //Primero vamos a la vista de seleccionar filtros y clickamos en el spinner de las marcas
