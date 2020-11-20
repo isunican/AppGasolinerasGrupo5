@@ -415,8 +415,6 @@ public class MainActivity extends AppCompatActivity {
             DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
             if (displayMetrics.widthPixels < 720) {
                 TextView tv = view.findViewById(R.id.textViewGasoleoALabel);
-                RelativeLayout.LayoutParams params = ((RelativeLayout.LayoutParams) tv.getLayoutParams());
-                params.setMargins(15, 0, 0, 0);
                 tv.setTextSize(11);
                 TextView tmp;
                 tmp = view.findViewById(R.id.textViewGasolina95E5Label);
