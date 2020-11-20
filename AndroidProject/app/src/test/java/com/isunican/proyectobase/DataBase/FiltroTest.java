@@ -37,12 +37,12 @@ public class FiltroTest {
     public void seleccionVariosCombustiblesTest()
     {
         filtro.setCombustibles(combustibles);
-        assertEquals(filtro.getCombustibles().equals(combustibles), true);
-        assertEquals(filtro.getCombustibles().get(0).equals("GASOLEO A"), true);
-        assertEquals(filtro.getCombustibles().get(1).equals("GASOLEO B"), true);
-        assertEquals(filtro.getCombustibles().get(2).equals("GASOLEO PREMIUM"), true);
-        assertEquals(filtro.getCombustibles().get(3).equals("GASOLINA 95 E10"), true);
-        assertEquals(filtro.getCombustibles().get(4).equals("GASOLINA 95 E5"), true);
+        assertEquals(true, filtro.getCombustibles().equals(combustibles) );
+        assertEquals(true, filtro.getCombustibles().get(0).equals("GASOLEO A"));
+        assertEquals(true, filtro.getCombustibles().get(1).equals("GASOLEO B"));
+        assertEquals(true, filtro.getCombustibles().get(2).equals("GASOLEO PREMIUM"));
+        assertEquals(true, filtro.getCombustibles().get(3).equals("GASOLINA 95 E10"));
+        assertEquals(true, filtro.getCombustibles().get(4).equals("GASOLINA 95 E5"));
     }
 
     /**
@@ -56,9 +56,9 @@ public class FiltroTest {
         combustibles.remove(3);
         combustibles.remove(2);
         filtro.setCombustibles(combustibles);
-        assertEquals(filtro.getCombustibles().equals(combustibles), true);
-        assertEquals(filtro.getCombustibles().get(0).equals("GASOLEO A"), true);
-        assertEquals(filtro.getCombustibles().get(1).equals("GASOLEO B"), true);
+        assertEquals(true, filtro.getCombustibles().equals(combustibles));
+        assertEquals(true, filtro.getCombustibles().get(0).equals("GASOLEO A"));
+        assertEquals(true, filtro.getCombustibles().get(1).equals("GASOLEO B"));
     }
 
     /**

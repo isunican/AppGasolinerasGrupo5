@@ -293,7 +293,7 @@ public class PresenterGasolineras {
                     return Double.compare(g1.getGasoleoA(), g2.getGasoleoA());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASOLEO_B)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -301,7 +301,7 @@ public class PresenterGasolineras {
                     return Double.compare(g1.getGasoleoB(), g2.getGasoleoB());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASOLEO_PREMIUM)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -309,7 +309,7 @@ public class PresenterGasolineras {
                     return Double.compare(g1.getGasoleoPremium(), g2.getGasoleoPremium());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASOLINA_95_E10)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -317,7 +317,7 @@ public class PresenterGasolineras {
                     return Double.compare(g1.getGasolina95E10(), g2.getGasolina95E10());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASOLINA_95_E5)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -325,7 +325,7 @@ public class PresenterGasolineras {
                     return Double.compare(g1.getGasolina95E5(), g2.getGasolina95E5());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASOLINA_95_E5_PREMIUM)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -333,7 +333,7 @@ public class PresenterGasolineras {
                     return Double.compare(g1.getGasolina95E5Premium(), g2.getGasolina95E5Premium());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASOLINA_98_E10)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -341,7 +341,7 @@ public class PresenterGasolineras {
                     return Double.compare(g1.getGasolina98E10(), g2.getGasolina98E10());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASOLINA_98_E5)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -349,7 +349,7 @@ public class PresenterGasolineras {
                     return Double.compare(g1.getGasolina98E5(), g2.getGasolina98E5());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(BIODIESEL)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -357,7 +357,7 @@ public class PresenterGasolineras {
                     return Double.compare(g1.getBiodiesel(), g2.getBiodiesel());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(BIOETANOL)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -365,7 +365,7 @@ public class PresenterGasolineras {
                     return Double.compare(g1.getBioetanol(), g2.getBioetanol());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GAS_NATURAL_COMPRIMIDO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -373,7 +373,7 @@ public class PresenterGasolineras {
                     return Double.compare(g1.getGasNaturalComprimido(), g2.getGasNaturalComprimido());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GAS_NATURAL_LICUADO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -381,7 +381,7 @@ public class PresenterGasolineras {
                     return Double.compare(g1.getGasNaturalLicuado(), g2.getGasNaturalLicuado());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASES_LICUADOS_PETROLEO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -389,7 +389,7 @@ public class PresenterGasolineras {
                     return Double.compare(g1.getGasesLicuadosPetroleo(), g2.getGasesLicuadosPetroleo());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(HIDROGENO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -397,7 +397,7 @@ public class PresenterGasolineras {
                     return Double.compare(g1.getHidrogeno(), g2.getHidrogeno());
                 }
             });
-            return;
+
         } else {
             throw new CombustiblesInvalidos();
         }
@@ -418,7 +418,7 @@ public class PresenterGasolineras {
                     return Double.compare(g2.getGasoleoA(), g1.getGasoleoA());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASOLEO_B)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -426,7 +426,7 @@ public class PresenterGasolineras {
                     return Double.compare(g2.getGasoleoB(), g1.getGasoleoB());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASOLEO_PREMIUM)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -434,7 +434,7 @@ public class PresenterGasolineras {
                     return Double.compare(g2.getGasoleoPremium(), g1.getGasoleoPremium());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASOLINA_95_E10)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -442,7 +442,7 @@ public class PresenterGasolineras {
                     return Double.compare(g2.getGasolina95E10(), g1.getGasolina95E10());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASOLINA_95_E5)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -450,7 +450,7 @@ public class PresenterGasolineras {
                     return Double.compare(g2.getGasolina95E5(), g1.getGasolina95E5());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASOLINA_95_E5_PREMIUM)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -458,7 +458,7 @@ public class PresenterGasolineras {
                     return Double.compare(g2.getGasolina95E5Premium(), g1.getGasolina95E5Premium());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASOLINA_98_E10)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -466,7 +466,7 @@ public class PresenterGasolineras {
                     return Double.compare(g2.getGasolina98E10(), g1.getGasolina98E10());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASOLINA_98_E5)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -474,7 +474,7 @@ public class PresenterGasolineras {
                     return Double.compare(g2.getGasolina98E5(), g1.getGasolina98E5());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(BIODIESEL)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -482,7 +482,7 @@ public class PresenterGasolineras {
                     return Double.compare(g2.getBiodiesel(), g1.getBiodiesel());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(BIOETANOL)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -490,7 +490,7 @@ public class PresenterGasolineras {
                     return Double.compare(g2.getBioetanol(), g1.getBioetanol());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GAS_NATURAL_COMPRIMIDO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -498,7 +498,7 @@ public class PresenterGasolineras {
                     return Double.compare(g2.getGasNaturalComprimido(), g1.getGasNaturalComprimido());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GAS_NATURAL_LICUADO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -506,7 +506,7 @@ public class PresenterGasolineras {
                     return Double.compare(g2.getGasNaturalLicuado(), g1.getGasNaturalLicuado());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(GASES_LICUADOS_PETROLEO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -514,7 +514,7 @@ public class PresenterGasolineras {
                     return Double.compare(g2.getGasesLicuadosPetroleo(), g1.getGasesLicuadosPetroleo());
                 }
             });
-            return;
+
         } else if (combustiblesAFiltar.contains(HIDROGENO)) {
             Collections.sort(getGasolineras(), new Comparator<Gasolinera>() {
                 @Override
@@ -522,7 +522,7 @@ public class PresenterGasolineras {
                     return Double.compare(g2.getHidrogeno(), g1.getHidrogeno());
                 }
             });
-            return;
+            
         } else {
             throw new CombustiblesInvalidos();
         }

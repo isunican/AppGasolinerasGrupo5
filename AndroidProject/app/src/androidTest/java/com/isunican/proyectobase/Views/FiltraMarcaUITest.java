@@ -14,7 +14,10 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
@@ -41,6 +44,7 @@ public class FiltraMarcaUITest {
 
         //Vemos que la marca que está en el spinner por defecto es la seleccionada anteriormente.
         onView(withId(R.id.btnListaFiltros)).perform(click());
+        onView(withId(R.id.spinnerMarca)).check(matches(withSpinnerText("CARREFOUR")));
         onView(withId(R.id.spinnerMarca)).perform(click());
     }
 }
