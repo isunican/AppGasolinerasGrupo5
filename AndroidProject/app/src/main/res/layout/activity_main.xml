@@ -16,23 +16,32 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="false">
 
-        <Space
-            android:id="@+id/space1"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btnListaFiltros"
-            android:layout_width="200dp"
+        <LinearLayout
+            android:id="@+id/layoutBotones"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/space1"
-            android:text="Mostrar filtros" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnComparar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Comparar Gasolineras" />
+
+            <Button
+                android:id="@+id/btnListaFiltros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mostrar filtros" />
+        </LinearLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swiperefresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btnListaFiltros">
+            android:layout_below="@id/layoutBotones">
 
             <ListView
                 android:id="@+id/listViewGasolineras"

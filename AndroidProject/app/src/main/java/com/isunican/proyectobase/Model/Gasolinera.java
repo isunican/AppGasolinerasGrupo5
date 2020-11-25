@@ -33,6 +33,8 @@ public class Gasolinera implements Parcelable {
     private double hidrogeno;
     private String rotulo;
 
+    private boolean checked;
+
     /**
      * Constructor, getters y setters
      */
@@ -97,6 +99,9 @@ public class Gasolinera implements Parcelable {
 
     public double getHidrogeno() { return hidrogeno; }
     public void setHidrogeno(double hidrogeno) { this.hidrogeno = hidrogeno; }
+
+    public boolean getChecked(){ return checked; }
+    public void setChecked(boolean checked){ this.checked=checked; }
 
     /**
      * toString

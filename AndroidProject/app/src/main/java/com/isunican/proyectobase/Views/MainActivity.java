@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.isunican.proyectobase.DataBase.Filtro;
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     PresenterGasolineras presenterGasolineras;
 
     Button listaFiltros;
+    Button btnComparar;
 
     // Vista de lista y adaptador para cargar datos en ella
     ListView listViewGasolineras;
@@ -63,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Se crea el filtro
     private Filtro filtro;
-    ArrayList<Gasolinera> gasolineras = new ArrayList<Gasolinera>();
 
     /**
      * onCreate
@@ -122,7 +125,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnComparar = findViewById(R.id.btnComparar);
+        btnComparar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCompareActivity();
+            }
+        });
     }
+
 
     //Abrir menú filtros
     public void openFilterActivity() {
@@ -134,6 +145,19 @@ public class MainActivity extends AppCompatActivity {
         intentFilterActivity.putExtra("list_gasolineras", gs);
         intentFilterActivity.putExtra("filtro", filtro);
         startActivityForResult(intentFilterActivity, SECOND_ACTIVITY_REQUEST_CODE);
+    }
+
+    public void openCompareActivity(){
+        Intent intentCompareActivity = new Intent(this,CompareActivity.class);
+        //Hay que pasar a compare activity todas las gasolineras que estén seleccionadas
+        ArrayList<Gasolinera> gasolinerasSeleccionadas = new ArrayList<Gasolinera>();
+        for (int i=0;i<presenterGasolineras.getGasolineras().size();i++){
+            if (presenterGasolineras.getGasolineras().get(i).getChecked()==true){
+                gasolinerasSeleccionadas.add(presenterGasolineras.getGasolineras().get(i));
+            }
+        }
+        intentCompareActivity.putExtra("list_gasolineras_seleccionadas",gasolinerasSeleccionadas);
+        startActivityForResult(intentCompareActivity, SECOND_ACTIVITY_REQUEST_CODE);
     }
 
     // Despues de aceptar los filtros a aplicar de FilterActivity
@@ -340,24 +364,38 @@ public class MainActivity extends AppCompatActivity {
 
         private Context context;
         private List<Gasolinera> listaGasolineras;
+        private LayoutInflater inflater;
+        private boolean itemSelection[];
 
         // Constructor
         public GasolineraArrayAdapter(Context context, int resource, List<Gasolinera> objects) {
             super(context, resource, objects);
             this.context = context;
             this.listaGasolineras = objects;
+            itemSelection = new boolean[listaGasolineras.size()];
         }
 
         // Llamado al renderizar la lista
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
+        public View getView(final int position, View convertView, ViewGroup parent) {
             // Indica el layout a usar en cada elemento de la lista
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.item_gasolinera, null);
+            inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.item_gasolinera, null);
+            View view = convertView;
+
+            final ViewHolder holder = new ViewHolder();
+            holder.chkItem = (CheckBox) view.findViewById(R.id.chkItem);
+            holder.chkItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    itemSelection[position] = holder.chkItem.isChecked();
+                }
+            });
+
+            holder.chkItem.setChecked(itemSelection[position]);
+            listaGasolineras.get(position).setChecked(itemSelection[position]);
 
             // Se modifica el view para que cumpla con los filtros seleccionados.
-
             representarFiltros(view);
 
             // Obtiene el elemento que se está mostrando
@@ -446,6 +484,10 @@ public class MainActivity extends AppCompatActivity {
             }
             logo.setImageResource(imageID);
         }
+
     }
 
+    public static class ViewHolder {
+        public CheckBox chkItem;
+    }
 }

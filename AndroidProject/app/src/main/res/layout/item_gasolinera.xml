@@ -7,6 +7,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <CheckBox
+        android:id="@+id/chkItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center|center_vertical"
+        app:layout_constraintLeft_toLeftOf="@id/imageViewLogo" />
+
     <ImageView
         android:id="@+id/imageViewLogo"
         android:layout_width="@dimen/logo"
@@ -14,7 +21,8 @@
         android:layout_marginLeft="@dimen/marginLogo"
         android:layout_marginTop="@dimen/marginLogo"
         android:layout_marginRight="@dimen/marginLogo"
-        android:layout_marginBottom="@dimen/marginLogo" />
+        android:layout_marginBottom="@dimen/marginLogo"
+        android:layout_toRightOf="@id/chkItem" />
 
     <TextView
         android:id="@+id/textViewRotulo"
@@ -48,7 +56,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
 
             <TextView
                 android:id="@+id/textViewGasoleoALabel"
