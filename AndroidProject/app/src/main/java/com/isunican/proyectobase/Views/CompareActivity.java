@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -34,6 +35,7 @@ public class CompareActivity extends AppCompatActivity {
     ArrayList<Gasolinera> gasolinerasSeleccionadas;
     GasolineraArrayAdapter adapter;
     Toast toast;
+    Button btnVolver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -44,15 +46,10 @@ public class CompareActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.por_defecto_mod);
 
-        //List<Gasolinera> gasolinerasAComparar =
 
         listViewComparadas = findViewById(R.id.listViewComparadas);
         gasolinerasSeleccionadas = (ArrayList<Gasolinera>) getIntent().getSerializableExtra("list_gasolineras_seleccionadas");
 
-        System.out.println("Gasolineras seleccionadas:");
-        for(int i=0;i<gasolinerasSeleccionadas.size();i++){
-            System.out.println(gasolinerasSeleccionadas.get(i).toString());
-        }
         adapter = new GasolineraArrayAdapter(this,0,gasolinerasSeleccionadas);
 
         if (!gasolinerasSeleccionadas.isEmpty()) {
@@ -63,6 +60,14 @@ public class CompareActivity extends AppCompatActivity {
             toast = Toast.makeText(getApplicationContext(), "No se han seleccionado gasolineras para comparar", Toast.LENGTH_LONG);
             toast.show();
         }
+
+        btnVolver = findViewById(R.id.btnVolver);
+        btnVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
