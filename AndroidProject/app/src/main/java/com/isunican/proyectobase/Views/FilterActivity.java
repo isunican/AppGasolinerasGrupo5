@@ -386,7 +386,7 @@ public class FilterActivity extends AppCompatActivity {
         builder.setTitle("Nombre de la configuración");
         final EditText nombreConfiguracion = new EditText(FilterActivity.this);
         builder.setView(nombreConfiguracion);
-        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 nombre = nombreConfiguracion.getText().toString();
@@ -405,7 +405,7 @@ public class FilterActivity extends AppCompatActivity {
             }
         });
 
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //TODO: explicar por que esta vacio este metodo.
