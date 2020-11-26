@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.isunican.proyectobase.DataBase.Filtro;
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     PresenterGasolineras presenterGasolineras;
 
     Button listaFiltros;
+    Button btnComparar;
 
     // Vista de lista y adaptador para cargar datos en ella
     ListView listViewGasolineras;
@@ -63,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Se crea el filtro
     private Filtro filtro;
-    ArrayList<Gasolinera> gasolineras = new ArrayList<Gasolinera>();
 
     /**
      * onCreate
@@ -122,7 +125,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnComparar = findViewById(R.id.btnComparar);
+        btnComparar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCompareActivity();
+            }
+        });
     }
+
 
     //Abrir menú filtros
     public void openFilterActivity() {
@@ -134,6 +145,19 @@ public class MainActivity extends AppCompatActivity {
         intentFilterActivity.putExtra("list_gasolineras", gs);
         intentFilterActivity.putExtra("filtro", filtro);
         startActivityForResult(intentFilterActivity, SECOND_ACTIVITY_REQUEST_CODE);
+    }
+
+    public void openCompareActivity(){
+        Intent intentCompareActivity = new Intent(this,CompareActivity.class);
+        //Hay que pasar a compare activity todas las gasolineras que estén seleccionadas
+        ArrayList<Gasolinera> gasolinerasSeleccionadas = new ArrayList<Gasolinera>();
+        for (int i=0;i<presenterGasolineras.getGasolineras().size();i++){
+            if (presenterGasolineras.getGasolineras().get(i).getChecked()==true){
+                gasolinerasSeleccionadas.add(presenterGasolineras.getGasolineras().get(i));
+            }
+        }
+        intentCompareActivity.putExtra("list_gasolineras_seleccionadas",gasolinerasSeleccionadas);
+        startActivityForResult(intentCompareActivity, SECOND_ACTIVITY_REQUEST_CODE);
     }
 
     // Despues de aceptar los filtros a aplicar de FilterActivity
@@ -336,28 +360,31 @@ public class MainActivity extends AppCompatActivity {
         en el listview del layout principal de la aplicacion
     ------------------------------------------------------------------
     */
-    class GasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
+    class GasolineraArrayAdapter extends ArrayAdapter<Gasolinera> implements View.OnClickListener {
 
         private Context context;
         private List<Gasolinera> listaGasolineras;
+        private LayoutInflater inflater;
+        //private boolean gasolinerasSeleccionadas[];
 
         // Constructor
         public GasolineraArrayAdapter(Context context, int resource, List<Gasolinera> objects) {
             super(context, resource, objects);
             this.context = context;
             this.listaGasolineras = objects;
+            //gasolinerasSeleccionadas = new boolean[listaGasolineras.size()];
         }
 
         // Llamado al renderizar la lista
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
+        public View getView(final int position, View convertView, ViewGroup parent) {
             // Indica el layout a usar en cada elemento de la lista
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.item_gasolinera, null);
+            inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+
+            View view = inflater.inflate(R.layout.item_gasolinera,null);
+
 
             // Se modifica el view para que cumpla con los filtros seleccionados.
-
             representarFiltros(view);
 
             // Obtiene el elemento que se está mostrando
@@ -366,6 +393,7 @@ public class MainActivity extends AppCompatActivity {
                 return view;
             }
             Gasolinera gasolinera = listaGasolineras.get(position);
+
             Log.d("Gasolinera", "" + gasolinera.getDireccion());
 
             // Asocia las variables de dicho layout
@@ -386,96 +414,29 @@ public class MainActivity extends AppCompatActivity {
             TextView gasNaturalLicuado = view.findViewById(R.id.textViewGasNaturalLicuado);
             TextView gasesLicuadosPetroleo = view.findViewById(R.id.textViewGasesLicuadosPetroleo);
             TextView hidrogeno = view.findViewById(R.id.textViewHidrogeno);
+            CheckBox checkGasolinera = view.findViewById(R.id.checkGasolinera);
 
             // Y carga los datos del item
             rotulo.setText(gasolinera.getRotulo());
             direccion.setText(gasolinera.getDireccion());
-            if(gasolinera.getGasoleoA() <= 0.0){
-                gasoleoA.setText(" N/D");
-            }else{
-                gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
-            }
-
-            if(gasolinera.getGasoleoB() <= 0.0){
-                gasoleoB.setText(" N/D");
-            }else{
-                gasoleoB.setText(" " + gasolinera.getGasoleoB() + getResources().getString(R.string.moneda));
-            }
-
-            if(gasolinera.getGasoleoPremium() <= 0.0){
-                gasoleoPremium.setText(" N/D");
-            }else{
-                gasoleoPremium.setText(" " + gasolinera.getGasoleoPremium() + getResources().getString(R.string.moneda));
-            }
-
-            if(gasolinera.getGasolina95E10() <= 0.0){
-                gasolina95E10.setText(" N/D");
-            }else{
-                gasolina95E10.setText(" " + gasolinera.getGasolina95E10() + getResources().getString(R.string.moneda));
-            }
-
-            if(gasolinera.getGasolina95E5() <= 0.0){
-                gasolina95E5.setText(" N/D");
-            }else{
-                gasolina95E5.setText(" " + gasolinera.getGasolina95E5() + getResources().getString(R.string.moneda));
-            }
-
-            if(gasolinera.getGasolina95E5Premium() <= 0.0){
-                gasolina95E5Premium.setText(" N/D");
-            }else{
-                gasolina95E5Premium.setText(" " + gasolinera.getGasolina95E5Premium() + getResources().getString(R.string.moneda));
-            }
-
-            if(gasolinera.getGasolina98E10() <= 0.0){
-                gasolina98E10.setText(" N/D");
-            }else{
-                gasolina98E10.setText(" " + gasolinera.getGasolina98E10() + getResources().getString(R.string.moneda));
-            }
-
-            if(gasolinera.getGasolina98E5() <= 0.0){
-                gasolina98E5.setText(" N/D");
-            }else{
-                gasolina98E5.setText(" " + gasolinera.getGasolina98E5() + getResources().getString(R.string.moneda));
-            }
-
-            if(gasolinera.getBiodiesel() <= 0.0){
-                biodiesel.setText(" N/D");
-            }else{
-                biodiesel.setText(" " + gasolinera.getBiodiesel() + getResources().getString(R.string.moneda));
-            }
-
-            if(gasolinera.getBioetanol() <= 0.0){
-                bioetanol.setText(" N/D");
-            }else{
-                bioetanol.setText(" " + gasolinera.getBioetanol() + getResources().getString(R.string.moneda));
-            }
-
-            if(gasolinera.getGasNaturalComprimido() <= 0.0){
-                gasNaturalComprimido.setText(" N/D");
-            }else{
-                gasNaturalComprimido.setText(" " + gasolinera.getGasNaturalComprimido() + getResources().getString(R.string.moneda));
-            }
-
-            if(gasolinera.getGasNaturalLicuado() <= 0.0){
-                gasNaturalLicuado.setText(" N/D");
-            }else{
-                gasNaturalLicuado.setText(" " + gasolinera.getGasNaturalLicuado() + getResources().getString(R.string.moneda));
-            }
-
-            if(gasolinera.getGasesLicuadosPetroleo() <= 0.0){
-                gasesLicuadosPetroleo.setText(" N/D");
-            }else{
-                gasesLicuadosPetroleo.setText(" " + gasolinera.getGasesLicuadosPetroleo() + getResources().getString(R.string.moneda));
-            }
-
-            if(gasolinera.getHidrogeno() <= 0.0){
-                hidrogeno.setText(" N/D");
-            }else{
-                hidrogeno.setText(" " + gasolinera.getHidrogeno() + getResources().getString(R.string.moneda));
-            }
-
-
-
+            gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
+            gasoleoB.setText(" " + gasolinera.getGasoleoB() + getResources().getString(R.string.moneda));
+            gasoleoPremium.setText(" " + gasolinera.getGasoleoPremium() + getResources().getString(R.string.moneda));
+            gasolina95E10.setText(" " + gasolinera.getGasolina95E10() + getResources().getString(R.string.moneda));
+            gasolina95E5.setText(" " + gasolinera.getGasolina95E5() + getResources().getString(R.string.moneda));
+            gasolina95E5Premium.setText(" " + gasolinera.getGasolina95E5Premium() + getResources().getString(R.string.moneda));
+            gasolina98E10.setText(" " + gasolinera.getGasolina98E10() + getResources().getString(R.string.moneda));
+            gasolina98E5.setText(" " + gasolinera.getGasolina98E5() + getResources().getString(R.string.moneda));
+            biodiesel.setText(" " + gasolinera.getBiodiesel() + getResources().getString(R.string.moneda));
+            bioetanol.setText(" " + gasolinera.getBioetanol() + getResources().getString(R.string.moneda));
+            gasNaturalComprimido.setText(" " + gasolinera.getGasNaturalComprimido() + getResources().getString(R.string.moneda));
+            gasNaturalLicuado.setText(" " + gasolinera.getGasNaturalLicuado() + getResources().getString(R.string.moneda));
+            gasesLicuadosPetroleo.setText(" " + gasolinera.getGasesLicuadosPetroleo() + getResources().getString(R.string.moneda));
+            hidrogeno.setText(" " + gasolinera.getHidrogeno() + getResources().getString(R.string.moneda));
+            checkGasolinera.setTag(position );
+            checkGasolinera.setOnClickListener(this);
+            checkGasolinera.setChecked(gasolinera.getChecked());
+            
             // carga icono
             cargaIcono(logo, gasolinera);
 
@@ -516,6 +477,17 @@ public class MainActivity extends AppCompatActivity {
             }
             logo.setImageResource(imageID);
         }
+
+        @Override
+        public void onClick(View v){
+            CheckBox checkBox = (CheckBox) v;
+            int position = (Integer) v.getTag();
+            getItem(position).setChecked(checkBox.isChecked());
+        }
+
     }
 
+    public static class ViewHolder {
+        public CheckBox checkGasolinera;
+    }
 }
