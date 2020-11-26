@@ -360,19 +360,19 @@ public class MainActivity extends AppCompatActivity {
         en el listview del layout principal de la aplicacion
     ------------------------------------------------------------------
     */
-    class GasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
+    class GasolineraArrayAdapter extends ArrayAdapter<Gasolinera> implements View.OnClickListener {
 
         private Context context;
         private List<Gasolinera> listaGasolineras;
         private LayoutInflater inflater;
-        private boolean itemSelection[];
+        //private boolean gasolinerasSeleccionadas[];
 
         // Constructor
         public GasolineraArrayAdapter(Context context, int resource, List<Gasolinera> objects) {
             super(context, resource, objects);
             this.context = context;
             this.listaGasolineras = objects;
-            itemSelection = new boolean[listaGasolineras.size()];
+            //gasolinerasSeleccionadas = new boolean[listaGasolineras.size()];
         }
 
         // Llamado al renderizar la lista
@@ -380,20 +380,9 @@ public class MainActivity extends AppCompatActivity {
         public View getView(final int position, View convertView, ViewGroup parent) {
             // Indica el layout a usar en cada elemento de la lista
             inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.item_gasolinera, null);
-            View view = convertView;
 
-            final ViewHolder holder = new ViewHolder();
-            holder.chkItem = (CheckBox) view.findViewById(R.id.chkItem);
-            holder.chkItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    itemSelection[position] = holder.chkItem.isChecked();
-                }
-            });
+            View view = inflater.inflate(R.layout.item_gasolinera,null);
 
-            holder.chkItem.setChecked(itemSelection[position]);
-            listaGasolineras.get(position).setChecked(itemSelection[position]);
 
             // Se modifica el view para que cumpla con los filtros seleccionados.
             representarFiltros(view);
@@ -404,6 +393,7 @@ public class MainActivity extends AppCompatActivity {
                 return view;
             }
             Gasolinera gasolinera = listaGasolineras.get(position);
+
             Log.d("Gasolinera", "" + gasolinera.getDireccion());
 
             // Asocia las variables de dicho layout
@@ -424,6 +414,7 @@ public class MainActivity extends AppCompatActivity {
             TextView gasNaturalLicuado = view.findViewById(R.id.textViewGasNaturalLicuado);
             TextView gasesLicuadosPetroleo = view.findViewById(R.id.textViewGasesLicuadosPetroleo);
             TextView hidrogeno = view.findViewById(R.id.textViewHidrogeno);
+            CheckBox checkGasolinera = view.findViewById(R.id.checkGasolinera);
 
             // Y carga los datos del item
             rotulo.setText(gasolinera.getRotulo());
@@ -442,8 +433,10 @@ public class MainActivity extends AppCompatActivity {
             gasNaturalLicuado.setText(" " + gasolinera.getGasNaturalLicuado() + getResources().getString(R.string.moneda));
             gasesLicuadosPetroleo.setText(" " + gasolinera.getGasesLicuadosPetroleo() + getResources().getString(R.string.moneda));
             hidrogeno.setText(" " + gasolinera.getHidrogeno() + getResources().getString(R.string.moneda));
-
-
+            checkGasolinera.setTag(position );
+            checkGasolinera.setOnClickListener(this);
+            checkGasolinera.setChecked(gasolinera.getChecked());
+            
             // carga icono
             cargaIcono(logo, gasolinera);
 
@@ -485,9 +478,16 @@ public class MainActivity extends AppCompatActivity {
             logo.setImageResource(imageID);
         }
 
+        @Override
+        public void onClick(View v){
+            CheckBox checkBox = (CheckBox) v;
+            int position = (Integer) v.getTag();
+            getItem(position).setChecked(checkBox.isChecked());
+        }
+
     }
 
     public static class ViewHolder {
-        public CheckBox chkItem;
+        public CheckBox checkGasolinera;
     }
 }
