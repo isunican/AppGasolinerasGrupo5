@@ -390,20 +390,90 @@ public class MainActivity extends AppCompatActivity {
             // Y carga los datos del item
             rotulo.setText(gasolinera.getRotulo());
             direccion.setText(gasolinera.getDireccion());
-            gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
-            gasoleoB.setText(" " + gasolinera.getGasoleoB() + getResources().getString(R.string.moneda));
-            gasoleoPremium.setText(" " + gasolinera.getGasoleoPremium() + getResources().getString(R.string.moneda));
-            gasolina95E10.setText(" " + gasolinera.getGasolina95E10() + getResources().getString(R.string.moneda));
-            gasolina95E5.setText(" " + gasolinera.getGasolina95E5() + getResources().getString(R.string.moneda));
-            gasolina95E5Premium.setText(" " + gasolinera.getGasolina95E5Premium() + getResources().getString(R.string.moneda));
-            gasolina98E10.setText(" " + gasolinera.getGasolina98E10() + getResources().getString(R.string.moneda));
-            gasolina98E5.setText(" " + gasolinera.getGasolina98E5() + getResources().getString(R.string.moneda));
-            biodiesel.setText(" " + gasolinera.getBiodiesel() + getResources().getString(R.string.moneda));
-            bioetanol.setText(" " + gasolinera.getBioetanol() + getResources().getString(R.string.moneda));
-            gasNaturalComprimido.setText(" " + gasolinera.getGasNaturalComprimido() + getResources().getString(R.string.moneda));
-            gasNaturalLicuado.setText(" " + gasolinera.getGasNaturalLicuado() + getResources().getString(R.string.moneda));
-            gasesLicuadosPetroleo.setText(" " + gasolinera.getGasesLicuadosPetroleo() + getResources().getString(R.string.moneda));
-            hidrogeno.setText(" " + gasolinera.getHidrogeno() + getResources().getString(R.string.moneda));
+            if(gasolinera.getGasoleoA() <= 0.0){
+                gasoleoA.setText(" N/D");
+            }else{
+                gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
+            }
+
+            if(gasolinera.getGasoleoB() <= 0.0){
+                gasoleoB.setText(" N/D");
+            }else{
+                gasoleoB.setText(" " + gasolinera.getGasoleoB() + getResources().getString(R.string.moneda));
+            }
+
+            if(gasolinera.getGasoleoPremium() <= 0.0){
+                gasoleoPremium.setText(" N/D");
+            }else{
+                gasoleoPremium.setText(" " + gasolinera.getGasoleoPremium() + getResources().getString(R.string.moneda));
+            }
+
+            if(gasolinera.getGasolina95E10() <= 0.0){
+                gasolina95E10.setText(" N/D");
+            }else{
+                gasolina95E10.setText(" " + gasolinera.getGasolina95E10() + getResources().getString(R.string.moneda));
+            }
+
+            if(gasolinera.getGasolina95E5() <= 0.0){
+                gasolina95E5.setText(" N/D");
+            }else{
+                gasolina95E5.setText(" " + gasolinera.getGasolina95E5() + getResources().getString(R.string.moneda));
+            }
+
+            if(gasolinera.getGasolina95E5Premium() <= 0.0){
+                gasolina95E5Premium.setText(" N/D");
+            }else{
+                gasolina95E5Premium.setText(" " + gasolinera.getGasolina95E5Premium() + getResources().getString(R.string.moneda));
+            }
+
+            if(gasolinera.getGasolina98E10() <= 0.0){
+                gasolina98E10.setText(" N/D");
+            }else{
+                gasolina98E10.setText(" " + gasolinera.getGasolina98E10() + getResources().getString(R.string.moneda));
+            }
+
+            if(gasolinera.getGasolina98E5() <= 0.0){
+                gasolina98E5.setText(" N/D");
+            }else{
+                gasolina98E5.setText(" " + gasolinera.getGasolina98E5() + getResources().getString(R.string.moneda));
+            }
+
+            if(gasolinera.getBiodiesel() <= 0.0){
+                biodiesel.setText(" N/D");
+            }else{
+                biodiesel.setText(" " + gasolinera.getBiodiesel() + getResources().getString(R.string.moneda));
+            }
+
+            if(gasolinera.getBioetanol() <= 0.0){
+                bioetanol.setText(" N/D");
+            }else{
+                bioetanol.setText(" " + gasolinera.getBioetanol() + getResources().getString(R.string.moneda));
+            }
+
+            if(gasolinera.getGasNaturalComprimido() <= 0.0){
+                gasNaturalComprimido.setText(" N/D");
+            }else{
+                gasNaturalComprimido.setText(" " + gasolinera.getGasNaturalComprimido() + getResources().getString(R.string.moneda));
+            }
+
+            if(gasolinera.getGasNaturalLicuado() <= 0.0){
+                gasNaturalLicuado.setText(" N/D");
+            }else{
+                gasNaturalLicuado.setText(" " + gasolinera.getGasNaturalLicuado() + getResources().getString(R.string.moneda));
+            }
+
+            if(gasolinera.getGasesLicuadosPetroleo() <= 0.0){
+                gasesLicuadosPetroleo.setText(" N/D");
+            }else{
+                gasesLicuadosPetroleo.setText(" " + gasolinera.getGasesLicuadosPetroleo() + getResources().getString(R.string.moneda));
+            }
+
+            if(gasolinera.getHidrogeno() <= 0.0){
+                hidrogeno.setText(" N/D");
+            }else{
+                hidrogeno.setText(" " + gasolinera.getHidrogeno() + getResources().getString(R.string.moneda));
+            }
+
 
 
             // carga icono
