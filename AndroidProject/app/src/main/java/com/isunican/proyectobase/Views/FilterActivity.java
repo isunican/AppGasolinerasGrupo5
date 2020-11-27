@@ -27,7 +27,11 @@ import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class FilterActivity extends AppCompatActivity {
 
@@ -79,9 +83,12 @@ public class FilterActivity extends AppCompatActivity {
         marcas = new ArrayList<>();
         provincias = new ArrayList<>();
 
+
+
         gasolineras = (ArrayList<Gasolinera>) getIntent().getSerializableExtra("list_gasolineras");
 
-        marcas.add("Todas");
+
+
         provincias.add("Ninguna");
 
         //Rellenamos las listas locales para que tengan toda la información de marcas
@@ -95,6 +102,9 @@ public class FilterActivity extends AppCompatActivity {
                 provincias.add(g.getProvincia());
             }
         }
+        //Ordenamos alfabeticamente y añadimos "Todas" a la primera posicion
+        Collections.sort(marcas);
+        marcas.add(0,"Todas");
 
         //Construimos el adapter del spinner de manera que éste tenga de posibles opciones seleccionables todas las marcas
         ArrayAdapter<CharSequence> adpMarca = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, marcas);
