@@ -22,7 +22,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.isunican.proyectobase.DataBase.Filtro;
 import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Views.MainActivity.GasolineraArrayAdapter;
 
@@ -33,14 +35,20 @@ public class CompareActivity extends AppCompatActivity {
 
     ListView listViewComparadas;
     ArrayList<Gasolinera> gasolinerasSeleccionadas;
-    GasolineraArrayAdapter adapter;
+    GasolineraComparacionArrayAdapter adapter;
     Toast toast;
     Button btnVolver;
+    PresenterGasolineras presenterGasolineras;
+    Filtro filtro;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compare);
+
+        presenterGasolineras = new PresenterGasolineras();
+
+        filtro = getIntent().getExtras().getParcelable("filtro");
 
         // Muestra el logo en el actionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -50,7 +58,7 @@ public class CompareActivity extends AppCompatActivity {
         listViewComparadas = findViewById(R.id.listViewComparadas);
         gasolinerasSeleccionadas = (ArrayList<Gasolinera>) getIntent().getSerializableExtra("list_gasolineras_seleccionadas");
 
-        adapter = new GasolineraArrayAdapter(this,0,gasolinerasSeleccionadas);
+        adapter = new GasolineraComparacionArrayAdapter(this, 0, gasolinerasSeleccionadas);
 
         if (!gasolinerasSeleccionadas.isEmpty()) {
             // se han seleccionado gasolineras para ser comparadas
@@ -71,6 +79,18 @@ public class CompareActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Se encarga de modificar el view correspondiente para que se muestre la lista de gasolineras
+     * que cumpla con los filtros seleccionados.
+     *
+     * @param view
+     */
+    private void representarFiltros(View view) {
+        Log.d("Compare", "view: "+view.toString()+" Filtro: "+filtro.getCombustibles().get(0));
+        presenterGasolineras.filtrarPorCombustible(view, filtro);
+
+    }
+
     /*
     ------------------------------------------------------------------
         GasolineraArrayAdapter
@@ -79,14 +99,14 @@ public class CompareActivity extends AppCompatActivity {
         en el listview del layout principal de la aplicacion
     ------------------------------------------------------------------
     */
-    class GasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
+    class GasolineraComparacionArrayAdapter extends ArrayAdapter<Gasolinera> {
 
         private Context context;
         private List<Gasolinera> listaGasolineras;
         private LayoutInflater inflater;
 
         // Constructor
-        public GasolineraArrayAdapter(Context context, int resource, List<Gasolinera> objects) {
+        public GasolineraComparacionArrayAdapter(Context context, int resource, List<Gasolinera> objects) {
             super(context, resource, objects);
             this.context = context;
             this.listaGasolineras = objects;
@@ -97,21 +117,22 @@ public class CompareActivity extends AppCompatActivity {
         public View getView(final int position, View convertView, ViewGroup parent) {
             // Indica el layout a usar en cada elemento de la lista
             inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.item_gasolinera, null);
+            convertView = inflater.inflate(R.layout.item_compare_gasolinera, null);
             View view = convertView;
 
-            // Obtiene el elemento que se está mostrando
-            Log.d("position", ""+position);
-            if(position>=listaGasolineras.size()){
-                return view;
-            }
+            // Se modifica el view para que cumpla con los filtros seleccionados.
+            representarFiltros(view);
+
             Gasolinera gasolinera = listaGasolineras.get(position);
 
             Log.d("Gasolinera", "" + gasolinera.getDireccion());
 
             // Asocia las variables de dicho layout
-            TextView rotulo = view.findViewById(R.id.textViewRotulo);
-            TextView direccion = view.findViewById(R.id.textViewDireccion);
+            ImageView logo = view.findViewById(R.id.imagenLogoCompare);
+            TextView rotulo = view.findViewById(R.id.textViewRotuloCompare2);
+            TextView direccion = view.findViewById(R.id.textViewDireccionCompare2);
+            TextView localidad = view.findViewById(R.id.textViewLocalidaCompare2);
+            TextView provincia = view.findViewById(R.id.textViewProvinciaCompare2);
             TextView gasoleoA = view.findViewById(R.id.textViewGasoleoA);
             TextView gasoleoB = view.findViewById(R.id.textViewGasoleoB);
             TextView gasoleoPremium = view.findViewById(R.id.textViewGasoleoPremium);
@@ -126,46 +147,46 @@ public class CompareActivity extends AppCompatActivity {
             TextView gasNaturalLicuado = view.findViewById(R.id.textViewGasNaturalLicuado);
             TextView gasesLicuadosPetroleo = view.findViewById(R.id.textViewGasesLicuadosPetroleo);
             TextView hidrogeno = view.findViewById(R.id.textViewHidrogeno);
-            CheckBox checkGasolinera = view.findViewById(R.id.checkGasolinera);
-            checkGasolinera.setVisibility(View.INVISIBLE);
 
             // Y carga los datos del item
             rotulo.setText(gasolinera.getRotulo());
             direccion.setText(gasolinera.getDireccion());
-            gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
-            gasoleoB.setText(" " + gasolinera.getGasoleoB() + getResources().getString(R.string.moneda));
-            gasoleoPremium.setText(" " + gasolinera.getGasoleoPremium() + getResources().getString(R.string.moneda));
-            gasolina95E10.setText(" " + gasolinera.getGasolina95E10() + getResources().getString(R.string.moneda));
-            gasolina95E5.setText(" " + gasolinera.getGasolina95E5() + getResources().getString(R.string.moneda));
-            gasolina95E5Premium.setText(" " + gasolinera.getGasolina95E5Premium() + getResources().getString(R.string.moneda));
-            gasolina98E10.setText(" " + gasolinera.getGasolina98E10() + getResources().getString(R.string.moneda));
-            gasolina98E5.setText(" " + gasolinera.getGasolina98E5() + getResources().getString(R.string.moneda));
-            biodiesel.setText(" " + gasolinera.getBiodiesel() + getResources().getString(R.string.moneda));
-            bioetanol.setText(" " + gasolinera.getBioetanol() + getResources().getString(R.string.moneda));
-            gasNaturalComprimido.setText(" " + gasolinera.getGasNaturalComprimido() + getResources().getString(R.string.moneda));
-            gasNaturalLicuado.setText(" " + gasolinera.getGasNaturalLicuado() + getResources().getString(R.string.moneda));
-            gasesLicuadosPetroleo.setText(" " + gasolinera.getGasesLicuadosPetroleo() + getResources().getString(R.string.moneda));
-            hidrogeno.setText(" " + gasolinera.getHidrogeno() + getResources().getString(R.string.moneda));
+            localidad.setText(gasolinera.getLocalidad());
+            provincia.setText(gasolinera.getProvincia());
+            gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda) + "  ");
+            gasoleoB.setText(" " + gasolinera.getGasoleoB() + getResources().getString(R.string.moneda) + "  ");
+            gasoleoPremium.setText(" " + gasolinera.getGasoleoPremium() + getResources().getString(R.string.moneda) + "  ");
+            gasolina95E10.setText(" " + gasolinera.getGasolina95E10() + getResources().getString(R.string.moneda) + "  ");
+            gasolina95E5.setText(" " + gasolinera.getGasolina95E5() + getResources().getString(R.string.moneda) + "  ");
+            gasolina95E5Premium.setText(" " + gasolinera.getGasolina95E5Premium() + getResources().getString(R.string.moneda) + "  ");
+            gasolina98E10.setText(" " + gasolinera.getGasolina98E10() + getResources().getString(R.string.moneda) + "  ");
+            gasolina98E5.setText(" " + gasolinera.getGasolina98E5() + getResources().getString(R.string.moneda) + "  ");
+            biodiesel.setText(" " + gasolinera.getBiodiesel() + getResources().getString(R.string.moneda) + "  ");
+            bioetanol.setText(" " + gasolinera.getBioetanol() + getResources().getString(R.string.moneda) + "  ");
+            gasNaturalComprimido.setText(" " + gasolinera.getGasNaturalComprimido() + getResources().getString(R.string.moneda) + "  ");
+            gasNaturalLicuado.setText(" " + gasolinera.getGasNaturalLicuado() + getResources().getString(R.string.moneda) + "  ");
+            gasesLicuadosPetroleo.setText(" " + gasolinera.getGasesLicuadosPetroleo() + getResources().getString(R.string.moneda) + "  ");
+            hidrogeno.setText(" " + gasolinera.getHidrogeno() + getResources().getString(R.string.moneda) + "  ");
 
-            // Si las dimensiones de la pantalla son menores
-            // reducimos el texto de las etiquetas para que se vea correctamente
-            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-            if (displayMetrics.widthPixels < 720) {
-                TextView tv = view.findViewById(R.id.textViewGasoleoALabel);
-                tv.setTextSize(11);
-                TextView tmp;
-                tmp = view.findViewById(R.id.textViewGasolina95E5Label);
-                tmp.setTextSize(11);
-                tmp = view.findViewById(R.id.textViewGasoleoA);
-                tmp.setTextSize(11);
-                tmp = view.findViewById(R.id.textViewGasoleoB);
-                tmp.setTextSize(11);
-                tmp = view.findViewById(R.id.textViewGasoleoBLabel);
-                tmp.setTextSize(11);
-                tmp = view.findViewById(R.id.textViewGasolina95E5);
-                tmp.setTextSize(11);
-            }
+            // carga icono
+            cargaIcono(logo, gasolinera);
+
             return view;
+        }
+
+        public void cargaIcono(ImageView logo, Gasolinera gasolinera) {
+            String rotuleImageID = gasolinera.getRotulo().toLowerCase();
+
+            // Tengo que protegerme ante el caso en el que el rotulo solo tiene digitos.
+            // En ese caso getIdentifier devuelve esos digitos en vez de 0.
+            int imageID = context.getResources().getIdentifier(rotuleImageID,
+                    "drawable", context.getPackageName());
+
+            if (imageID == 0 || TextUtils.isDigitsOnly(rotuleImageID)) {
+                imageID = context.getResources().getIdentifier(getResources().getString(R.string.pordefecto),
+                        "drawable", context.getPackageName());
+            }
+            logo.setImageResource(imageID);
         }
     }
 }

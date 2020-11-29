@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         intentCompareActivity.putExtra("list_gasolineras_seleccionadas",gasolinerasSeleccionadas);
+        intentCompareActivity.putExtra("filtro", filtro);
         startActivityForResult(intentCompareActivity, SECOND_ACTIVITY_REQUEST_CODE);
     }
 

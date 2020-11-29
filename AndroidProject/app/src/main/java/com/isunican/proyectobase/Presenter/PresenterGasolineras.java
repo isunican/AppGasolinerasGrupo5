@@ -269,6 +269,7 @@ public class PresenterGasolineras {
                     viewGasesLicuadosPetroleoLabel.setVisibility(View.VISIBLE);
                     break;
                 case HIDROGENO:
+                    Log.d("Compare", "entro");
                     viewHidrogenoPrecio.setVisibility(View.VISIBLE);
                     viewHidrogenoLabel.setVisibility(View.VISIBLE);
                     break;
