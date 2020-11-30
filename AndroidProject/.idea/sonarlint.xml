@@ -3,6 +3,6 @@
   <component name="SonarLintProjectSettings">
     <option name="bindingEnabled" value="true" />
     <option name="projectKey" value="" />
-    <option name="serverId" value="NuevaConexion" />
+    <option name="serverId" value="prueba" />
   </component>
 </project>
