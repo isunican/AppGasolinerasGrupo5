@@ -117,8 +117,7 @@ public class CompareActivity extends AppCompatActivity {
         public View getView(final int position, View convertView, ViewGroup parent) {
             // Indica el layout a usar en cada elemento de la lista
             inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.item_compare_gasolinera, null);
-            View view = convertView;
+            View view = inflater.inflate(R.layout.item_compare_gasolinera, null);
 
             // Se modifica el view para que cumpla con los filtros seleccionados.
             representarFiltros(view);
