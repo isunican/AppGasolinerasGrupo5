@@ -16,6 +16,8 @@ import java.net.URL;
 
 public class RemoteFetch {
 
+    private RemoteFetch(){}
+
     /**
      * cargaBufferDesdeURL
      *

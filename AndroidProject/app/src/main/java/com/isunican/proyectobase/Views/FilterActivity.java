@@ -275,11 +275,11 @@ public class FilterActivity extends AppCompatActivity {
                 "BIODIESEL", "BIOETANOL", "GAS NATURAL COMPRIMIDO", "GAS NATURAL LICUADO",
                 "GASES LICUADOS PETROLEO", "HIDROGENO"};
 
-        final ArrayList<Integer> itemsSelected = new ArrayList<Integer>();
+        final ArrayList<Integer> itemsSelected = new ArrayList();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(("Combustibles"));
 
-        //Opción por defecto: TODOS
+        //Opción por defecto: todos
         final boolean[] checked = new boolean[] {false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false,};
 
@@ -379,7 +379,7 @@ public class FilterActivity extends AppCompatActivity {
         builder.setNegativeButton("Atrás", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // TODO Aquí habría que hacer cosas con las opciones que se hayan seleccionado
+                // Aquí habría que hacer cosas con las opciones que se hayan seleccionado
             }
         });
 
@@ -418,7 +418,7 @@ public class FilterActivity extends AppCompatActivity {
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //TODO: explicar por que esta vacio este metodo.
+                //explicar por que esta vacio este metodo.
             }
         });
         AlertDialog confirmation = builder.create();
