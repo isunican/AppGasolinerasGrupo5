@@ -5,6 +5,8 @@ import com.isunican.proyectobase.Model.*;
 import android.util.JsonReader;
 import android.util.JsonToken;
 import android.util.Log;
+
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +40,7 @@ public class ParserJSONGasolineras {
      */
     public static List<Gasolinera> parseaArrayGasolineras (InputStream in) throws IOException {
 
-        try (JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"))){
+        try (JsonReader reader = new JsonReader(new InputStreamReader(in, StandardCharsets.UTF_8))){
             return readArrayGasolineras(reader);
         } catch (IOException e){
             return Collections.emptyList();

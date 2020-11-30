@@ -17,7 +17,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -26,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.isunican.proyectobase.DataBase.Filtro;
@@ -49,6 +47,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+    private static final String str_filtro = "filtro";
 
     PresenterGasolineras presenterGasolineras;
 
@@ -143,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         presenterGasolineras.resetGasolineras();
         ArrayList<Gasolinera> gs = new ArrayList<>(presenterGasolineras.getGasolineras());
         intentFilterActivity.putExtra("list_gasolineras", gs);
-        intentFilterActivity.putExtra("filtro", filtro);
+        intentFilterActivity.putExtra(str_filtro, filtro);
         startActivityForResult(intentFilterActivity, SECOND_ACTIVITY_REQUEST_CODE);
     }
 
@@ -157,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         intentCompareActivity.putExtra("list_gasolineras_seleccionadas",gasolinerasSeleccionadas);
-        intentCompareActivity.putExtra("filtro", filtro);
+        intentCompareActivity.putExtra(str_filtro, filtro);
         startActivityForResult(intentCompareActivity, SECOND_ACTIVITY_REQUEST_CODE);
     }
 
@@ -169,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         // check that it is the SecondActivity with an OK result
         if (requestCode == SECOND_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             // Se ha aceptado una configuracion de filtro
-            filtro = data.getExtras().getParcelable("filtro");
+            filtro = data.getExtras().getParcelable(str_filtro);
             // Se cargan otra vez los datos con el filtro seleccionado
             new CargaDatosGasolinerasTask(this).execute();
 
