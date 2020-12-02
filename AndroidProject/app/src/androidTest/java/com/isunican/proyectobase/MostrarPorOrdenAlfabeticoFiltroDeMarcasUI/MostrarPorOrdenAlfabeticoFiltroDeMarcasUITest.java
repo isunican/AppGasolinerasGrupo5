@@ -2,6 +2,10 @@ package com.isunican.proyectobase.MostrarPorOrdenAlfabeticoFiltroDeMarcasUI;
 
 import android.widget.ListView;
 
+import androidx.test.espresso.ViewAssertion;
+import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.assertion.ViewAssertions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -27,6 +31,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -39,6 +44,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -83,11 +90,11 @@ public class MostrarPorOrdenAlfabeticoFiltroDeMarcasUITest {
         //Primero vamos a la vista de seleccionar filtros y clickamos el boton de guardar configuracion
         onView(withId(R.id.btnListaFiltros)).perform(click());
 
-
         for(int i = 0; i < 53; i++){
             //Comprobar que el primero es "Todas"
             onView(withId(R.id.spinnerMarca)).perform(click());
-            onData(anything()).atPosition(i).perform(click());
+            onData(anything()).atPosition(i).perform(scrollTo(), click());
+
             switch(i){
                 case 0:
                     onView(withId(R.id.spinnerMarca)).check(matches(withSpinnerText(containsString("Todas"))));
