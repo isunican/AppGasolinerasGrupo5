@@ -42,7 +42,7 @@ public class MostrarPorOrdenAlfabeticoFiltroDeMarcasUITest {
                     onView(withId(R.id.spinnerMarca)).check(matches(withSpinnerText(containsString("Todas"))));
                     break;
                 case 1:
-                    onView(withId(R.id.spinnerMarca)).check(matches(withSpinnerText(containsString("SHELL"))));
+                    onView(withId(R.id.spinnerMarca)).check(matches(withSpinnerText(containsString(" SHELL"))));
                     break;
                 case 2:
                     onView(withId(R.id.spinnerMarca)).check(matches(withSpinnerText(containsString("(SIN RÓTULO)"))));
