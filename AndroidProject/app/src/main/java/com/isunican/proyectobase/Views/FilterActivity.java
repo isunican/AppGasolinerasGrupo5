@@ -286,72 +286,8 @@ public class FilterActivity extends AppCompatActivity {
                 checked[tipos.get(combustible)] = true;
 
 
-        //Mantiene las cajas seleccionadas
-      /* for (String combustible : combustiblesSeleccionados) {
-            switch (combustible) {
-                case "TODOS":
-                    itemsSelected.add(0);
-                    checked[0] = true;
-                    break;
-                case "GASOLEO A":
-                    itemsSelected.add(1);
-                    checked[1] = true;
-                    break;
-                case "GASOLEO B":
-                    itemsSelected.add(2);
-                    checked[2] = true;
-                    break;
-                case "GASOLEO PREMIUM":
-                    itemsSelected.add(3);
-                    checked[3] = true;
-                    break;
-                case "GASOLINA 95 E10":
-                    itemsSelected.add(4);
-                    checked[4] = true;
-                    break;
-                case "GASOLINA 95 E5":
-                    itemsSelected.add(5);
-                    checked[5] = true;
-                    break;
-                case "GASOLINA 95 E5 PREMIUM":
-                    itemsSelected.add(6);
-                    checked[6] = true;
-                    break;
-                case "GASOLINA 98 E10":
-                    itemsSelected.add(7);
-                    checked[7] = true;
-                    break;
-                case "GASOLINA 98 E5":
-                    itemsSelected.add(8);
-                    checked[8] = true;
-                    break;
-                case "BIODIESEL":
-                    itemsSelected.add(9);
-                    checked[9] = true;
-                    break;
-                case "BIOETANOL":
-                    itemsSelected.add(10);
-                    checked[10] = true;
-                    break;
-                case "GAS NATURAL COMPRIMIDO":
-                    itemsSelected.add(11);
-                    checked[11] = true;
-                    break;
-                case "GAS NATURAL LICUADO":
-                    itemsSelected.add(12);
-                    checked[12] = true;
-                    break;
-                case "GASES LICUADOS PETROLEO":
-                    itemsSelected.add(13);
-                    checked[13] = true;
-                    break;
-                case "HIDROGENO":
-                    itemsSelected.add(14);
-                    checked[14] = true;
-                    break;
-                default:
-                    break;
-            }*/
+    
+
         }
 
         builder.setMultiChoiceItems(combustibles, checked, new DialogInterface.OnMultiChoiceClickListener() {
