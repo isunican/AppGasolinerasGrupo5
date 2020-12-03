@@ -172,10 +172,10 @@ public class FilterActivity extends AppCompatActivity {
             checkPrecio.setChecked(true);
             rprecioMayorAMenor.setEnabled(true);
             rprecioMenorAMayor.setEnabled(true);
-            if(filtro.getOrdenarPorPrecio() == "MayorAMenor"){
+            if(filtro.getOrdenarPorPrecio().equals("MayorAMenor")){
                 rprecioMayorAMenor.setChecked(true);
             }
-            if(filtro.getOrdenarPorPrecio() == "MenorAMayor"){
+            if(filtro.getOrdenarPorPrecio().equals("MenorAMayor")){
                 rprecioMenorAMayor.setChecked(true);
             }
         }
