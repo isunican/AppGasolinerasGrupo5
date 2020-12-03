@@ -126,7 +126,7 @@ public class FilterActivity extends AppCompatActivity {
         }
 
         @Override public void onNothingSelected(AdapterView<?> parent) {
-        //TODO Acción para cuando se seleccione una opción del spinner
+        // Acción para cuando se seleccione una opción del spinner
         }
         });
 
@@ -138,11 +138,11 @@ public class FilterActivity extends AppCompatActivity {
 
         /**spinnerProvincia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //  TODO Acción para cuando se seleccione una opción del spinner
+        // Acción para cuando se seleccione una opción del spinner
         }
 
         @Override public void onNothingSelected(AdapterView<?> parent) {
-        //TODO Acción para cuando se seleccione una opción del spinner
+        // Acción para cuando se seleccione una opción del spinner
         }
         });**/
 
@@ -172,13 +172,11 @@ public class FilterActivity extends AppCompatActivity {
             checkPrecio.setChecked(true);
             rprecioMayorAMenor.setEnabled(true);
             rprecioMenorAMayor.setEnabled(true);
-            switch(filtro.getOrdenarPorPrecio()){
-                case "MayorAMenor":
-                    rprecioMayorAMenor.setChecked(true);
-                    break;
-                case "MenorAMayor":
-                    rprecioMenorAMayor.setChecked(true);
-                    break;
+            if(filtro.getOrdenarPorPrecio() == "MayorAMenor"){
+                rprecioMayorAMenor.setChecked(true);
+            }
+            if(filtro.getOrdenarPorPrecio() == "MenorAMayor"){
+                rprecioMenorAMayor.setChecked(true);
             }
         }
         //CheckBox que indica si se está filtrando por gasolineras guardadas como favoritas

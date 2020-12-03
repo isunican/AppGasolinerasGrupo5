@@ -47,7 +47,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+<<<<<<< HEAD
+    private static final String STRFILTRO = "filtro";
+=======
     private static final String STR_FILTRO = "filtro";
+>>>>>>> 5ed53a426438f87e4e51199c52e850dbbec2839b
 
     PresenterGasolineras presenterGasolineras;
 
@@ -142,21 +146,29 @@ public class MainActivity extends AppCompatActivity {
         presenterGasolineras.resetGasolineras();
         ArrayList<Gasolinera> gs = new ArrayList<>(presenterGasolineras.getGasolineras());
         intentFilterActivity.putExtra("list_gasolineras", gs);
+<<<<<<< HEAD
+        intentFilterActivity.putExtra(STRFILTRO, filtro);
+=======
         intentFilterActivity.putExtra(STR_FILTRO, filtro);
+>>>>>>> 5ed53a426438f87e4e51199c52e850dbbec2839b
         startActivityForResult(intentFilterActivity, SECOND_ACTIVITY_REQUEST_CODE);
     }
 
     public void openCompareActivity(){
         Intent intentCompareActivity = new Intent(this,CompareActivity.class);
         //Hay que pasar a compare activity todas las gasolineras que estén seleccionadas
-        ArrayList<Gasolinera> gasolinerasSeleccionadas = new ArrayList<Gasolinera>();
+        ArrayList<Gasolinera> gasolinerasSeleccionadas = new ArrayList();
         for (int i=0;i<presenterGasolineras.getGasolineras().size();i++){
-            if (presenterGasolineras.getGasolineras().get(i).getChecked()==true){
+            if (presenterGasolineras.getGasolineras().get(i).getChecked()){
                 gasolinerasSeleccionadas.add(presenterGasolineras.getGasolineras().get(i));
             }
         }
         intentCompareActivity.putExtra("list_gasolineras_seleccionadas",gasolinerasSeleccionadas);
+<<<<<<< HEAD
+        intentCompareActivity.putExtra(STRFILTRO, filtro);
+=======
         intentCompareActivity.putExtra(STR_FILTRO, filtro);
+>>>>>>> 5ed53a426438f87e4e51199c52e850dbbec2839b
         startActivityForResult(intentCompareActivity, SECOND_ACTIVITY_REQUEST_CODE);
     }
 
@@ -168,7 +180,11 @@ public class MainActivity extends AppCompatActivity {
         // check that it is the SecondActivity with an OK result
         if (requestCode == SECOND_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             // Se ha aceptado una configuracion de filtro
+<<<<<<< HEAD
+            filtro = data.getExtras().getParcelable(STRFILTRO);
+=======
             filtro = data.getExtras().getParcelable(STR_FILTRO);
+>>>>>>> 5ed53a426438f87e4e51199c52e850dbbec2839b
             // Se cargan otra vez los datos con el filtro seleccionado
             new CargaDatosGasolinerasTask(this).execute();
 
@@ -309,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
             // Si se ha obtenido resultado en la tarea en segundo plano
             if (Boolean.TRUE.equals(res)) {
                 // Definimos el array adapter
-                adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
+                adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
 
                 // Obtenemos la vista de la lista
                 listViewGasolineras = findViewById(R.id.listViewGasolineras);
@@ -347,8 +363,8 @@ public class MainActivity extends AppCompatActivity {
 
                     /* Obtengo el elemento directamente de su posicion,
                      * ya que es la misma que ocupa en la lista
-                     * Alternativa 1: a partir de posicion obtener algun atributo int opcionSeleccionada = ((Gasolinera) a.getItemAtPosition(position)).getIdeess();
-                     * Alternativa 2: a partir de la vista obtener algun atributo String opcionSeleccionada = ((TextView)v.findViewById(R.id.textViewRotulo)).getText().toString();
+                     * Alternativa 1: a partir de posicion obtener algun atributo int opcionSeleccionada
+                     * Alternativa 2: a partir de la vista obtener algun atributo String opcionSeleccionada
                      */
                     Intent myIntent = new Intent(MainActivity.this, DetailActivity.class);
                     myIntent.putExtra(getResources().getString(R.string.pasoDatosGasolinera),
@@ -374,14 +390,12 @@ public class MainActivity extends AppCompatActivity {
         private Context context;
         private List<Gasolinera> listaGasolineras;
         private LayoutInflater inflater;
-        //private boolean gasolinerasSeleccionadas[];
 
         // Constructor
         public GasolineraArrayAdapter(Context context, int resource, List<Gasolinera> objects) {
             super(context, resource, objects);
             this.context = context;
             this.listaGasolineras = objects;
-            //gasolinerasSeleccionadas = new boolean[listaGasolineras.size()];
         }
 
         // Llamado al renderizar la lista
