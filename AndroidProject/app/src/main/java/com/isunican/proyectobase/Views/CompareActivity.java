@@ -42,6 +42,7 @@ public class CompareActivity extends AppCompatActivity {
 
         presenterGasolineras = new PresenterGasolineras();
 
+
         filtro = getIntent().getExtras().getParcelable("filtro");
 
         // Muestra el logo en el actionBar
@@ -121,48 +122,49 @@ public class CompareActivity extends AppCompatActivity {
             Log.d("Gasolinera", "" + gasolinera.getDireccion());
 
             // Asocia las variables de dicho layout
-            ImageView logo = view.findViewById(R.id.imagenLogoCompare);
-            TextView rotulo = view.findViewById(R.id.textViewRotuloCompare2);
-            TextView direccion = view.findViewById(R.id.textViewDireccionCompare2);
-            TextView localidad = view.findViewById(R.id.textViewLocalidaCompare2);
-            TextView provincia = view.findViewById(R.id.textViewProvinciaCompare2);
-            TextView gasoleoA = view.findViewById(R.id.textViewGasoleoA);
-            TextView gasoleoB = view.findViewById(R.id.textViewGasoleoB);
-            TextView gasoleoPremium = view.findViewById(R.id.textViewGasoleoPremium);
-            TextView gasolina95E10 = view.findViewById(R.id.textViewGasolina95E10);
-            TextView gasolina95E5 = view.findViewById(R.id.textViewGasolina95E5);
-            TextView gasolina95E5Premium = view.findViewById(R.id.textViewGasolina95E5Premium);
-            TextView gasolina98E10 = view.findViewById(R.id.textViewGasolina98E10);
-            TextView gasolina98E5 = view.findViewById(R.id.textViewGasolina98E5);
-            TextView biodiesel = view.findViewById(R.id.textViewBiodiesel);
-            TextView bioetanol = view.findViewById(R.id.textViewBioetanol);
-            TextView gasNaturalComprimido = view.findViewById(R.id.textViewGasNaturalComprimido);
-            TextView gasNaturalLicuado = view.findViewById(R.id.textViewGasNaturalLicuado);
-            TextView gasesLicuadosPetroleo = view.findViewById(R.id.textViewGasesLicuadosPetroleo);
-            TextView hidrogeno = view.findViewById(R.id.textViewHidrogeno);
+            ImageView logo1 = view.findViewById(R.id.imagenLogoCompare);
+            TextView rotulo1 = view.findViewById(R.id.textViewRotuloCompare2);
+            TextView direccion1 = view.findViewById(R.id.textViewDireccionCompare2);
+            TextView localidad1 = view.findViewById(R.id.textViewLocalidaCompare2);
+            TextView provincia1 = view.findViewById(R.id.textViewProvinciaCompare2);
+            TextView gasoleoA1 = view.findViewById(R.id.textViewGasoleoA);
+            TextView gasoleoB1 = view.findViewById(R.id.textViewGasoleoB);
+            TextView gasoleoPremium1 = view.findViewById(R.id.textViewGasoleoPremium);
+            TextView gasolina95E101 = view.findViewById(R.id.textViewGasolina95E10);
+            TextView gasolina95E51= view.findViewById(R.id.textViewGasolina95E5);
+            TextView gasolina95E5Premium1 = view.findViewById(R.id.textViewGasolina95E5Premium);
+            TextView gasolina98E101 = view.findViewById(R.id.textViewGasolina98E10);
+            TextView gasolina98E51 = view.findViewById(R.id.textViewGasolina98E5);
+            TextView biodiesel1 = view.findViewById(R.id.textViewBiodiesel);
+            TextView bioetanol1 = view.findViewById(R.id.textViewBioetanol);
+            TextView gasNaturalComprimido1 = view.findViewById(R.id.textViewGasNaturalComprimido);
+            TextView gasNaturalLicuado1 = view.findViewById(R.id.textViewGasNaturalLicuado);
+            TextView gasesLicuadosPetroleo1 = view.findViewById(R.id.textViewGasesLicuadosPetroleo);
+            TextView hidrogeno1 = view.findViewById(R.id.textViewHidrogeno);
 
             // Y carga los datos del item
-            rotulo.setText(gasolinera.getRotulo());
-            direccion.setText(gasolinera.getDireccion());
-            localidad.setText(gasolinera.getLocalidad());
-            provincia.setText(gasolinera.getProvincia());
-            gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda) + "  ");
-            gasoleoB.setText(" " + gasolinera.getGasoleoB() + getResources().getString(R.string.moneda) + "  ");
-            gasoleoPremium.setText(" " + gasolinera.getGasoleoPremium() + getResources().getString(R.string.moneda) + "  ");
-            gasolina95E10.setText(" " + gasolinera.getGasolina95E10() + getResources().getString(R.string.moneda) + "  ");
-            gasolina95E5.setText(" " + gasolinera.getGasolina95E5() + getResources().getString(R.string.moneda) + "  ");
-            gasolina95E5Premium.setText(" " + gasolinera.getGasolina95E5Premium() + getResources().getString(R.string.moneda) + "  ");
-            gasolina98E10.setText(" " + gasolinera.getGasolina98E10() + getResources().getString(R.string.moneda) + "  ");
-            gasolina98E5.setText(" " + gasolinera.getGasolina98E5() + getResources().getString(R.string.moneda) + "  ");
-            biodiesel.setText(" " + gasolinera.getBiodiesel() + getResources().getString(R.string.moneda) + "  ");
-            bioetanol.setText(" " + gasolinera.getBioetanol() + getResources().getString(R.string.moneda) + "  ");
-            gasNaturalComprimido.setText(" " + gasolinera.getGasNaturalComprimido() + getResources().getString(R.string.moneda) + "  ");
-            gasNaturalLicuado.setText(" " + gasolinera.getGasNaturalLicuado() + getResources().getString(R.string.moneda) + "  ");
-            gasesLicuadosPetroleo.setText(" " + gasolinera.getGasesLicuadosPetroleo() + getResources().getString(R.string.moneda) + "  ");
-            hidrogeno.setText(" " + gasolinera.getHidrogeno() + getResources().getString(R.string.moneda) + "  ");
+            rotulo1.setText(gasolinera.getRotulo());
+            direccion1.setText(gasolinera.getDireccion());
+            localidad1.setText(gasolinera.getLocalidad());
+            provincia1.setText(gasolinera.getProvincia());
+            gasoleoA1.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda) + "  ");
+            gasoleoB1.setText(" " + gasolinera.getGasoleoB() + getResources().getString(R.string.moneda) + "  ");
+            gasoleoPremium1.setText(" " + gasolinera.getGasoleoPremium() + getResources().getString(R.string.moneda) + "  ");
+            gasolina95E101.setText(" " + gasolinera.getGasolina95E10() + getResources().getString(R.string.moneda) + "  ");
+            gasolina95E51.setText(" " + gasolinera.getGasolina95E5() + getResources().getString(R.string.moneda) + "  ");
+            gasolina95E5Premium1.setText(" " + gasolinera.getGasolina95E5Premium() + getResources().getString(R.string.moneda) + "  ");
+            gasolina98E101.setText(" " + gasolinera.getGasolina98E10() + getResources().getString(R.string.moneda) + "  ");
+            gasolina98E51.setText(" " + gasolinera.getGasolina98E5() + getResources().getString(R.string.moneda) + "  ");
+            biodiesel1.setText(" " + gasolinera.getBiodiesel() + getResources().getString(R.string.moneda) + "  ");
+            bioetanol1.setText(" " + gasolinera.getBioetanol() + getResources().getString(R.string.moneda) + "  ");
+            gasNaturalComprimido1.setText(" " + gasolinera.getGasNaturalComprimido() + getResources().getString(R.string.moneda) + "  ");
+            gasNaturalLicuado1.setText(" " + gasolinera.getGasNaturalLicuado() + getResources().getString(R.string.moneda) + "  ");
+            gasesLicuadosPetroleo1.setText(" " + gasolinera.getGasesLicuadosPetroleo() + getResources().getString(R.string.moneda) + "  ");
+            hidrogeno1.setText(" " + gasolinera.getHidrogeno() + getResources().getString(R.string.moneda) + "  ");
 
             // carga icono
-            cargaIcono(logo, gasolinera);
+            cargaIcono(logo1, gasolinera);
+
 
             return view;
         }
