@@ -26,7 +26,12 @@ import static org.hamcrest.Matchers.containsString;
 public class MostrarPorOrdenAlfabeticoFiltroDeMarcasUITest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
-    
+
+    /**
+     * Test de interfaz para comprobar que estan ordenadas las marcas
+     * UI1. CU Mostrar por orden alfabetico filtro de marcas
+     * @Author Pablo Villegas Fernandez
+     */
     @Test
     public void marcasOrdenadasUITest(){
         //Primero vamos a la vista de seleccionar filtros

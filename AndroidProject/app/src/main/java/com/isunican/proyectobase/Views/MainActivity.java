@@ -47,11 +47,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
-<<<<<<< HEAD
     private static final String STRFILTRO = "filtro";
-=======
-    private static final String STR_FILTRO = "filtro";
->>>>>>> 5ed53a426438f87e4e51199c52e850dbbec2839b
+
 
     PresenterGasolineras presenterGasolineras;
 
@@ -146,11 +143,7 @@ public class MainActivity extends AppCompatActivity {
         presenterGasolineras.resetGasolineras();
         ArrayList<Gasolinera> gs = new ArrayList<>(presenterGasolineras.getGasolineras());
         intentFilterActivity.putExtra("list_gasolineras", gs);
-<<<<<<< HEAD
         intentFilterActivity.putExtra(STRFILTRO, filtro);
-=======
-        intentFilterActivity.putExtra(STR_FILTRO, filtro);
->>>>>>> 5ed53a426438f87e4e51199c52e850dbbec2839b
         startActivityForResult(intentFilterActivity, SECOND_ACTIVITY_REQUEST_CODE);
     }
 
@@ -164,11 +157,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         intentCompareActivity.putExtra("list_gasolineras_seleccionadas",gasolinerasSeleccionadas);
-<<<<<<< HEAD
         intentCompareActivity.putExtra(STRFILTRO, filtro);
-=======
-        intentCompareActivity.putExtra(STR_FILTRO, filtro);
->>>>>>> 5ed53a426438f87e4e51199c52e850dbbec2839b
         startActivityForResult(intentCompareActivity, SECOND_ACTIVITY_REQUEST_CODE);
     }
 
@@ -180,11 +169,8 @@ public class MainActivity extends AppCompatActivity {
         // check that it is the SecondActivity with an OK result
         if (requestCode == SECOND_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             // Se ha aceptado una configuracion de filtro
-<<<<<<< HEAD
             filtro = data.getExtras().getParcelable(STRFILTRO);
-=======
-            filtro = data.getExtras().getParcelable(STR_FILTRO);
->>>>>>> 5ed53a426438f87e4e51199c52e850dbbec2839b
+
             // Se cargan otra vez los datos con el filtro seleccionado
             new CargaDatosGasolinerasTask(this).execute();
 
