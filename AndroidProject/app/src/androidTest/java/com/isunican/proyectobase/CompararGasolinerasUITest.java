@@ -5,15 +5,15 @@
  */
 package com.isunican.proyectobase;
 
-import android.widget.CheckBox;
+
 
 import androidx.test.espresso.DataInteraction;
-import androidx.test.espresso.matcher.ViewMatchers;
+
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
-import com.isunican.proyectobase.Model.Gasolinera;
-import com.isunican.proyectobase.Presenter.PresenterGasolineras;
+
+
 import com.isunican.proyectobase.Views.MainActivity;
 
 import org.junit.Rule;
@@ -23,16 +23,17 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.typeTextIntoFocusedView;
+
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
-import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
-import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
+
+
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.equalTo;
+
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 
@@ -60,7 +61,7 @@ public class CompararGasolinerasUITest
         chk2.perform(click());
 
         //Comparamos las dos
-        onView(withId(R.id.btnComparar)).perform(click());
+        onView(withId(R.id.btnComparar)).check(matches(isDisplayed())).perform(click());
         //Comprobamos que en la lista de comparadas el gasoleo es A y son las mismas que las otras
         onData(allOf(is(instanceOf(String.class)), is("GASOLEO A")));
         onData(anything()).inAdapterView(withId(R.id.listViewComparadas)).atPosition(0).equals(gasolinera1);
@@ -103,7 +104,7 @@ public class CompararGasolinerasUITest
         chk5.perform(click());
 
         //Comparamos las cinco
-        onView(withId(R.id.btnComparar)).perform(click());
+        onView(withId(R.id.btnComparar)).check(matches(isDisplayed())).perform(click());
 
         //Comprobamos que en la lista de comparadas el gasoleo es A, B y PREMIUM y son las mismas que las otras
         onData(allOf(is(instanceOf(String.class)), is("GASOLEO A")));
