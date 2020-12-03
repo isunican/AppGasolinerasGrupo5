@@ -27,6 +27,8 @@ import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class FilterActivity extends AppCompatActivity {
@@ -272,9 +274,20 @@ public class FilterActivity extends AppCompatActivity {
         //Opción por defecto: todos
         final boolean[] checked = new boolean[] {false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false,};
+       HashMap<String,Integer>tipos=new HashMap<String,Integer>();
+        int c=0;
+        for (String combustible : combustibles) {
+            tipos.put(combustible,c);
+            c++;
+        }
+        for (String combustible : combustiblesSeleccionados) {
+
+                itemsSelected.add(tipos.get(combustible));
+                checked[tipos.get(combustible)] = true;
+
 
         //Mantiene las cajas seleccionadas
-        for (String combustible : combustiblesSeleccionados) {
+      /* for (String combustible : combustiblesSeleccionados) {
             switch (combustible) {
                 case "TODOS":
                     itemsSelected.add(0);
@@ -338,7 +351,7 @@ public class FilterActivity extends AppCompatActivity {
                     break;
                 default:
                     break;
-            }
+            }*/
         }
 
         builder.setMultiChoiceItems(combustibles, checked, new DialogInterface.OnMultiChoiceClickListener() {
