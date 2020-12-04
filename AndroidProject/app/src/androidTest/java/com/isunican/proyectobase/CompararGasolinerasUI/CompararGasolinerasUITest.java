@@ -3,7 +3,7 @@
  * @author Javier Gomez Serrano
  * @version Diciembre 2020
  */
-package com.isunican.proyectobase;
+package com.isunican.proyectobase.CompararGasolinerasUI;
 
 
 
@@ -13,7 +13,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 
-
+import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Views.MainActivity;
 
 import org.junit.Rule;
